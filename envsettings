@@ -1,0 +1,2 @@
+export DUCK_TDIR=/home/$USER/duckspond-workspace
+mkdir -p $DUCK_TDIR
