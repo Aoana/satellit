@@ -1,2 +1,2 @@
-export DUCK_TDIR=/home/$USER/duckspond-workspace
-mkdir -p $DUCK_TDIR
+export WORKSPACE=/home/$USER/duckspond-workspace
+mkdir -p $WORKSPACE
