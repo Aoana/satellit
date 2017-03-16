@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
 	int go;
 	char *image_str;
-	int x = 120, y = 0;
+	int x = 360, y = 0;
 
 	if ( argc != 2 ) {
 		/* We print argv[0] assuming it is the program name */
