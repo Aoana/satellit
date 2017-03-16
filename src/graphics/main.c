@@ -10,12 +10,13 @@ extern void init(char *);
 extern void cleanup(void);
 extern void getInput(void);
 extern SDL_Surface *loadImage(char *);
-extern void updateScreen(void);
+extern void updateScreen(int, int);
 
 int main(int argc, char *argv[])
 {
 	int go;
 	char *image_str;
+	int x = 120, y = 0;
 
 	if ( argc != 2 ) {
 		/* We print argv[0] assuming it is the program name */
@@ -53,12 +54,20 @@ int main(int argc, char *argv[])
 	while (go == 1)
 	{
 		getInput();
-		
-		updateScreen();
+
+		/* Show some movements */
+		{
+			int tmp;
+			tmp=y;
+			y=x;
+			x=tmp;
+		}
+
+		updateScreen(x,y);
 		
 		/* Sleep briefly to stop sucking up all the CPU time */
 		
-		SDL_Delay(16);
+		SDL_Delay(1600);
 	}
 	
 	/* Exit the program */

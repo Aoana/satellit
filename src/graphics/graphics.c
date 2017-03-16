@@ -52,15 +52,15 @@ void drawImage(SDL_Surface *image, int x, int y)
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void updateScreen()
+void updateScreen(int x, int y)
 {
 	/* Blank the screen */
 	
 	SDL_FillRect(screen, NULL, 0);
 	
-	/* Draw the image to 160, 120 */
+	/* Draw the image to x and y */
 	
-	drawImage(smileyImage, 160, 120);
+	drawImage(smileyImage, x, y);
 	
 	/* Swap the image buffers */
 	

@@ -13,7 +13,7 @@ void init(char *title)
 	
 	/* Open a 640 x 480 screen */
 	
-	screen = SDL_SetVideoMode(640, 480, 0, SDL_HWPALETTE|SDL_DOUBLEBUF);
+	screen = SDL_SetVideoMode(640, 480, 0, SDL_HWPALETTE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
 	
 	if (screen == NULL)
 	{
