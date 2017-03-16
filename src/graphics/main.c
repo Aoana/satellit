@@ -6,7 +6,7 @@
 
 #include "main.h"
 
-extern void init(char *);
+extern void init(char *, int, int);
 extern void cleanup(void);
 extern void getInput(void);
 extern SDL_Surface *loadImage(char *);
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	
 	/* Start up SDL */
 	
-	init("Parallel Realities Tutorial 2");
+	init("A Pond of Ducks", 1920, 1080);
 	
 	/* Call the cleanup function when the program exits */
 	

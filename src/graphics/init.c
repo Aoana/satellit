@@ -1,6 +1,6 @@
 #include "init.h"
 
-void init(char *title)
+void init(char *title, int width, int height)
 {
 	/* Initialise SDL Video */
 	
@@ -11,11 +11,11 @@ void init(char *title)
 		exit(1);
 	}
 	
-	screen = SDL_SetVideoMode(1920, 1080, 0, SDL_HWPALETTE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+	screen = SDL_SetVideoMode(width, height, 0, SDL_HWPALETTE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
 	
 	if (screen == NULL)
 	{
-		printf("Couldn't set screen mode to 640 x 480: %s\n", SDL_GetError());
+		printf("Couldn't set screen mode to %d x %d: %s\n", width, height, SDL_GetError());
 
 		exit(1);
 	}
