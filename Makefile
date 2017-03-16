@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic -Werror
-LFLAGS = `sdl-config --libs` -lSDL
-OBJS   = init.o input.o main.o
+LFLAGS = `sdl-config --libs` -lSDL -lSDL_image
+OBJS   = init.o input.o main.o graphics.o
 OBJS_TARGET := $(addprefix $(WORKSPACE)/, $(OBJS))
 PROG = duckspond
 PROG_TARGET = $(addprefix $(WORKSPACE)/, $(PROG))

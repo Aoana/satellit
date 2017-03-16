@@ -13,7 +13,7 @@ void init(char *title)
 	
 	/* Open a 640 x 480 screen */
 	
-	screen = SDL_SetVideoMode(640, 480, 0, SDL_HWPALETTE);
+	screen = SDL_SetVideoMode(640, 480, 0, SDL_HWPALETTE|SDL_DOUBLEBUF);
 	
 	if (screen == NULL)
 	{
@@ -29,6 +29,13 @@ void init(char *title)
 
 void cleanup()
 {
+	/* Free the image */
+	
+	if (smileyImage != NULL)
+	{
+		SDL_FreeSurface(smileyImage);
+	}
+	
 	/* Shut down SDL */
 	
 	SDL_Quit();

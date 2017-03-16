@@ -1,3 +1,3 @@
 #include "defs.h"
 
-SDL_Surface *screen;
+SDL_Surface *screen, *smileyImage;
