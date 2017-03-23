@@ -21,7 +21,7 @@ $(TDIRS):
 
 # Compiling graphics.
 %.o: $(SOURCES) $(TDIRS)
-	$(CXX) $(CFLAGS) -c -s $< -o $@
+	$(CXX) -c $(CFLAGS) $< -o $@
 
 # linking the program.
 $(PROG): $(OBJS)
