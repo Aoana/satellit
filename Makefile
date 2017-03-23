@@ -19,7 +19,7 @@ all: $(PROG)
 
 # Compiling graphics.
 %.o: $(SOURCES)
-	$(CXX) $(CFLAGS) -c -s $< 
+	$(CXX) $(CFLAGS) -c -s $< $@
 
 # linking the program.
 $(PROG): $(OBJS)
