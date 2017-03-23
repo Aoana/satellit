@@ -7,19 +7,21 @@ MD := mkdir
 SOURCEDIR = src
 
 DIRS = graphics
+TDIRS = $(foreach dir, $(DIRS), $(addprefix $(WORKSPACE)/, $(dir)))
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
 SOURCES = $(foreach dir,$(SOURCEDIRS),$(wildcard $(dir)/*.c))
-$(info $$SOURCES is $(SOURCES))
 OBJS = $(subst $(SOURCEDIR), $(WORKSPACE), $(SOURCES:.c=.o))
 $(info $$OBJS is $(OBJS))
 	
-
 # top-level rule to create the program.
 all: $(PROG)
 
+$(TDIRS):
+	$(MD) -p $(TDIRS)
+
 # Compiling graphics.
-%.o: $(SOURCES)
-	$(CXX) $(CFLAGS) -c -s $< $@
+%.o: $(SOURCES) $(TDIRS)
+	$(CXX) $(CFLAGS) -c -s $< -o $@
 
 # linking the program.
 $(PROG): $(OBJS)
