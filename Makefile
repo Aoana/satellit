@@ -15,17 +15,17 @@ $(info $$OBJS is $(OBJS))
 	
 
 # top-level rule to create the program.
-#all: $(PROG)
+all: $(PROG)
 
 # Compiling graphics.
-#%.o: $(SOURCES)
-#	$(CXX) $(CFLAGS) -c -s $< -o $@
+%.o: $(SOURCES)
+	$(CXX) $(CFLAGS) -c -s $< 
 
 # linking the program.
-#$(PROG): $(OBJS)
-#	$(CXX) $(OBJS) -o $(PROG_TARGET) $(LFLAGS)
+$(PROG): $(OBJS)
+	$(CXX) $(OBJS) -o $(PROG_TARGET) $(LFLAGS)
 
 # cleaning everything that can be automatically recreated with "make".
-#clean:
-#	rm -f $(OBJS_TARGET) $(PROG_TARGET)
+clean:
+	rm -f $(OBJS) $(PROG_TARGET)
 
