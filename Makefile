@@ -14,13 +14,13 @@ OBJS = $(subst $(SOURCEDIR), $(WORKSPACE), $(SOURCES:.c=.o))
 $(info $$OBJS is $(OBJS))
 	
 # top-level rule to create the program.
-all: $(PROG)
+all: $(TDIRS) $(PROG)
 
 $(TDIRS):
 	$(MD) -p $(TDIRS)
 
 # Compiling graphics.
-%.o: $(SOURCES) $(TDIRS)
+$(OBJS): $(WORKSPACE)/%.o: $(SOURCEDIR)/%.c
 	$(CXX) -c $(CFLAGS) $< -o $@
 
 # linking the program.
