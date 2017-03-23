@@ -1,23 +1,31 @@
 CFLAGS = -Wall -pedantic -Werror
 LFLAGS = `sdl-config --libs` -lSDL -lSDL_image
-OBJS   = init.o input.o main.o graphics.o
-OBJS_TARGET := $(addprefix $(WORKSPACE)/, $(OBJS))
 PROG = duckspond
 PROG_TARGET = $(addprefix $(WORKSPACE)/, $(PROG))
 CXX = gcc
+MD := mkdir
+SOURCEDIR = src
+
+DIRS = graphics
+SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
+SOURCES = $(foreach dir,$(SOURCEDIRS),$(wildcard $(dir)/*.c))
+$(info $$SOURCES is $(SOURCES))
+OBJS = $(subst $(SOURCEDIR), $(WORKSPACE), $(SOURCES:.c=.o))
+$(info $$OBJS is $(OBJS))
+	
 
 # top-level rule to create the program.
-all: $(PROG)
+#all: $(PROG)
 
 # Compiling graphics.
-%.o: src/graphics/%.c src/graphics/%.h src/graphics/defs.h
-	$(CXX) $(CFLAGS) -c -s $< -o $(WORKSPACE)/$@
+#%.o: $(SOURCES)
+#	$(CXX) $(CFLAGS) -c -s $< -o $@
 
 # linking the program.
-$(PROG): $(OBJS)
-	$(CXX) $(OBJS_TARGET) -o $(PROG_TARGET) $(LFLAGS)
+#$(PROG): $(OBJS)
+#	$(CXX) $(OBJS) -o $(PROG_TARGET) $(LFLAGS)
 
 # cleaning everything that can be automatically recreated with "make".
-clean:
-	rm -f $(OBJS_TARGET) $(PROG_TARGET)
+#clean:
+#	rm -f $(OBJS_TARGET) $(PROG_TARGET)
 
