@@ -6,12 +6,12 @@ CXX = gcc
 MD := mkdir
 SOURCEDIR = src
 
-DIRS = graphics
+DIRS = graphics logic
 TDIRS = $(foreach dir, $(DIRS), $(addprefix $(WORKSPACE)/, $(dir)))
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
+INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
 SOURCES = $(foreach dir,$(SOURCEDIRS),$(wildcard $(dir)/*.c))
 OBJS = $(subst $(SOURCEDIR), $(WORKSPACE), $(SOURCES:.c=.o))
-$(info $$OBJS is $(OBJS))
 	
 # top-level rule to create the program.
 all: $(TDIRS) $(PROG)
@@ -19,11 +19,11 @@ all: $(TDIRS) $(PROG)
 $(TDIRS):
 	$(MD) -p $(TDIRS)
 
-# Compiling graphics.
+# Compiling 
 $(OBJS): $(WORKSPACE)/%.o: $(SOURCEDIR)/%.c
-	$(CXX) -c $(CFLAGS) $< -o $@
+	$(CXX) -c $(INCLUDES) $(CFLAGS) $< -o $@
 
-# linking the program.
+# Linking the program.
 $(PROG): $(OBJS)
 	$(CXX) $(OBJS) -o $(PROG_TARGET) $(LFLAGS)
 

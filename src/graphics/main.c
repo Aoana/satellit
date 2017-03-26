@@ -15,63 +15,60 @@ extern void updateScreen(int, int);
 int main(int argc, char *argv[])
 {
 	int go;
+	unsigned int update_freq = 200;
 	char *image_str;
-	int x = 360, y = 0;
+	struct position * p_smiley1;
 
 	if ( argc != 2 ) {
 		/* We print argv[0] assuming it is the program name */
 		printf( "usage: %s filename\n", argv[0] );
 		exit(0);
 	}
-
-	printf( "arg: %s\n", argv[1]);
 	image_str = strdup(argv[1]);
-	printf( "str: %s\n", image_str);
 	
 	/* Start up SDL */
-	
 	init("A Pond of Ducks", 1920, 1080);
 	
 	/* Call the cleanup function when the program exits */
-	
 	atexit(cleanup);
 
-	
-	
 	go = 1;
 	
 	smileyImage = loadImage(image_str);
+	p_smiley1 = calloc(1, sizeof(struct position));
+	p_smiley1->x = 360;
+	p_smiley1->y = 0;
+	p_smiley1->vx = 0;
+	p_smiley1->vy = 0;
 	
 	/* If we get back a NULL image, just exit */
 	
-	if (smileyImage == NULL)
-	{
+	if (smileyImage == NULL) {
+		printf("ERR: Image not found");
 		exit(0);
 	}
 	
 	/* Loop indefinitely for messages */
 	
-	while (go == 1)
-	{
+	while (go == 1) {
 		getInput();
 
-		/* Show some movements */
-		{
-			int tmp;
-			tmp=y;
-			y=x;
-			x=tmp;
+		/* Update position */
+		if (position_update(p_smiley1) != 0) {
+			printf("ERR: Position update failed");
+			exit(1);
 		}
 
-		updateScreen(x,y);
+		/* Update Screen */
+		updateScreen(p_smiley1->x, p_smiley1->y);
 		
 		/* Sleep briefly to stop sucking up all the CPU time */
-		
-		SDL_Delay(1600);
+		SDL_Delay(update_freq);
 	}
 	
 	/* Exit the program */
 	free(image_str);
+	free(p_smiley1);
 	
 	exit(0);
 }
