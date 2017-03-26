@@ -17,7 +17,7 @@ int position_destroy(struct position *p) {
  
 int position_update(struct position *p) {
 	p->x=p->x+10;
-	p->y=p->y;
+	p->y=p->y+5;
 	/*pos->vx*/
 	/*pos->vy*/
 	return 0;

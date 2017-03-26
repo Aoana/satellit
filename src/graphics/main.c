@@ -1,9 +1,3 @@
-/* This tutorial will open a 640 x 480 screen,
-** load an image and display it at specified coordinates
-** and wait for the user to either close
-** the window or press escape
-*/
-
 #include "main.h"
 
 extern void init(char *, int, int);
@@ -38,14 +32,12 @@ int main(int argc, char *argv[])
 	p_smiley1 = position_init(360, 0, 0, 0);
 	
 	/* If we get back a NULL image, just exit */
-	
 	if (smileyImage == NULL) {
 		printf("ERR: Image not found");
 		exit(0);
 	}
 	
 	/* Loop indefinitely for messages */
-	
 	while (go == 1) {
 		getInput();
 

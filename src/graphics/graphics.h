@@ -1,4 +1,4 @@
-#include "defs.h"
+#include "common.h"
 
 #define RES_HEIGHT 1080
 #define RES_WIDTH 1920
