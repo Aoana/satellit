@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 struct position {
 	int x;
 	int y;
@@ -5,5 +7,7 @@ struct position {
 	int vy;
 };
 
+struct position * position_init(int, int, int, int);
+int position_destroy(struct position *);
 int position_update(struct position *);
 

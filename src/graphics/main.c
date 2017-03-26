@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	image_str = strdup(argv[1]);
 	
 	/* Start up SDL */
-	init("A Pond of Ducks", 1920, 1080);
+	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 	
 	/* Call the cleanup function when the program exits */
 	atexit(cleanup);
@@ -35,11 +35,7 @@ int main(int argc, char *argv[])
 	go = 1;
 	
 	smileyImage = loadImage(image_str);
-	p_smiley1 = calloc(1, sizeof(struct position));
-	p_smiley1->x = 360;
-	p_smiley1->y = 0;
-	p_smiley1->vx = 0;
-	p_smiley1->vy = 0;
+	p_smiley1 = position_init(360, 0, 0, 0);
 	
 	/* If we get back a NULL image, just exit */
 	
@@ -68,7 +64,7 @@ int main(int argc, char *argv[])
 	
 	/* Exit the program */
 	free(image_str);
-	free(p_smiley1);
+	position_destroy(p_smiley1);
 	
 	exit(0);
 }
