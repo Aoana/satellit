@@ -7,10 +7,13 @@ struct person {
 	char *name;
 	struct position *pos;
 	SDL_Surface *image;
+	struct person *next, *prev;
 };
 
 struct person * person_init(char *, char *, int, int);
+struct person * person_init_mult(char *, char *,int);
 int person_destroy(struct person *);
+int person_destroy_mult(struct person *);
 int person_update(struct person *);
-int person_init_mult(int);
+int person_update_mult(struct person *);
 

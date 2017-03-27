@@ -16,6 +16,18 @@ struct person * person_init(char *name, char *image_str, int x, int y) {
 	return pn;
 }
 
+struct person * person_init_mult(char *name_template, char *image_str,int amount) {
+	int i;	
+	struct person *head = NULL, *pn;
+
+	for( i = 0; i < amount; i++) {
+		pn = person_init(name_template, image_str, 0, i*100); 	
+		DL_APPEND(head, pn);	
+	}
+
+	return head;
+}
+
 int person_destroy(struct person *pn) {
 	position_destroy(pn->pos);
 	cleanup(pn->image);
@@ -23,11 +35,34 @@ int person_destroy(struct person *pn) {
 	return 0;
 }
 
-int person_update(struct person *pn) {
-	if (position_update(pn->pos) != 0) {
-		return 1;
-	} else {
-		return 0;
-	}
+int person_destroy_mult(struct person *head) {
+	struct person *pn, *tmp;
+
+	DL_FOREACH_SAFE(head,pn,tmp) {
+		DL_DELETE(head,pn);
+		person_destroy(pn);
+    }
+
+	return 0;
 }
 
+
+int person_update(struct person *pn) {
+
+	if (position_update(pn->pos) != 0) {
+		printf("ERR: Failed to update position");
+		return 1;
+	}
+	return 0;
+}
+
+int person_update_mult(struct person *head) {
+	struct person *pn;
+	DL_FOREACH(head,pn) {
+		if(person_update(pn) != 0) {
+			printf("ERR: Failed to update person");
+			return 1;
+		}
+	}
+	return 0;
+}
