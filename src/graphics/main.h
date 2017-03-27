@@ -1,5 +1,6 @@
 #include "common.h"
 #include "graphics.h"
-#include "position.h"
+#include "person.h"
+#include "init.h"
 
-SDL_Surface *screen, *smileyImage;
+SDL_Surface *screen;
