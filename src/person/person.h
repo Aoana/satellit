@@ -12,4 +12,5 @@ struct person {
 struct person * person_init(char *, char *, int, int);
 int person_destroy(struct person *);
 int person_update(struct person *);
+int person_init_mult(int);
 

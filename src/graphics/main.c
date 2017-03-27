@@ -21,16 +21,12 @@ int main(int argc, char *argv[])
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 	
 	go = 1;
-	
 	pony1 = person_init("Pony", image_str, 360, 0);
 	if (pony1 == NULL) {
 		printf( "Init person failed");
 		exit(1);
 	}
 
-	/* Call the cleanup function when the program exits */
-
-	
 	/* Loop indefinitely for messages */
 	while (go == 1) {
 		getInput();
