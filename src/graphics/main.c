@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	
 	go = 1;
 
-	head = person_init_mult("pony", image_str, 2);
+	head = person_init_mult("pony", image_str, 10);
 	if (head == NULL) {
 		printf( "Init persons failed");
 		exit(1);
