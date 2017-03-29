@@ -45,12 +45,17 @@ void drawImage(SDL_Surface *image, int x, int y) {
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void updateScreen(SDL_Surface *image, int x, int y) {
+void gfx_update_mult(struct person *head) {
+	
+	struct person *pn;
+
 	/* Blank the screen */
 	SDL_FillRect(screen, NULL, 0);
 	
 	/* Draw the image to x and y */
-	drawImage(image, x, y);
+	DL_FOREACH(head, pn) {
+		drawImage(pn->image, pn->pos->x, pn->pos->y);
+	}
 	
 	/* Swap the image buffers */
 	SDL_Flip(screen);

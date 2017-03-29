@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 		}
 
 		/* Update Screen */
-		updateScreen(head->image, head->pos->x, head->pos->y);
+		gfx_update_mult(head);
 		
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(update_freq);

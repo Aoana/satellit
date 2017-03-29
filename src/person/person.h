@@ -1,3 +1,5 @@
+#ifndef PERSON_H
+#define PERSON_H
 #include "common.h"
 #include "position.h"
 #include "graphics.h"
@@ -16,4 +18,5 @@ int person_destroy(struct person *);
 int person_destroy_mult(struct person *);
 int person_update(struct person *);
 int person_update_mult(struct person *);
+#endif
 
