@@ -7,6 +7,11 @@ struct position {
 	int vy;
 };
 
+enum positionReturnCode {
+    POSITION_OK = 0,
+    POSITION_OOB,
+};
+
 int position_validate(int x, int y);
 struct position * position_init(int, int, int, int);
 int position_destroy(struct position *);

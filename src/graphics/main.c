@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
 	
 	go = 1;
 
-	head = person_init_mult("pony", image_str, 10);
+	head = person_init_mult(image_str, 3);
 	if (head == NULL) {
-		printf( "Init persons failed");
+		printf( "Init persons failed\n");
 		exit(1);
 	}
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
 		/* Update position */
 		if (person_update_mult(head) != 0) {
-			printf("ERR: Position update failed");
+			printf("ERR: Position update failed\n");
 			exit(1);
 		}
 

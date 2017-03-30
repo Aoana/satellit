@@ -1,7 +1,9 @@
 #include "position.h"
 
+
+/* Check current resolution */
 int position_validate(int x, int y) {
-	if ((x >= 0 && x < RES_WIDTH) && (y >= 0 && y < RES_HEIGHT)) {
+	if ((x >= SPACE_W_MIN && x < SPACE_W_MAX) && (y >= SPACE_H_MIN && y < SPACE_H_MAX)) {
 		return 0;
 	}
 	return 1;
@@ -27,12 +29,12 @@ int position_destroy(struct position *p) {
  
 int position_update(struct position *p) {
 	p->x=p->x+10;
-	p->y=p->y;
+	p->y=p->y+10;
 	if (position_validate(p->x, p->y) != 0) {
-		return 1;	
+		return POSITION_OOB;	
 	}
 	/*pos->vx*/
 	/*pos->vy*/
-	return 0;
+	return POSITION_OK;
 }
 

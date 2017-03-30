@@ -9,4 +9,9 @@
 
 #define RES_WIDTH 1920
 #define RES_HEIGHT 1080
+#define SPACE_W_MAX RES_WIDTH-300
+#define SPACE_W_MIN 300
+#define SPACE_H_MAX RES_HEIGHT-300
+#define SPACE_H_MIN 300
+
 #endif

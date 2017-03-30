@@ -6,17 +6,25 @@
 #include "init.h"
 
 struct person {
-	char *name;
+	int id;
 	struct position *pos;
 	SDL_Surface *image;
 	struct person *next, *prev;
 };
 
-struct person * person_init(char *, char *, int, int);
-struct person * person_init_mult(char *, char *,int);
+enum personReturnCode {
+    PERSON_OK = 0,
+    PERSON_ADD_FAILED,
+    PERSON_REMOVE_FAILED,
+    PERSON_UPDATE_FAILED,
+};
+
+struct person * person_init(int, char *, int, int);
+struct person * person_init_mult(char *,int);
 int person_destroy(struct person *);
 int person_destroy_mult(struct person *);
-int person_update(struct person *);
-int person_update_mult(struct person *);
+enum personReturnCode person_add(struct person *, int, char *, int, int);
+enum personReturnCode person_update(struct person *);
+enum personReturnCode person_update_mult(struct person *);
 #endif
 
