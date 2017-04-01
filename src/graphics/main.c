@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 	
 	pnl = person_list_init();
-	if (person_init_mult(pnl, image_str, 3) != PERSON_OK) {
+	if (person_add_mult(pnl, image_str, 3) != PERSON_OK) {
 		printf( "Init persons failed\n");
 		exit(1);
 	}
@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
 
 		/* Update Screen */
 		gfx_update_mult(pnl->head);
+
+		printf("DEBUG: number of objects %d\n", pnl->n_pns);
 		
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(update_freq);
@@ -44,7 +46,7 @@ int main(int argc, char *argv[])
 	
 	/* Exit the program */
 	free(image_str);
-	person_destroy_mult(pnl->head);
+	person_remove_mult(pnl);
 	person_list_destroy(pnl);
 	
 	exit(0);
