@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 	char *image_str;
 	struct person_list *pnl;
 	SDL_Surface * image;
+	struct gfx_image_list *imgl;
 
 	if ( argc != 2 ) {
 		/* We print argv[0] assuming it is the program name */
@@ -21,8 +22,13 @@ int main(int argc, char *argv[])
 
 	pnl = person_list_init();
 
-	/* TODO Create function for loading everything under graphics/images */
-
+	/*TODO first step of init all images */
+	imgl = gfx_init_images();
+	if (imgl == NULL) {
+		printf("ERR: Could not init one or more images\n");
+		exit(1);
+	}
+	
 	image = gfx_load_image(image_str);
 	if (image == NULL) {
 		printf("ERR: Image %s not found\n", image_str);

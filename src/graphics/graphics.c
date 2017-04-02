@@ -28,6 +28,7 @@ SDL_Surface *gfx_load_image(char *name) {
 	return image;
 }
 
+
 void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_Rect dest;
 	
@@ -55,4 +56,47 @@ void gfx_update_screen(struct person *head) {
 	
 	/* Swap the image buffers */
 	SDL_Flip(screen);
+}
+
+struct gfx_image_list * gfx_init_images() {
+
+	int n_img = 1, i;
+	struct gfx_image *img;
+	char * image_str;
+	struct gfx_image_list *imgl = calloc(1, sizeof(struct gfx_image_list));
+
+	char img1[] ="/home/aoana/duckspond/src/graphics/images/gfx_pony.png";
+	image_str = img1;
+
+	printf("DEBUG: Image %s\n", image_str);
+
+	for( i = 0; i < n_img; i++){
+		img = calloc(1,sizeof(struct gfx_image));
+		img->id = i;
+		img->image = gfx_load_image(image_str);
+		if (img->image == NULL) {
+			printf("ERR: Image %s not found\n", image_str);
+			return NULL;
+		}
+		DL_APPEND(imgl->head,img);
+		imgl->n_images++;
+	}
+
+	return imgl;
+}
+
+struct gfx_image * gfx_get_image(struct gfx_image_list *imgl, int id) {
+
+	struct gfx_image *img;
+
+	DL_FOREACH(imgl->head,img) {
+		if(img->id == id) {
+			return img;
+		}
+	}
+	return NULL;
+}
+
+char * gfx_destroy_images(struct gfx_image_list *imgl) {
+	return NULL;
 }
