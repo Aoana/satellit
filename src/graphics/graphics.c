@@ -1,15 +1,13 @@
 #include "graphics.h"
 
-SDL_Surface *loadImage(char *name) {
+SDL_Surface *gfx_load_image(char *name) {
 
 	/* Load the image using SDL Image */
 	SDL_Surface *temp = IMG_Load(name);
 	SDL_Surface *image;
 	
-	if (temp == NULL)
-	{
+	if (temp == NULL) 	{
 		printf("Failed to load image %s\n", name);
-		
 		return NULL;
 	}
 	
@@ -21,10 +19,8 @@ SDL_Surface *loadImage(char *name) {
 	
 	SDL_FreeSurface(temp);
 	
-	if (image == NULL)
-	{
+	if (image == NULL) 	{
 		printf("Failed to convert image %s to native format\n", name);
-		
 		return NULL;
 	}
 	
@@ -32,7 +28,7 @@ SDL_Surface *loadImage(char *name) {
 	return image;
 }
 
-void drawImage(SDL_Surface *image, int x, int y) {
+void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_Rect dest;
 	
 	/* Set the blitting rectangle to the size of the src image */
@@ -45,7 +41,7 @@ void drawImage(SDL_Surface *image, int x, int y) {
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void gfx_update_mult(struct person *head) {
+void gfx_update_screen(struct person *head) {
 	
 	struct person *pn;
 
@@ -54,7 +50,7 @@ void gfx_update_mult(struct person *head) {
 	
 	/* Draw the image to x and y */
 	DL_FOREACH(head, pn) {
-		drawImage(pn->image, pn->pos->x, pn->pos->y);
+		gfx_draw_image(pn->image, pn->pos->x, pn->pos->y);
 	}
 	
 	/* Swap the image buffers */

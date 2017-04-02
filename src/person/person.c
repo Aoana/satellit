@@ -13,7 +13,7 @@ int person_list_destroy(struct person_list *pnl) {
 	return 0;
 }
 
-struct person * person_init(int id, char *image_str, int x, int y) {
+struct person * person_init(int id, SDL_Surface *image, int x, int y) {
 	struct person *pn;
 	pn = calloc(1, sizeof(struct person));
 	pn->id = id;
@@ -27,27 +27,21 @@ struct person * person_init(int id, char *image_str, int x, int y) {
 		return NULL;
 	}
 
-	pn->image = loadImage(image_str);
-	if (pn->image == NULL) {
-		printf("ERR: Image %s not found\n", image_str);
-		free(pn);
-		return NULL;
-	}
+	pn->image = image;
 
 	return pn;
 }
 
 int person_destroy(struct person *pn) {
 	position_destroy(pn->pos);
-//	cleanup(pn->image);
 	free(pn);
 	return 0;
 }
 
 enum personReturnCode person_add(struct person_list *pnl, int id,
-									char *image_str, int x, int y) {
+									SDL_Surface *image, int x, int y) {
 	struct person *pn;
-	pn = person_init(id, image_str, x, y); 	
+	pn = person_init(id, image, x, y); 	
 	if (pn == NULL) {
 		printf("WARN: Unable to init person number\n");
 		return PERSON_ADD_FAILED;
@@ -57,11 +51,11 @@ enum personReturnCode person_add(struct person_list *pnl, int id,
 	return PERSON_OK;
 }
 
-enum personReturnCode person_add_mult(struct person_list *pnl, char *image_str, int amount) {
+enum personReturnCode person_add_mult(struct person_list *pnl, SDL_Surface *image, int amount) {
 	int i;	
 
 	for( i = 0; i < amount; i++) {
-		if (person_add(pnl, i, image_str, SPACE_W_MIN, SPACE_H_MIN+i*200) != PERSON_OK) {
+		if (person_add(pnl, i, image, SPACE_W_MIN, SPACE_H_MIN+i*200) != PERSON_OK) {
 			printf("ERR: Unable to add person id %d\n", i);
 			return PERSON_ADD_FAILED;
 		}

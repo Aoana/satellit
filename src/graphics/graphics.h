@@ -5,9 +5,9 @@
 #include "person.h"
 
 struct person;
-SDL_Surface *loadImage(char *);
-void drawImage(SDL_Surface *, int , int);
-void gfx_update_mult(struct person *);
+SDL_Surface *gfx_load_image(char *);
+void gfx_draw_image(SDL_Surface *, int, int);
+void gfx_update_screen(struct person *);
 extern SDL_Surface *screen;
 
 #endif

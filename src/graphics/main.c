@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 	unsigned int update_freq = 200;
 	char *image_str;
 	struct person_list *pnl;
+	SDL_Surface * image;
 
 	if ( argc != 2 ) {
 		/* We print argv[0] assuming it is the program name */
@@ -18,9 +19,14 @@ int main(int argc, char *argv[])
 	
 	/* Start up SDL */
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
+	image = gfx_load_image(image_str);
+	if (image == NULL) {
+		printf("ERR: Image %s not found\n", image_str);
+		exit(1);
+	}
 	
 	pnl = person_list_init();
-	if (person_add_mult(pnl, image_str, 3) != PERSON_OK) {
+	if (person_add_mult(pnl, image, 3) != PERSON_OK) {
 		printf( "Init persons failed\n");
 		exit(1);
 	}
@@ -36,7 +42,7 @@ int main(int argc, char *argv[])
 		}
 
 		/* Update Screen */
-		gfx_update_mult(pnl->head);
+		gfx_update_screen(pnl->head);
 
 		printf("DEBUG: number of objects %d\n", pnl->n_pns);
 		
@@ -46,6 +52,7 @@ int main(int argc, char *argv[])
 	
 	/* Exit the program */
 	free(image_str);
+	cleanup(image);
 	person_remove_mult(pnl);
 	person_list_destroy(pnl);
 	
