@@ -5,7 +5,6 @@ extern void getInput(void);
 
 int main(int argc, char *argv[])
 {
-	unsigned int update_freq = 200;
 	char *image_str;
 	struct person_list *pnl;
 	SDL_Surface * image;
@@ -19,13 +18,17 @@ int main(int argc, char *argv[])
 	
 	/* Start up SDL */
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
+
+	pnl = person_list_init();
+
+	/* TODO Create function for loading everything under graphics/images */
+
 	image = gfx_load_image(image_str);
 	if (image == NULL) {
 		printf("ERR: Image %s not found\n", image_str);
 		exit(1);
 	}
-	
-	pnl = person_list_init();
+
 	if (person_add_mult(pnl, image, 3) != PERSON_OK) {
 		printf( "Init persons failed\n");
 		exit(1);
@@ -47,7 +50,7 @@ int main(int argc, char *argv[])
 		printf("DEBUG: number of objects %d\n", pnl->n_pns);
 		
 		/* Sleep briefly to stop sucking up all the CPU time */
-		SDL_Delay(update_freq);
+		SDL_Delay(UPDATE_FREQ);
 	}
 	
 	/* Exit the program */
