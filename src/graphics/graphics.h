@@ -9,7 +9,6 @@
 struct person;
 
 struct gfx_image {
-	int id;
 	char *name;
 	SDL_Surface *image;	
 	struct gfx_image *next, *prev;

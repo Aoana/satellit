@@ -1,5 +1,19 @@
 #include "graphics.h"
 
+/*
+ * Helper functions
+ */
+
+void set_image_folder(char *buf) {
+	char img_dir[32] = "/src/graphics/images/";
+    strcpy(buf, getenv("DUCKSPOND"));
+	strcat(buf, img_dir);
+}
+
+/*
+ * Graphics API
+ */
+
 SDL_Surface *gfx_load_image(char *name) {
 
 	/* Load the image using SDL Image */
@@ -60,37 +74,49 @@ void gfx_update_screen(struct person *head) {
 
 struct gfx_image_list * gfx_init_images() {
 
-	int n_img = 1, i;
 	struct gfx_image *img;
-	char * image_str;
+	DIR *dir;
+	struct dirent *file;
 	struct gfx_image_list *imgl = calloc(1, sizeof(struct gfx_image_list));
+	char img_path[128];
 
-	char img1[] ="/home/aoana/duckspond/src/graphics/images/gfx_pony.png";
-	image_str = img1;
+	set_image_folder(img_path);
+	printf ("INFO: Loading images in dir %s\n",img_path);
+	if ((dir = opendir(img_path)) != NULL) {
+		while ((file = readdir(dir)) != NULL) {
+			if (strcmp(file->d_name,".") == 0 || strcmp(file->d_name,"..") == 0) {
+				continue;
+			}
+			strcat(img_path, file->d_name);
+			img = calloc(1,sizeof(struct gfx_image));
+			img->name = strdup(file->d_name);
+			img->image = gfx_load_image(img_path);
+			if (img->image == NULL) {
+				printf("ERR: Could not load image %s\n", img_path);
+				return NULL;
+			}
+			DL_APPEND(imgl->head,img);
+			imgl->n_images++;
+			printf ("INFO: Loaded image: %s\n",img_path);
 
-	printf("DEBUG: Image %s\n", image_str);
-
-	for( i = 0; i < n_img; i++){
-		img = calloc(1,sizeof(struct gfx_image));
-		img->id = i;
-		img->image = gfx_load_image(image_str);
-		if (img->image == NULL) {
-			printf("ERR: Image %s not found\n", image_str);
-			return NULL;
+			/* Reset img_dir to top */
+			set_image_folder(img_path);
 		}
-		DL_APPEND(imgl->head,img);
-		imgl->n_images++;
+		closedir (dir);
+	} else {
+		printf("ERR: Could not read images\n");
+		return NULL;
 	}
 
 	return imgl;
 }
 
-struct gfx_image * gfx_get_image(struct gfx_image_list *imgl, int id) {
+struct gfx_image * gfx_get_image(struct gfx_image_list *imgl, char *image) {
 
 	struct gfx_image *img;
 
 	DL_FOREACH(imgl->head,img) {
-		if(img->id == id) {
+		if (strcmp(img->name, image) == 0) {
 			return img;
 		}
 	}

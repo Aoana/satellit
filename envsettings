@@ -1,3 +1,3 @@
 export WORKSPACE=/home/$USER/duckspond-workspace
-export TOP=/home/$USER/duckspond
+export DUCKSPOND=/home/$USER/duckspond
 mkdir -p $WORKSPACE
