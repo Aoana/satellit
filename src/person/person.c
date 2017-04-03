@@ -51,8 +51,18 @@ enum personReturnCode person_add(struct person_list *pnl, int id,
 	return PERSON_OK;
 }
 
-enum personReturnCode person_add_mult(struct person_list *pnl, SDL_Surface *image, int amount) {
+enum personReturnCode person_add_mult(struct person_list *pnl, struct gfx_image_list *imgl, int amount) {
+
 	int i;	
+	struct SDL_Surface *image;
+	struct gfx_image *gfx_img;
+
+	gfx_img = gfx_get_image(imgl,"gfx_pony.png");
+	if (gfx_img == NULL ) {
+		printf("ERR: Unable to get image\n");
+		return PERSON_ADD_FAILED;
+	}
+	image = gfx_img->image;
 
 	for( i = 0; i < amount; i++) {
 		if (person_add(pnl, i, image, SPACE_W_MIN, SPACE_H_MIN+i*200) != PERSON_OK) {

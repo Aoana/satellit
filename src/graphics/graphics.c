@@ -5,7 +5,9 @@
  */
 
 void set_image_folder(char *buf) {
+
 	char img_dir[32] = "/src/graphics/images/";
+
     strcpy(buf, getenv("DUCKSPOND"));
 	strcat(buf, img_dir);
 }
@@ -44,6 +46,7 @@ SDL_Surface *gfx_load_image(char *name) {
 
 
 void gfx_draw_image(SDL_Surface *image, int x, int y) {
+
 	SDL_Rect dest;
 	
 	/* Set the blitting rectangle to the size of the src image */
@@ -97,7 +100,7 @@ struct gfx_image_list * gfx_init_images() {
 			}
 			DL_APPEND(imgl->head,img);
 			imgl->n_images++;
-			printf ("INFO: Loaded image: %s\n",img_path);
+			printf ("INFO: Image loaded: %s, name=%s\n", img_path, file->d_name);
 
 			/* Reset img_dir to top */
 			set_image_folder(img_path);
@@ -123,6 +126,15 @@ struct gfx_image * gfx_get_image(struct gfx_image_list *imgl, char *image) {
 	return NULL;
 }
 
-char * gfx_destroy_images(struct gfx_image_list *imgl) {
-	return NULL;
+void gfx_destroy_images(struct gfx_image_list *imgl) {
+
+	struct gfx_image *img,*tmp;
+
+	DL_FOREACH_SAFE(imgl->head,img,tmp) {
+		DL_DELETE(imgl->head,img);
+		cleanup(img->image);
+		free(img->name);
+		free(img);
+		imgl->n_images--;
+	}
 }

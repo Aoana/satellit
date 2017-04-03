@@ -7,7 +7,6 @@ int main(int argc, char *argv[])
 {
 	char *image_str;
 	struct person_list *pnl;
-	SDL_Surface * image;
 	struct gfx_image_list *imgl;
 
 	if ( argc != 2 ) {
@@ -20,22 +19,18 @@ int main(int argc, char *argv[])
 	/* Start up SDL */
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 
+	/* Initialize person list */
 	pnl = person_list_init();
 
-	/*TODO first step of init all images */
+	/* Initialize images */
 	imgl = gfx_init_images();
 	if (imgl == NULL) {
 		printf("ERR: Could not init one or more images\n");
 		exit(1);
 	}
 	
-	image = gfx_load_image(image_str);
-	if (image == NULL) {
-		printf("ERR: Image %s not found\n", image_str);
-		exit(1);
-	}
-
-	if (person_add_mult(pnl, image, 3) != PERSON_OK) {
+	/* Add multiple persons */
+	if (person_add_mult(pnl, imgl, 3) != PERSON_OK) {
 		printf( "Init persons failed\n");
 		exit(1);
 	}
@@ -44,7 +39,7 @@ int main(int argc, char *argv[])
 	while (1) {
 		getInput();
 
-		/* Update position */
+		/* Update position for all objects */
 		if (person_update_mult(pnl) != 0) {
 			printf("ERR: Position update failed\n");
 			exit(1);
@@ -53,15 +48,12 @@ int main(int argc, char *argv[])
 		/* Update Screen */
 		gfx_update_screen(pnl->head);
 
-		printf("DEBUG: number of objects %d\n", pnl->n_pns);
-		
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
 	}
 	
 	/* Exit the program */
 	free(image_str);
-	cleanup(image);
 	person_remove_mult(pnl);
 	person_list_destroy(pnl);
 	

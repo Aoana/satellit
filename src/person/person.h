@@ -25,12 +25,14 @@ enum personReturnCode {
     PERSON_NOT_FOUND,
 };
 
+struct gfx_image_list;
+
 struct person_list * person_list_init(void);
 int person_list_destroy(struct person_list*);
 struct person * person_init(int, SDL_Surface *, int, int);
 int person_destroy(struct person *);
 enum personReturnCode person_add(struct person_list *, int, SDL_Surface *, int, int);
-enum personReturnCode person_add_mult(struct person_list *, SDL_Surface *, int);
+enum personReturnCode person_add_mult(struct person_list *, struct gfx_image_list *, int );
 enum personReturnCode person_remove(struct person_list *, struct person *);
 enum personReturnCode person_remove_id(struct person_list *, int);
 enum personReturnCode person_remove_mult(struct person_list *);
