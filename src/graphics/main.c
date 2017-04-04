@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
 		printf("ERR: Could not init one or more images\n");
 		exit(1);
 	}
-	
-	/* Add multiple persons */
-	if (person_add_mult(pnl, imgl, 3) != PERSON_OK) {
+
+	/* Add rocket */
+	if (person_add_rocket(pnl, imgl, (int)(SPACE_W_MIN),(SPACE_H_MAX+SPACE_H_MIN)*0.5) != PERSON_OK) {
 		printf( "Init persons failed\n");
 		exit(1);
 	}

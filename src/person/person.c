@@ -51,6 +51,25 @@ enum personReturnCode person_add(struct person_list *pnl, int id,
 	return PERSON_OK;
 }
 
+enum personReturnCode person_add_rocket(struct person_list *pnl, struct gfx_image_list *imgl, int x, int y) {
+
+	struct SDL_Surface *image;
+	struct gfx_image *gfx_img;
+
+	gfx_img = gfx_get_image(imgl,"gfx_ship.png");
+	if (gfx_img == NULL ) {
+		printf("ERR: Unable to get image\n");
+		return PERSON_ADD_FAILED;
+	}
+	image = gfx_img->image;
+
+	if (person_add(pnl, 0, image, x, y) != PERSON_OK) {
+		printf("ERR: Unable to add rocket\n");
+		return PERSON_ADD_FAILED;
+	}
+	return PERSON_OK;
+}
+
 enum personReturnCode person_add_mult(struct person_list *pnl, struct gfx_image_list *imgl, int amount) {
 
 	int i;	
