@@ -6,7 +6,7 @@ CXX = gcc
 MD := mkdir
 SOURCEDIR = src
 
-DIRS = generic graphics logic person
+DIRS = generic graphics logic objects
 TDIRS = $(foreach dir, $(DIRS), $(addprefix $(WORKSPACE)/, $(dir)))
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
 INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
