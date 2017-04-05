@@ -28,7 +28,7 @@ int position_destroy(struct position *p) {
 }
  
 int position_update(struct position *p) {
-	p->x=p->x+5;
+	p->x=p->x+2;
 	p->y=p->y;
 	if (position_validate(p->x, p->y) != 0) {
 		return POSITION_OOB;	

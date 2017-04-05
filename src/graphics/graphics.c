@@ -59,16 +59,22 @@ void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void gfx_update_screen(struct person *head) {
+void gfx_update_screen(struct person *pn_head, struct planet *pt_head) {
 	
 	struct person *pn;
+	struct planet *pt;
 
 	/* Blank the screen */
 	SDL_FillRect(screen, NULL, 0);
 	
-	/* Draw the image to x and y */
-	DL_FOREACH(head, pn) {
+	/* Draw the rocket to x and y */
+	DL_FOREACH(pn_head, pn) {
 		gfx_draw_image(pn->image, pn->pos->x, pn->pos->y);
+	}
+
+	/* Draw the rocket to x and y */
+	DL_FOREACH(pt_head, pt) {
+		gfx_draw_image(pt->image, pt->pos->x, pt->pos->y);
 	}
 	
 	/* Swap the image buffers */

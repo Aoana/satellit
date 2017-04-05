@@ -63,7 +63,7 @@ enum personReturnCode person_add_rocket(struct person_list *pnl, struct gfx_imag
 	}
 	image = gfx_img->image;
 
-	if (person_add(pnl, 0, image, x, y) != PERSON_OK) {
+	if (person_add(pnl, pnl->n_pns, image, x, y) != PERSON_OK) {
 		printf("ERR: Unable to add rocket\n");
 		return PERSON_ADD_FAILED;
 	}
