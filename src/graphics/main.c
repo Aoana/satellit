@@ -14,6 +14,11 @@ int main(int argc, char *argv[])
 		printf( "No arguments\n");
 		exit(0);
 	}
+
+	if (getenv("DUCKSPOND") == NULL) {
+		printf( "DUCKSPOND not set, source envsetting\n");
+		exit(0);
+	}
 	
 	/* Start up SDL */
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
