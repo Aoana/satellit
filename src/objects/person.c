@@ -13,10 +13,11 @@ int person_list_destroy(struct person_list *pnl) {
 	return 0;
 }
 
-struct person * person_init(int id, SDL_Surface *image, int x, int y) {
+struct person * person_init(int id, SDL_Surface *image, int x, int y, int m) {
 	struct person *pn;
 	pn = calloc(1, sizeof(struct person));
 	pn->id = id;
+	pn->mass = m;
 	pn->next = NULL;
 	pn->prev = NULL;
 
@@ -39,9 +40,10 @@ int person_destroy(struct person *pn) {
 }
 
 enum personReturnCode person_add(struct person_list *pnl, int id,
-									SDL_Surface *image, int x, int y) {
+	SDL_Surface *image, int x, int y, int m) {
+
 	struct person *pn;
-	pn = person_init(id, image, x, y); 	
+	pn = person_init(id, image, x, y, m);
 	if (pn == NULL) {
 		printf("WARN: Unable to init person number\n");
 		return PERSON_ADD_FAILED;
@@ -51,7 +53,8 @@ enum personReturnCode person_add(struct person_list *pnl, int id,
 	return PERSON_OK;
 }
 
-enum personReturnCode person_add_rocket(struct person_list *pnl, struct gfx_image_list *imgl, int x, int y) {
+enum personReturnCode person_add_rocket(struct person_list *pnl,
+	struct gfx_image_list *imgl, int x, int y, int m) {
 
 	struct SDL_Surface *image;
 	struct gfx_image *gfx_img;
@@ -63,31 +66,9 @@ enum personReturnCode person_add_rocket(struct person_list *pnl, struct gfx_imag
 	}
 	image = gfx_img->image;
 
-	if (person_add(pnl, pnl->n_pns, image, x, y) != PERSON_OK) {
+	if (person_add(pnl, pnl->n_pns, image, x, y, m) != PERSON_OK) {
 		printf("ERR: Unable to add rocket\n");
 		return PERSON_ADD_FAILED;
-	}
-	return PERSON_OK;
-}
-
-enum personReturnCode person_add_mult(struct person_list *pnl, struct gfx_image_list *imgl, int amount) {
-
-	int i;	
-	struct SDL_Surface *image;
-	struct gfx_image *gfx_img;
-
-	gfx_img = gfx_get_image(imgl,"gfx_pony.png");
-	if (gfx_img == NULL ) {
-		printf("ERR: Unable to get image\n");
-		return PERSON_ADD_FAILED;
-	}
-	image = gfx_img->image;
-
-	for( i = 0; i < amount; i++) {
-		if (person_add(pnl, i, image, SPACE_W_MIN, SPACE_H_MIN+i*200) != PERSON_OK) {
-			printf("ERR: Unable to add person id %d\n", i);
-			return PERSON_ADD_FAILED;
-		}
 	}
 	return PERSON_OK;
 }

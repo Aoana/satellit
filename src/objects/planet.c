@@ -13,10 +13,11 @@ int planet_list_destroy(struct planet_list *ptl) {
 	return 0;
 }
 
-struct planet * planet_init(int id, SDL_Surface *image, int x, int y) {
+struct planet * planet_init(int id, SDL_Surface *image, int x, int y, int m) {
 	struct planet *pt;
 	pt = calloc(1, sizeof(struct planet));
 	pt->id = id;
+	pt->mass = m;
 	pt->next = NULL;
 	pt->prev = NULL;
 
@@ -39,9 +40,9 @@ int planet_destroy(struct planet *pt) {
 }
 
 enum planetReturnCode planet_add(struct planet_list *ptl, int id,
-									SDL_Surface *image, int x, int y) {
+									SDL_Surface *image, int x, int y, int m) {
 	struct planet *pt;
-	pt = planet_init(id, image, x, y); 	
+	pt = planet_init(id, image, x, y, m);
 	if (pt == NULL) {
 		printf("WARN: Unable to init planet number\n");
 		return PLANET_ADD_FAILED;
@@ -51,7 +52,8 @@ enum planetReturnCode planet_add(struct planet_list *ptl, int id,
 	return PLANET_OK;
 }
 
-enum planetReturnCode planet_add_planet1(struct planet_list *ptl, struct gfx_image_list *imgl, int x, int y) {
+enum planetReturnCode planet_add_planet1(struct planet_list *ptl, struct gfx_image_list *imgl,
+										 int x, int y, int m) {
 
 	struct SDL_Surface *image;
 	struct gfx_image *gfx_img;
@@ -63,26 +65,7 @@ enum planetReturnCode planet_add_planet1(struct planet_list *ptl, struct gfx_ima
 	}
 	image = gfx_img->image;
 
-	if (planet_add(ptl, ptl->n_pts, image, x, y) != PLANET_OK) {
-		printf("ERR: Unable to add planet\n");
-		return PLANET_ADD_FAILED;
-	}
-	return PLANET_OK;
-}
-
-enum planetReturnCode planet_add_star1(struct planet_list *ptl, struct gfx_image_list *imgl, int x, int y) {
-
-	struct SDL_Surface *image;
-	struct gfx_image *gfx_img;
-
-	gfx_img = gfx_get_image(imgl,"gfx_star.png");
-	if (gfx_img == NULL ) {
-		printf("ERR: Unable to get image\n");
-		return PLANET_ADD_FAILED;
-	}
-	image = gfx_img->image;
-
-	if (planet_add(ptl, ptl->n_pts, image, x, y) != PLANET_OK) {
+	if (planet_add(ptl, ptl->n_pts, image, x, y, m) != PLANET_OK) {
 		printf("ERR: Unable to add planet\n");
 		return PLANET_ADD_FAILED;
 	}
