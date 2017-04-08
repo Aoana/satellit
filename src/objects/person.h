@@ -26,6 +26,7 @@ enum personReturnCode {
 };
 
 struct gfx_image_list;
+struct planet_list;
 
 struct person_list * person_list_init(void);
 int person_list_destroy(struct person_list*);
@@ -37,7 +38,7 @@ enum personReturnCode person_add_mult(struct person_list *, struct gfx_image_lis
 enum personReturnCode person_remove(struct person_list *, struct person *);
 enum personReturnCode person_remove_id(struct person_list *, int);
 enum personReturnCode person_remove_mult(struct person_list *);
-enum personReturnCode person_update(struct person *);
-enum personReturnCode person_update_mult(struct person_list *);
+enum personReturnCode person_update(struct planet_list *, struct person *);
+enum personReturnCode person_update_mult(struct planet_list *, struct person_list *);
 #endif
 

@@ -125,25 +125,26 @@ enum personReturnCode person_remove_id(struct person_list *pnl, int id) {
 	return PERSON_NOT_FOUND;
 }
 
-enum personReturnCode person_update(struct person *pn) {
+enum personReturnCode person_update(struct planet_list *ptl, struct person *pn) {
 	enum positionReturnCode ret;
-	if ((ret = position_update(pn->pos)) != POSITION_OK) {
+	if ((ret = position_update(ptl, pn)) != POSITION_OK) {
 		printf("WARN: Failed to update position, id=%d, ret=%d\n",pn->id, ret);
 		return PERSON_UPDATE_FAILED;
 	}
 	return PERSON_OK;
 }
 
-enum personReturnCode person_update_mult(struct person_list *pnl) {
-	enum personReturnCode ret;
-	struct person *pn, *tmp;
-	DL_FOREACH_SAFE(pnl->head, pn, tmp) {
-		if((ret = person_update(pn)) != PERSON_OK) {
-			printf("WARN: Failed to update person, id=%d, ret=%d, removing\n", pn->id, ret);
-			if (person_remove(pnl, pn) != PERSON_OK) {
-				printf("ERR: Failed to remove person, id=%d\n", pn->id);
-			}
-		}
-	}
-	return PERSON_OK;
+enum personReturnCode person_update_mult(struct planet_list *ptl, struct person_list *pnl) {
+       enum personReturnCode ret;
+       struct person *pn, *tmp;
+       DL_FOREACH_SAFE(pnl->head, pn, tmp) {
+               if((ret = person_update(ptl, pn)) != PERSON_OK) {
+                       printf("WARN: Failed to update person, id=%d, ret=%d, removing\n", pn->id, ret);
+                       if (person_remove(pnl, pn) != PERSON_OK) {
+                               printf("ERR: Failed to remove person, id=%d\n", pn->id);
+                       }
+               }
+       }
+       return PERSON_OK;
 }
+
