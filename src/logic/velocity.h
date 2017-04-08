@@ -5,6 +5,8 @@
 #include "person.h"
 #include "planet.h"
 
+#define UPDATE_FREQ_VEL 1/UPDATE_FREQ
+
 enum velocityReturnCode {
     VELOCITY_OK = 0,
     VELOCITY_NOK,

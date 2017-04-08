@@ -70,6 +70,25 @@ enum planetReturnCode planet_add_planet1(struct planet_list *ptl, struct gfx_ima
 	return PLANET_OK;
 }
 
+enum planetReturnCode planet_add_star1(struct planet_list *ptl, struct gfx_image_list *imgl, int x, int y) {
+
+	struct SDL_Surface *image;
+	struct gfx_image *gfx_img;
+
+	gfx_img = gfx_get_image(imgl,"gfx_star.png");
+	if (gfx_img == NULL ) {
+		printf("ERR: Unable to get image\n");
+		return PLANET_ADD_FAILED;
+	}
+	image = gfx_img->image;
+
+	if (planet_add(ptl, ptl->n_pts, image, x, y) != PLANET_OK) {
+		printf("ERR: Unable to add planet\n");
+		return PLANET_ADD_FAILED;
+	}
+	return PLANET_OK;
+}
+
 enum planetReturnCode planet_remove(struct planet_list *ptl, struct planet *pt) {
 	DL_DELETE(ptl->head,pt);
 	if(planet_destroy(pt) != PLANET_OK) {

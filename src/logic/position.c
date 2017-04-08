@@ -29,11 +29,13 @@ int position_destroy(struct position *p) {
  
 int position_update(struct planet_list *ptl, struct person *pn) {
 	struct position *p = pn->pos;
-	p->x=p->x+2;
+	p->x=p->x + p->vx*UPDATE_FREQ_VEL;
 	p->y=p->y;
 	if (position_validate(p->x, p->y) != 0) {
 		return POSITION_ERR_OOB;
 	}
+
+	/* Update velocity for next timestep */
 	velocity_update(ptl, pn);
 	if (velocity_validate(p->vx, p->vy) != 0) {
 		return POSITION_ERR_VEL;

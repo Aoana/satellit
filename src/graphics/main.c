@@ -52,6 +52,12 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	/* Add star */
+	if (planet_add_star1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.7,(SPACE_H_MAX+SPACE_H_MIN)*0.5) != PLANET_OK) {
+		printf( "Init star failed\n");
+		exit(1);
+	}
+
 	/* Loop indefinitely for messages */
 	while (1) {
 		getInput();
