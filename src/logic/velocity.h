@@ -5,7 +5,8 @@
 #include "person.h"
 #include "planet.h"
 
-#define UPDATE_FREQ_VEL 1/UPDATE_FREQ
+
+#define GRAV_CONST 0.01
 
 enum velocityReturnCode {
     VELOCITY_OK = 0,

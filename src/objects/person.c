@@ -13,7 +13,8 @@ int person_list_destroy(struct person_list *pnl) {
 	return 0;
 }
 
-struct person * person_init(int id, SDL_Surface *image, int x, int y, int m) {
+struct person * person_init(int id, SDL_Surface *image,
+	int x, int y, int m, int vx, int vy) {
 	struct person *pn;
 	pn = calloc(1, sizeof(struct person));
 	pn->id = id;
@@ -21,7 +22,7 @@ struct person * person_init(int id, SDL_Surface *image, int x, int y, int m) {
 	pn->next = NULL;
 	pn->prev = NULL;
 
-	pn->pos = position_init(x, y, 0, 0);
+	pn->pos = position_init(x, y, vx, vy);
 	if (pn->pos == NULL) {
 		printf("ERR: Unable to init position %d,%d\n", x, y);
 		free(pn);
@@ -40,10 +41,10 @@ int person_destroy(struct person *pn) {
 }
 
 enum personReturnCode person_add(struct person_list *pnl, int id,
-	SDL_Surface *image, int x, int y, int m) {
+	SDL_Surface *image, int x, int y, int m, int vx, int vy) {
 
 	struct person *pn;
-	pn = person_init(id, image, x, y, m);
+	pn = person_init(id, image, x, y, m, vx, vy);
 	if (pn == NULL) {
 		printf("WARN: Unable to init person number\n");
 		return PERSON_ADD_FAILED;
@@ -54,7 +55,7 @@ enum personReturnCode person_add(struct person_list *pnl, int id,
 }
 
 enum personReturnCode person_add_rocket(struct person_list *pnl,
-	struct gfx_image_list *imgl, int x, int y, int m) {
+	struct gfx_image_list *imgl, int x, int y, int m, int vx, int vy) {
 
 	struct SDL_Surface *image;
 	struct gfx_image *gfx_img;
@@ -66,7 +67,7 @@ enum personReturnCode person_add_rocket(struct person_list *pnl,
 	}
 	image = gfx_img->image;
 
-	if (person_add(pnl, pnl->n_pns, image, x, y, m) != PERSON_OK) {
+	if (person_add(pnl, pnl->n_pns, image, x, y, m, vx, vy) != PERSON_OK) {
 		printf("ERR: Unable to add rocket\n");
 		return PERSON_ADD_FAILED;
 	}

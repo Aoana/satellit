@@ -5,10 +5,10 @@
 #include "velocity.h"
 
 struct position {
-	int x;
-	int y;
-	int vx;
-	int vy;
+	double x;
+	double y;
+	double vx;
+	double vy;
 };
 
 enum positionReturnCode {

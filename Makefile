@@ -1,5 +1,5 @@
 CFLAGS = -Wall -pedantic -Werror
-LFLAGS = `sdl-config --libs` -lSDL -lSDL_image
+LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lm
 PROG = duckspond
 PROG_TARGET = $(addprefix $(WORKSPACE)/, $(PROG))
 CXX = gcc

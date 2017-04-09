@@ -36,21 +36,21 @@ int main(int argc, char *argv[])
 	}
 
 	/* Add rocket */
-	if (person_add_rocket(pnl, imgl, (int)(SPACE_W_MIN),(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1) != PERSON_OK) {
+	if (person_add_rocket(pnl, imgl, (int)(SPACE_W_MIN),(int)(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != PERSON_OK) {
 		printf( "Init rocket failed\n");
 		exit(1);
 	}
 
 	/* Add planet 1*/
-	if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,(SPACE_H_MAX+SPACE_H_MIN)*0.3, 1000) != PLANET_OK) {
+	if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,(int)(SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
 		printf( "Init planet failed\n");
 		exit(1);
 	}
 	/* Add planet 2*/
-	if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.7,(SPACE_H_MAX+SPACE_H_MIN)*0.7, 500) != PLANET_OK) {
-		printf( "Init planet failed\n");
-		exit(1);
-	}
+	//if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.7,(int)(SPACE_H_MAX+SPACE_H_MIN)*0.7, pow(10,4)) != PLANET_OK) {
+//		printf( "Init planet failed\n");
+//		exit(1);
+//	}
 
 	/* Loop indefinitely for messages */
 	while (1) {

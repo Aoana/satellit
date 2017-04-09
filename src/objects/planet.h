@@ -7,7 +7,7 @@
 
 struct planet {
 	int id;
-	int mass;
+	double mass;
 	struct position *pos;
 	SDL_Surface *image;
 	struct planet *next, *prev;

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <math.h>
 #include <dirent.h>
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
