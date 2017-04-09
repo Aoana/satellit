@@ -6,7 +6,7 @@
 #include "planet.h"
 
 
-#define GRAV_CONST 0.01
+#define GRAV_CONST 100
 
 enum velocityReturnCode {
     VELOCITY_OK = 0,

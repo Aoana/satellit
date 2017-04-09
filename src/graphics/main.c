@@ -8,17 +8,21 @@ int main(int argc, char *argv[])
 	struct person_list *pnl;
 	struct planet_list *ptl;
 	struct gfx_image_list *imgl;
+	double vx_0, vy_0;
 
-	if ( argc != 1 ) {
+	if ( argc != 3 ) {
 		/* We print argv[0] assuming it is the program name */
-		printf( "No arguments\n");
+		printf( "%s [vx_0] [vy_0]\n", argv[0]);
 		exit(0);
 	}
+
 
 	if (getenv("DUCKSPOND") == NULL) {
 		printf( "DUCKSPOND not set, source envsetting\n");
 		exit(0);
 	}
+	vx_0 = strtod(argv[1], NULL);
+	vy_0 = strtod(argv[2], NULL);
 	
 	/* Start up SDL */
 	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
@@ -36,13 +40,15 @@ int main(int argc, char *argv[])
 	}
 
 	/* Add rocket */
-	if (person_add_rocket(pnl, imgl, (int)(SPACE_W_MIN),(int)(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != PERSON_OK) {
+	if (person_add_rocket(pnl, imgl, (int)(SPACE_W_MIN),
+	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != PERSON_OK) {
 		printf( "Init rocket failed\n");
 		exit(1);
 	}
 
 	/* Add planet 1*/
-	if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,(int)(SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
+	if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,
+	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
 		printf( "Init planet failed\n");
 		exit(1);
 	}
