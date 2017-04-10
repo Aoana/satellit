@@ -1,5 +1,5 @@
 #include "common.h"
 
-void init(char *, int , int );
-void cleanup(SDL_Surface *);
+void gfx_init(char *, int , int );
+void gfx_cleanup(SDL_Surface *);
 extern SDL_Surface *screen;

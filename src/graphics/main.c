@@ -1,6 +1,5 @@
 #include "main.h"
 
-extern void init(char *, int, int);
 extern void getInput(void);
 
 int main(int argc, char *argv[])
@@ -25,7 +24,7 @@ int main(int argc, char *argv[])
 	vy_0 = strtod(argv[2], NULL);
 	
 	/* Start up SDL */
-	init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
+	gfx_init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 
 	/* Initialize person list */
 	pnl = person_list_init();
@@ -52,11 +51,6 @@ int main(int argc, char *argv[])
 		printf( "Init planet failed\n");
 		exit(1);
 	}
-	/* Add planet 2*/
-	//if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.7,(int)(SPACE_H_MAX+SPACE_H_MIN)*0.7, pow(10,4)) != PLANET_OK) {
-//		printf( "Init planet failed\n");
-//		exit(1);
-//	}
 
 	/* Loop indefinitely for messages */
 	while (1) {
@@ -75,9 +69,11 @@ int main(int argc, char *argv[])
 		SDL_Delay(UPDATE_FREQ);
 	}
 	
-	/* Exit the program */
+	/* Exit the program and cleanup */
 	person_remove_mult(pnl);
 	person_list_destroy(pnl);
+	planet_remove_mult(ptl);
+	planet_list_destroy(ptl);
 	
 	exit(0);
 }

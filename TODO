@@ -6,7 +6,10 @@ Introduce image of broken ship at collision
 
 = Background =
 
+Add rectangle
+
 Add background picture as default sdl drawing (no object)
+
 
 = Make ship rotate =
 
@@ -27,3 +30,6 @@ Make generic obj list handling (ptl, pnl to be using same obj functions)
 Jump from one place to the other
 
 = Introduce booster =
+
+= Doc generation =
+

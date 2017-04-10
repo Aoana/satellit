@@ -1,6 +1,6 @@
 #include "init.h"
 
-void init(char *title, int width, int height) {
+void gfx_init(char *title, int width, int height) {
 
 	/* Initialise SDL Video */
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -21,7 +21,7 @@ void init(char *title, int width, int height) {
 	SDL_WM_SetCaption(title, NULL);
 }
 
-void cleanup(SDL_Surface *surface) {
+void gfx_cleanup(SDL_Surface *surface) {
 	/* Free the image */
 	if (surface != NULL)
 	{

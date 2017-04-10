@@ -36,6 +36,6 @@ enum planetReturnCode planet_add(struct planet_list *, int, SDL_Surface *image, 
 enum planetReturnCode planet_add_planet1(struct planet_list *, struct gfx_image_list *, int, int, int);
 enum planetReturnCode planet_remove(struct planet_list *, struct planet *);
 enum planetReturnCode planet_remove_id(struct planet_list *, int);
-enum planetReturnCode planet_update(struct planet *);
+enum planetReturnCode planet_remove_mult(struct planet_list *);
 #endif
 

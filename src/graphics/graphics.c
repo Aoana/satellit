@@ -138,7 +138,7 @@ void gfx_destroy_images(struct gfx_image_list *imgl) {
 
 	DL_FOREACH_SAFE(imgl->head,img,tmp) {
 		DL_DELETE(imgl->head,img);
-		cleanup(img->image);
+		gfx_cleanup(img->image);
 		free(img->name);
 		free(img);
 		imgl->n_images--;
