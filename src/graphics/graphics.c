@@ -50,8 +50,8 @@ void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_Rect dest;
 	
 	/* Set the blitting rectangle to the size of the src image */
-	dest.x = x;
-	dest.y = y;
+	dest.x = x-(image->w/2);
+	dest.y = y-(image->h/2);
 	dest.w = image->w;
 	dest.h = image->h;
 	

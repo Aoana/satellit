@@ -16,10 +16,6 @@ Add background picture as default sdl drawing (no object)
 Based on direction update image
 Can vector graphics be used?
 
-= Objects =
-
-Center of mass and position to be same
-
 = Move main from graphics =
 
 = Generalize objects handling =
