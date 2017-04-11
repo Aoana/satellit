@@ -17,10 +17,6 @@ Can vector graphics be used?
 
 = Move main from graphics =
 
-= Generalize objects handling =
-
-Make generic obj list handling (ptl, pnl to be using same obj functions)
-
 = Introduce wormhole =
 
 Jump from one place to the other
