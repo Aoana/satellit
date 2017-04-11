@@ -1,7 +1,7 @@
 = Collisions =
 
-Check collision planets
 Merge with collision of boundary
+Leave ship if colliding with planet
 Introduce image of broken ship at collision
 
 = Background =

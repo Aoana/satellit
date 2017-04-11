@@ -30,6 +30,7 @@ struct object * object_init(int id, SDL_Surface *image,
 	struct object *obj;
 	obj = calloc(1, sizeof(struct object));
 	obj->id = id;
+	obj->dead = 0;
 	obj->mass = m;
 	obj->next = NULL;
 	obj->prev = NULL;
@@ -113,11 +114,18 @@ enum objectReturnCode object_update_mult(struct object_list *objl_src, struct ob
 	enum objectReturnCode ret;
 	struct object *obj, *tmp;
 	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
+		if (obj->dead != 0) {
+			continue;
+		}
 		if((ret = object_update(objl_src, obj)) != OBJECT_OK) {
 			printf("WARN: Object update failed %s, id=%d\n", object_enum2str(ret), obj->id);
-
-			if (object_remove(objl_update, obj) != OBJECT_OK) {
-				printf("ERR: Failed to remove object, id=%d\n", obj->id);
+			if (ret == OBJECT_COL) {
+				obj->dead = 1;
+				/*TODO Switch image */
+			} else {
+				if (object_remove(objl_update, obj) != OBJECT_OK) {
+					printf("ERR: Failed to remove object, id=%d\n", obj->id);
+				}
 			}
 		}
 	}

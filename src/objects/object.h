@@ -8,6 +8,7 @@
 
 struct object {
 	int id;
+	int dead;
 	double mass;
 	struct position *pos;
 	SDL_Surface *image;
