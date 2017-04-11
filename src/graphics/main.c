@@ -38,15 +38,13 @@ int main(int argc, char *argv[])
 	}
 
 	/* Add rocket */
-	if (rocket_add(pnl, imgl, (int)(SPACE_W_MIN),
-	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != ROCKET_OK) {
+	if (rocket_add(pnl, imgl, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != ROCKET_OK) {
 		printf( "Init rocket failed\n");
 		exit(1);
 	}
 
 	/* Add planet 1*/
-	if (planet_add(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,
-	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
+	if (planet_add(ptl, imgl, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
 		printf( "Init planet failed\n");
 		exit(1);
 	}

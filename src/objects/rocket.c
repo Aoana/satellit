@@ -1,4 +1,4 @@
-#include "person.h"
+#include "rocket.h"
 
 enum rocketReturnCode rocket_add(struct object_list *pnl, struct gfx_image_list *imgl,
 	double x, double y, double m, double vx, double vy) {

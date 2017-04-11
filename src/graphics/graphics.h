@@ -2,7 +2,7 @@
 #define GRAPHICS_H
 
 #include "common.h"
-#include "person.h"
+#include "rocket.h"
 #include "planet.h"
 
 #define UPDATE_FREQ 25

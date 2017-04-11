@@ -2,11 +2,11 @@
 #define VELOCITY_H
 #include "common.h"
 #include "position.h"
-#include "person.h"
+#include "rocket.h"
 #include "planet.h"
 
 
-#define GRAV_CONST 100
+#define GRAV_CONST 1000
 
 enum velocityReturnCode {
     VELOCITY_OK = 0,
