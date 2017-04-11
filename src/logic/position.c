@@ -29,15 +29,15 @@ int position_destroy(struct position *p) {
  
 int position_update(struct object_list *ptl, struct object *pn) {
 	struct position *p = pn->pos;
-	printf("DEBUG: Start: p->x=%f, p->y=%f\n", p->x, p->y);
-	printf("DEBUG: Start: p->vx=%f, p->vy=%f p->vx/UPDATE, p->vx/UPDATE = %f,%f\n", p->vx, p->vy, p->vx/UPDATE_FREQ, p->vy/UPDATE_FREQ);
+	//printf("DEBUG: Start: p->x=%f, p->y=%f\n", p->x, p->y);
+	//printf("DEBUG: Start: p->vx=%f, p->vy=%f p->vx/UPDATE, p->vx/UPDATE = %f,%f\n", p->vx, p->vy, p->vx/UPDATE_FREQ, p->vy/UPDATE_FREQ);
 	p->x = p->x + p->vx/UPDATE_FREQ;
 	p->y = p->y + p->vy/UPDATE_FREQ;
-	printf("DEBUG: End: p->vx=%f, p->vy=%f p->vx/UPDATE, p->vx/UPDATE = %f,%f\n", p->vx, p->vy, p->vx/UPDATE_FREQ, p->vy/UPDATE_FREQ);
+	//printf("DEBUG: End: p->vx=%f, p->vy=%f p->vx/UPDATE, p->vx/UPDATE = %f,%f\n", p->vx, p->vy, p->vx/UPDATE_FREQ, p->vy/UPDATE_FREQ);
 	if (position_validate(p->x, p->y) != 0) {
 		return POSITION_ERR_OOB;
 	}
-	printf("DEBUG: End: p->x=%f, p->y=%f\n", p->x, p->y);
+	//printf("DEBUG: End: p->x=%f, p->y=%f\n", p->x, p->y);
 
 	/* Update velocity for next timestep */
 	velocity_update(ptl, pn);

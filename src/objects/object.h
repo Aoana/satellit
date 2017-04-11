@@ -4,6 +4,7 @@
 #include "position.h"
 #include "graphics.h"
 #include "init.h"
+#include "collision.h"
 
 struct object {
 	int id;
@@ -19,15 +20,17 @@ struct object_list {
 };
 
 enum objectReturnCode {
-    OBJECT_OK = 0,
-    OBJECT_ADD_FAILED,
-    OBJECT_REMOVE_FAILED,
-    OBJECT_UPDATE_FAILED,
-    OBJECT_NOT_FOUND,
+	OBJECT_OK = 0,
+	OBJECT_ADD,
+	OBJECT_REM,
+	OBJECT_OOB,
+	OBJECT_COL,
+	OBJECT_NFD,
 };
 
 struct gfx_image_list;
 
+const char* object_enum2str(enum objectReturnCode);
 struct object_list * object_list_init(void);
 int object_list_destroy(struct object_list*);
 struct object * object_init(int, SDL_Surface *,
