@@ -4,8 +4,7 @@ extern void getInput(void);
 
 int main(int argc, char *argv[])
 {
-	struct person_list *pnl;
-	struct planet_list *ptl;
+	struct object_list *pnl, *ptl;
 	struct gfx_image_list *imgl;
 	double vx_0, vy_0;
 
@@ -27,9 +26,9 @@ int main(int argc, char *argv[])
 	gfx_init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 
 	/* Initialize person list */
-	pnl = person_list_init();
+	pnl = object_list_init();
 	/* Initialize planet list */
-	ptl = planet_list_init();
+	ptl = object_list_init();
 
 	/* Initialize images */
 	imgl = gfx_init_images();
@@ -39,14 +38,14 @@ int main(int argc, char *argv[])
 	}
 
 	/* Add rocket */
-	if (person_add_rocket(pnl, imgl, (int)(SPACE_W_MIN),
-	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != PERSON_OK) {
+	if (rocket_add(pnl, imgl, (int)(SPACE_W_MIN),
+	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != ROCKET_OK) {
 		printf( "Init rocket failed\n");
 		exit(1);
 	}
 
 	/* Add planet 1*/
-	if (planet_add_planet1(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,
+	if (planet_add(ptl, imgl, (int)(SPACE_W_MIN+SPACE_W_MAX)*0.3,
 	(int)(SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
 		printf( "Init planet failed\n");
 		exit(1);
@@ -57,7 +56,7 @@ int main(int argc, char *argv[])
 		getInput();
 
 		/* Update position for all objects */
-		if (person_update_mult(ptl, pnl) != 0) {
+		if (object_update_mult(ptl, pnl) != 0) {
 			printf("ERR: Position update failed\n");
 			exit(1);
 		}
@@ -70,10 +69,10 @@ int main(int argc, char *argv[])
 	}
 	
 	/* Exit the program and cleanup */
-	person_remove_mult(pnl);
-	person_list_destroy(pnl);
-	planet_remove_mult(ptl);
-	planet_list_destroy(ptl);
+	object_remove_mult(pnl);
+	object_list_destroy(pnl);
+	object_remove_mult(ptl);
+	object_list_destroy(ptl);
 	
 	exit(0);
 }

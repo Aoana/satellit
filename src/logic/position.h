@@ -17,8 +17,8 @@ enum positionReturnCode {
     POSITION_ERR_VEL,
 };
 
-int position_validate(int x, int y);
-struct position * position_init(int, int, int, int);
+int position_validate(double x, double y);
+struct position * position_init(double, double, double, double);
 int position_destroy(struct position *);
-int position_update(struct planet_list *ptl, struct person *pn);
+int position_update(struct object_list *ptl, struct object *pn);
 #endif

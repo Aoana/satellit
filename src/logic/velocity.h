@@ -13,9 +13,9 @@ enum velocityReturnCode {
     VELOCITY_NOK,
 };
 
-struct person;
-struct planet_list;
+struct object;
+struct object_list;
 
-int velocity_validate(int, int);
-int velocity_update(struct planet_list *, struct person *);
+int velocity_validate(double, double);
+int velocity_update(struct object_list *, struct object *);
 #endif

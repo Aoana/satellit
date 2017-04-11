@@ -2,14 +2,14 @@
 
 
 /* Check current resolution */
-int position_validate(int x, int y) {
+int position_validate(double x, double y) {
 	if ((x >= SPACE_W_MIN && x < SPACE_W_MAX) && (y >= SPACE_H_MIN && y < SPACE_H_MAX)) {
 		return 0;
 	}
 	return 1;
 }
 
-struct position * position_init(int x, int y, int vx, int vy) {
+struct position * position_init(double x, double y, double vx, double vy) {
 	struct position *p;
 	if (position_validate(x, y) != 0) {
 		return NULL;	
@@ -27,7 +27,7 @@ int position_destroy(struct position *p) {
 	return 0;
 }
  
-int position_update(struct planet_list *ptl, struct person *pn) {
+int position_update(struct object_list *ptl, struct object *pn) {
 	struct position *p = pn->pos;
 	printf("DEBUG: Start: p->x=%f, p->y=%f\n", p->x, p->y);
 	printf("DEBUG: Start: p->vx=%f, p->vy=%f p->vx/UPDATE, p->vx/UPDATE = %f,%f\n", p->vx, p->vy, p->vx/UPDATE_FREQ, p->vy/UPDATE_FREQ);
