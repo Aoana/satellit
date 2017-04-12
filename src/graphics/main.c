@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 		getInput();
 
 		/* Update position for all objects */
-		if (object_update_mult(ptl, pnl) != 0) {
+		if (object_update_mult(ptl, pnl, imgl) != 0) {
 			printf("ERR: Position update failed\n");
 			exit(1);
 		}

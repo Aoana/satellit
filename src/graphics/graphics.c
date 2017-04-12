@@ -67,15 +67,16 @@ void gfx_update_screen(struct object *pn_head, struct object *pt_head) {
 	/* Blank the screen */
 	SDL_FillRect(screen, NULL, 0);
 	
-	/* Draw the rocket to x and y */
+	/* Draw the planets to x and y */
+	DL_FOREACH(pt_head, pt) {
+		gfx_draw_image(pt->image, pt->pos->x, pt->pos->y);
+	}
+
+	/* Draw the rockets to x and y */
 	DL_FOREACH(pn_head, pn) {
 		gfx_draw_image(pn->image, pn->pos->x, pn->pos->y);
 	}
 
-	/* Draw the rocket to x and y */
-	DL_FOREACH(pt_head, pt) {
-		gfx_draw_image(pt->image, pt->pos->x, pt->pos->y);
-	}
 	
 	/* Swap the image buffers */
 	SDL_Flip(screen);

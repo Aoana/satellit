@@ -110,7 +110,8 @@ enum objectReturnCode object_update(struct object_list *objl, struct object *obj
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_update_mult(struct object_list *objl_src, struct object_list *objl_update) {
+enum objectReturnCode object_update_mult(struct object_list *objl_src,
+	struct object_list *objl_update, struct gfx_image_list *imgl) {
 	enum objectReturnCode ret;
 	struct object *obj, *tmp;
 	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
@@ -120,8 +121,10 @@ enum objectReturnCode object_update_mult(struct object_list *objl_src, struct ob
 		if((ret = object_update(objl_src, obj)) != OBJECT_OK) {
 			printf("WARN: Object update failed %s, id=%d\n", object_enum2str(ret), obj->id);
 			if (ret == OBJECT_COL) {
+				struct gfx_image *gfx_img;
 				obj->dead = 1;
-				/*TODO Switch image */
+				gfx_img = gfx_get_image(imgl, "gfx_broken_ship.png");
+				obj->image = gfx_img->image;
 			} else {
 				if (object_remove(objl_update, obj) != OBJECT_OK) {
 					printf("ERR: Failed to remove object, id=%d\n", obj->id);

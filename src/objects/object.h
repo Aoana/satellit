@@ -43,6 +43,7 @@ enum objectReturnCode object_remove(struct object_list *, struct object *);
 enum objectReturnCode object_remove_id(struct object_list *, int);
 enum objectReturnCode object_remove_mult(struct object_list *);
 enum objectReturnCode object_update(struct object_list *, struct object *);
-enum objectReturnCode object_update_mult(struct object_list *, struct object_list *);
+enum objectReturnCode object_update_mult(struct object_list *,
+	struct object_list *, struct gfx_image_list *);
 #endif
 
