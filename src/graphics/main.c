@@ -4,7 +4,7 @@ extern void getInput(void);
 
 int main(int argc, char *argv[])
 {
-	struct object_list *pnl, *ptl;
+	struct object_list *pnl, *ptl, *mnl;
 	struct gfx_image_list *imgl;
 	double vx_0, vy_0;
 
@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
 		printf( "%s [vx_0] [vy_0]\n", argv[0]);
 		exit(0);
 	}
-
 
 	if (getenv("DUCKSPOND") == NULL) {
 		printf( "DUCKSPOND not set, source envsetting\n");
@@ -29,6 +28,8 @@ int main(int argc, char *argv[])
 	pnl = object_list_init();
 	/* Initialize planet list */
 	ptl = object_list_init();
+	/* Initialize moon list */
+	mnl = object_list_init();
 
 	/* Initialize images */
 	imgl = gfx_init_images();
@@ -49,6 +50,12 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	/* Add moon */
+	if (moon_add(mnl, imgl, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != MOON_OK) {
+		printf( "Init moon failed\n");
+		exit(1);
+	}
+
 	/* Loop indefinitely for messages */
 	while (1) {
 		getInput();
@@ -60,7 +67,7 @@ int main(int argc, char *argv[])
 		}
 
 		/* Update Screen */
-		gfx_update_screen(pnl->head, ptl->head);
+		gfx_update_screen(pnl->head, ptl->head, mnl->head);
 
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
@@ -71,6 +78,8 @@ int main(int argc, char *argv[])
 	object_list_destroy(pnl);
 	object_remove_mult(ptl);
 	object_list_destroy(ptl);
+	object_remove_mult(mnl);
+	object_list_destroy(mnl);
 	
 	exit(0);
 }

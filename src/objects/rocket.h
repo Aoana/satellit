@@ -1,5 +1,5 @@
-#ifndef PERSON_H
-#define PERSON_H
+#ifndef ROCKET_H
+#define ROCKET_H
 #include "object.h"
 
 enum rocketReturnCode {

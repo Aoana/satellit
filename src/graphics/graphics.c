@@ -59,10 +59,11 @@ void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void gfx_update_screen(struct object *pn_head, struct object *pt_head) {
+void gfx_update_screen(struct object *pn_head, struct object *pt_head, struct object *mn_head) {
 	
 	struct object *pn;
 	struct object *pt;
+	struct object *mn;
 
 	/* Blank the screen */
 	SDL_FillRect(screen, NULL, 0);
@@ -70,6 +71,11 @@ void gfx_update_screen(struct object *pn_head, struct object *pt_head) {
 	/* Draw the planets to x and y */
 	DL_FOREACH(pt_head, pt) {
 		gfx_draw_image(pt->image, pt->pos->x, pt->pos->y);
+	}
+
+	/* Draw the moons to x and y */
+	DL_FOREACH(mn_head, mn) {
+		gfx_draw_image(mn->image, mn->pos->x, mn->pos->y);
 	}
 
 	/* Draw the rockets to x and y */
