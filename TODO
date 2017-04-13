@@ -13,8 +13,6 @@ Add background picture as default sdl drawing (no object)
 Based on direction update image
 Can vector graphics be used?
 
-= Move main from graphics =
-
 = Introduce wormhole =
 
 Jump from one place to the other
@@ -39,3 +37,7 @@ planetlist, rocketlist, imagelist
 = Introduce typedefs=
 
 = Introduce function pointer for object update =
+
+= Take input at start =
+
+
