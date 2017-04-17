@@ -11,7 +11,7 @@ int velocity_update(object_list *ptl, object *pn) {
 	double f_x = 0, f_y = 0;
 	double dx, dy, d;
 	object *pt;
-	struct position *p = pn->pos;
+	position *p = pn->pos;
 
 	DL_FOREACH(ptl->head, pt) {
 		dx = pt->pos->x - p->x;
