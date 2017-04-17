@@ -1,10 +1,10 @@
 #include "moon.h"
 
-enum moonReturnCode moon_add(object_list *mnl, struct gfx_image_list *imgl,
+enum moonReturnCode moon_add(object_list *mnl, gfx_image_list *imgl,
 	double x, double y, double m, double vx, double vy) {
 
 	struct SDL_Surface *image;
-	struct gfx_image *gfx_img;
+	gfx_image *gfx_img;
 
 	gfx_img = gfx_get_image(imgl,"gfx_moon.png");
 	if (gfx_img == NULL ) {

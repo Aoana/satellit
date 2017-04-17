@@ -111,7 +111,7 @@ enum objectReturnCode object_update(object_list *objl, object *obj) {
 }
 
 enum objectReturnCode object_update_mult(object_list *objl_src,
-	object_list *objl_update, struct gfx_image_list *imgl) {
+	object_list *objl_update, gfx_image_list *imgl) {
 	enum objectReturnCode ret;
 	object *obj, *tmp;
 	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
@@ -121,7 +121,7 @@ enum objectReturnCode object_update_mult(object_list *objl_src,
 		if((ret = object_update(objl_src, obj)) != OBJECT_OK) {
 			printf("WARN: Object update failed %s, id=%d\n", object_enum2str(ret), obj->id);
 			if (ret == OBJECT_COL) {
-				struct gfx_image *gfx_img;
+				gfx_image *gfx_img;
 				obj->dead = 1;
 				gfx_img = gfx_get_image(imgl, "gfx_broken_ship.png");
 				obj->image = gfx_img->image;

@@ -11,7 +11,7 @@ enum objectReturnCode rocket_update(object_list *objl, object *obj) {
 }
 
 enum objectReturnCode rocket_update_mult(object_list *objl_src,
-	object_list *objl_update, struct gfx_image_list *imgl) {
+	object_list *objl_update, gfx_image_list *imgl) {
 	enum objectReturnCode ret;
 	object *obj, *tmp;
 	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
@@ -21,7 +21,7 @@ enum objectReturnCode rocket_update_mult(object_list *objl_src,
 		if((ret = object_update(objl_src, obj)) != OBJECT_OK) {
 			printf("WARN: Object update failed %s, id=%d\n", object_enum2str(ret), obj->id);
 			if (ret == OBJECT_COL) {
-				struct gfx_image *gfx_img;
+				gfx_image *gfx_img;
 				obj->dead = 1;
 				gfx_img = gfx_get_image(imgl, "gfx_broken_ship.png");
 				obj->image = gfx_img->image;
@@ -35,11 +35,11 @@ enum objectReturnCode rocket_update_mult(object_list *objl_src,
 	return OBJECT_OK;
 }
 
-enum rocketReturnCode rocket_add(object_list *pnl, struct gfx_image_list *imgl,
+enum rocketReturnCode rocket_add(object_list *pnl, gfx_image_list *imgl,
 	double x, double y, double m, double vx, double vy) {
 
 	struct SDL_Surface *image;
-	struct gfx_image *gfx_img;
+	gfx_image *gfx_img;
 
 	gfx_img = gfx_get_image(imgl,"gfx_ship.png");
 	if (gfx_img == NULL ) {

@@ -88,12 +88,12 @@ void gfx_update_screen(object *pn_head, object *pt_head, object *mn_head) {
 	SDL_Flip(screen);
 }
 
-struct gfx_image_list * gfx_init_images() {
+gfx_image_list * gfx_init_images() {
 
-	struct gfx_image *img;
+	gfx_image *img;
 	DIR *dir;
 	struct dirent *file;
-	struct gfx_image_list *imgl = calloc(1, sizeof(struct gfx_image_list));
+	gfx_image_list *imgl = calloc(1, sizeof(gfx_image_list));
 	char img_path[128];
 
 	set_image_folder(img_path);
@@ -104,7 +104,7 @@ struct gfx_image_list * gfx_init_images() {
 				continue;
 			}
 			strcat(img_path, file->d_name);
-			img = calloc(1,sizeof(struct gfx_image));
+			img = calloc(1,sizeof(gfx_image));
 			img->name = strdup(file->d_name);
 			img->image = gfx_load_image(img_path);
 			if (img->image == NULL) {
@@ -127,9 +127,9 @@ struct gfx_image_list * gfx_init_images() {
 	return imgl;
 }
 
-struct gfx_image * gfx_get_image(struct gfx_image_list *imgl, char *image) {
+gfx_image * gfx_get_image(gfx_image_list *imgl, char *image) {
 
-	struct gfx_image *img;
+	gfx_image *img;
 
 	DL_FOREACH(imgl->head,img) {
 		if (strcmp(img->name, image) == 0) {
@@ -139,9 +139,9 @@ struct gfx_image * gfx_get_image(struct gfx_image_list *imgl, char *image) {
 	return NULL;
 }
 
-void gfx_destroy_images(struct gfx_image_list *imgl) {
+void gfx_destroy_images(gfx_image_list *imgl) {
 
-	struct gfx_image *img,*tmp;
+	gfx_image *img,*tmp;
 
 	DL_FOREACH_SAFE(imgl->head,img,tmp) {
 		DL_DELETE(imgl->head,img);
