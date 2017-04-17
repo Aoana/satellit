@@ -26,19 +26,19 @@ int main(int argc, char *argv[])
 	gh = gholder_init();
 
 	/* Add rocket */
-	if (rocket_add(gh->rtl, gh->imgl, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != ROCKET_OK) {
+	if (rocket_add(gh, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != ROCKET_OK) {
 		printf( "Init rocket failed\n");
 		exit(1);
 	}
 
 	/* Add planet 1*/
-	if (planet_add(gh->ptl, gh->imgl, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
+	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
 		printf( "Init planet failed\n");
 		exit(1);
 	}
 
 	/* Add moon */
-	if (moon_add(gh->mnl, gh->imgl, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != MOON_OK) {
+	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != MOON_OK) {
 		printf( "Init moon failed\n");
 		exit(1);
 	}

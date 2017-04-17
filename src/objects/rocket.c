@@ -35,20 +35,20 @@ enum objectReturnCode rocket_update_mult(object_list *objl_src,
 	return OBJECT_OK;
 }
 
-enum rocketReturnCode rocket_add(object_list *pnl, gfx_image_list *imgl,
+enum rocketReturnCode rocket_add(gholder *gh,
 	double x, double y, double m, double vx, double vy) {
 
 	struct SDL_Surface *image;
 	gfx_image *gfx_img;
 
-	gfx_img = gfx_get_image(imgl,"gfx_ship.png");
+	gfx_img = gfx_get_image(gh->imgl,"gfx_ship.png");
 	if (gfx_img == NULL ) {
 		printf("ERR: Unable to get image\n");
 		return ROCKET_ADD_FAILED;
 	}
 	image = gfx_img->image;
 
-	if (object_add(pnl, pnl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
+	if (object_add(gh->rtl, gh->rtl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
 		printf("ERR: Unable to add rocket\n");
 		return ROCKET_ADD_FAILED;
 	}

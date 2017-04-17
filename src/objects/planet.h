@@ -1,16 +1,16 @@
 #ifndef PLANET_H
 #define PLANET_H
 #include "object.h"
+#include "gholder.h"
 
 enum planetReturnCode {
     PLANET_OK = 0,
     PLANET_ADD_FAILED,
 };
 
-struct object_list;
-struct gfx_image_list;
+struct gholder;
 
-enum planetReturnCode planet_add(struct object_list *,
-	struct gfx_image_list *, double, double, double);
+enum planetReturnCode planet_add(struct gholder *,
+	double, double, double);
 #endif
 
