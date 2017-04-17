@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
 	/* Start up SDL */
 	gfx_init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
 	
+	/* Initialize the global holder */
 	gh = gholder_init();
 
 	/* Add rocket */
@@ -54,7 +55,7 @@ int main(int argc, char *argv[])
 		}
 
 		/* Update Screen */
-		gfx_update_screen(gh->rtl->head, gh->ptl->head, gh->mnl->head);
+		gfx_update_screen(gh);
 
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);

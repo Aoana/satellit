@@ -59,9 +59,9 @@ void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void gfx_update_screen(object *pn_head, object *pt_head, object *mn_head) {
+void gfx_update_screen(gholder * gh) {
 	
-	object *pn;
+	object *rt;
 	object *pt;
 	object *mn;
 
@@ -69,18 +69,18 @@ void gfx_update_screen(object *pn_head, object *pt_head, object *mn_head) {
 	SDL_FillRect(screen, NULL, 0);
 	
 	/* Draw the planets to x and y */
-	DL_FOREACH(pt_head, pt) {
+	DL_FOREACH(gh->ptl->head, pt) {
 		gfx_draw_image(pt->image, pt->pos->x, pt->pos->y);
 	}
 
 	/* Draw the moons to x and y */
-	DL_FOREACH(mn_head, mn) {
+	DL_FOREACH(gh->mnl->head, mn) {
 		gfx_draw_image(mn->image, mn->pos->x, mn->pos->y);
 	}
 
 	/* Draw the rockets to x and y */
-	DL_FOREACH(pn_head, pn) {
-		gfx_draw_image(pn->image, pn->pos->x, pn->pos->y);
+	DL_FOREACH(gh->rtl->head, rt) {
+		gfx_draw_image(rt->image, rt->pos->x, rt->pos->y);
 	}
 
 	
