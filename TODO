@@ -1,6 +1,3 @@
-= Introduce generic holder =
-planetlist, rocketlist, imagelist
-
 = Introduce function pointer for object update =
 
 = Add rotating moon =
