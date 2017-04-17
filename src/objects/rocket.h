@@ -12,5 +12,6 @@ struct gholder;
 
 enum rocketReturnCode rocket_add(struct gholder *,
 	double, double, double, double, double);
+enum rocketReturnCode rocket_update_mult(struct gholder *);
 #endif
 

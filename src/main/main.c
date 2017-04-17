@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
 		getInput();
 
 		/* Update position for all objects */
-		if (object_update_mult(gh->ptl, gh->rtl, gh->imgl) != 0) {
-			printf("ERR: Position update failed\n");
+		if (rocket_update_mult(gh) != 0) {
+			printf("ERR: Rocket update failed\n");
 			exit(1);
 		}
 
