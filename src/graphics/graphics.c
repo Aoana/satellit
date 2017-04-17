@@ -59,11 +59,11 @@ void gfx_draw_image(SDL_Surface *image, int x, int y) {
 	SDL_BlitSurface(image, NULL, screen, &dest);
 }
 
-void gfx_update_screen(struct object *pn_head, struct object *pt_head, struct object *mn_head) {
+void gfx_update_screen(object *pn_head, object *pt_head, object *mn_head) {
 	
-	struct object *pn;
-	struct object *pt;
-	struct object *mn;
+	object *pn;
+	object *pt;
+	object *mn;
 
 	/* Blank the screen */
 	SDL_FillRect(screen, NULL, 0);

@@ -27,7 +27,7 @@ int position_destroy(struct position *p) {
 	return 0;
 }
  
-int position_update(struct object_list *ptl, struct object *pn) {
+int position_update(object_list *ptl, object *pn) {
 	struct position *p = pn->pos;
 	//printf("DEBUG: Start: p->x=%f, p->y=%f\n", p->x, p->y);
 	//printf("DEBUG: Start: p->vx=%f, p->vy=%f p->vx/UPDATE, p->vx/UPDATE = %f,%f\n", p->vx, p->vy, p->vx/UPDATE_FREQ, p->vy/UPDATE_FREQ);

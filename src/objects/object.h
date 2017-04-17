@@ -6,7 +6,7 @@
 #include "init.h"
 #include "collision.h"
 
-struct object {
+typedef struct object {
 	int id;
 	int dead;
 	double mass;
@@ -14,12 +14,12 @@ struct object {
 	SDL_Surface *image;
 	int (*object_update)(struct object_list *, struct object *);
 	struct object *next, *prev;
-};
+} object;
 
-struct object_list {
+typedef struct object_list {
 	int n_objs;
 	struct object *head;
-};
+} object_list;
 
 enum objectReturnCode {
 	OBJECT_OK = 0,
@@ -33,18 +33,18 @@ enum objectReturnCode {
 struct gfx_image_list;
 
 const char* object_enum2str(enum objectReturnCode);
-struct object_list * object_list_init(void);
-int object_list_destroy(struct object_list*);
-struct object * object_init(int, SDL_Surface *,
+object_list * object_list_init(void);
+int object_list_destroy(object_list*);
+object * object_init(int, SDL_Surface *,
 	double, double, double, double, double);
-int object_destroy(struct object *);
-enum objectReturnCode object_add(struct object_list *, int, SDL_Surface *,
+int object_destroy(object *);
+enum objectReturnCode object_add(object_list *, int, SDL_Surface *,
 	double, double, double, double, double);
-enum objectReturnCode object_remove(struct object_list *, struct object *);
-enum objectReturnCode object_remove_id(struct object_list *, int);
-enum objectReturnCode object_remove_mult(struct object_list *);
-enum objectReturnCode object_update(struct object_list *, struct object *);
-enum objectReturnCode object_update_mult(struct object_list *,
-	struct object_list *, struct gfx_image_list *);
+enum objectReturnCode object_remove(object_list *, object *);
+enum objectReturnCode object_remove_id(object_list *, int);
+enum objectReturnCode object_remove_mult(object_list *);
+enum objectReturnCode object_update(object_list *, object *);
+enum objectReturnCode object_update_mult(object_list *,
+	object_list *, struct gfx_image_list *);
 #endif
 

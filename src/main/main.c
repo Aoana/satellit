@@ -4,7 +4,7 @@ extern void getInput(void);
 
 int main(int argc, char *argv[])
 {
-	struct object_list *pnl, *ptl, *mnl;
+	object_list *pnl, *ptl, *mnl;
 	struct gfx_image_list *imgl;
 	double vx_0, vy_0;
 

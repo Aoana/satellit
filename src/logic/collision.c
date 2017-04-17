@@ -1,6 +1,6 @@
 #include "collision.h"
 
-enum collisionReturnCode collision_planet(struct object * pt, struct object *rt) {
+enum collisionReturnCode collision_planet(object * pt, object *rt) {
 
 	double dx, dy, d, rad;
 	dx = pt->pos->x - rt->pos->x;
@@ -13,12 +13,12 @@ enum collisionReturnCode collision_planet(struct object * pt, struct object *rt)
 	return COLLISION_OK;
 }
 
-enum collisionReturnCode collision_boundary(struct object *rt) {
+enum collisionReturnCode collision_boundary(object *rt) {
 	return COLLISION_OK;
 }
 
-enum collisionReturnCode collision_planet_mult(struct object_list *ptl, struct object *rt) {
-	struct object *pt;
+enum collisionReturnCode collision_planet_mult(object_list *ptl, object *rt) {
+	object *pt;
 	DL_FOREACH(ptl->head, pt) {
 		if (collision_planet(pt, rt) != COLLISION_OK) {
 			return COLLISION_ERR_PLANET;

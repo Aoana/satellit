@@ -5,12 +5,12 @@ int velocity_validate(double vx, double vy) {
 	return 0;
 }
 
-int velocity_update(struct object_list *ptl, struct object *pn) {
+int velocity_update(object_list *ptl, object *pn) {
 
 	double a_x = 0, a_y = 0;
 	double f_x = 0, f_y = 0;
 	double dx, dy, d;
-	struct object *pt;
+	object *pt;
 	struct position *p = pn->pos;
 
 	DL_FOREACH(ptl->head, pt) {

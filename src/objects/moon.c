@@ -1,6 +1,6 @@
 #include "moon.h"
 
-enum moonReturnCode moon_add(struct object_list *mnl, struct gfx_image_list *imgl,
+enum moonReturnCode moon_add(object_list *mnl, struct gfx_image_list *imgl,
 	double x, double y, double m, double vx, double vy) {
 
 	struct SDL_Surface *image;

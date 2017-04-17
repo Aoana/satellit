@@ -1,6 +1,6 @@
 #include "planet.h"
 
-enum planetReturnCode planet_add(struct object_list *ptl, 
+enum planetReturnCode planet_add(object_list *ptl,
 	struct gfx_image_list *imgl, double x, double y, double m) {
 
 	struct SDL_Surface *image;

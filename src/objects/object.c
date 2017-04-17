@@ -12,23 +12,23 @@ const char* object_enum2str(enum objectReturnCode ret) {
 	}
 }
 
-struct object_list * object_list_init() {
-	struct object_list *objl;
-	objl = calloc(1, sizeof(struct object_list));
+object_list * object_list_init() {
+	object_list *objl;
+	objl = calloc(1, sizeof(object_list));
 	objl->n_objs = 0;
 	objl->head = NULL;
 	return objl;
 }
 
-int object_list_destroy(struct object_list *objl) {
+int object_list_destroy(object_list *objl) {
 	free(objl);
 	return 0;
 }
 
-struct object * object_init(int id, SDL_Surface *image,
+object * object_init(int id, SDL_Surface *image,
 	double x, double y, double m, double vx, double vy) {
-	struct object *obj;
-	obj = calloc(1, sizeof(struct object));
+	object *obj;
+	obj = calloc(1, sizeof(object));
 	obj->id = id;
 	obj->dead = 0;
 	obj->mass = m;
@@ -47,16 +47,16 @@ struct object * object_init(int id, SDL_Surface *image,
 	return obj;
 }
 
-int object_destroy(struct object *obj) {
+int object_destroy(object *obj) {
 	position_destroy(obj->pos);
 	free(obj);
 	return 0;
 }
 
-enum objectReturnCode object_add(struct object_list *objl, int id,
+enum objectReturnCode object_add(object_list *objl, int id,
 	SDL_Surface *image, double x, double y, double m, double vx, double vy) {
 
-	struct object *obj;
+	object *obj;
 	obj = object_init(id, image, x, y, m, vx, vy);
 	if (obj == NULL) {
 		printf("WARN: Unable to init object number\n");
@@ -67,7 +67,7 @@ enum objectReturnCode object_add(struct object_list *objl, int id,
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_remove(struct object_list *objl, struct object *obj) {
+enum objectReturnCode object_remove(object_list *objl, object *obj) {
 	DL_DELETE(objl->head,obj);
 	if(object_destroy(obj) != OBJECT_OK) {
 		return OBJECT_REM;
@@ -76,8 +76,8 @@ enum objectReturnCode object_remove(struct object_list *objl, struct object *obj
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_remove_mult(struct object_list *objl) {
-	struct object *obj, *tmp;
+enum objectReturnCode object_remove_mult(object_list *objl) {
+	object *obj, *tmp;
 	DL_FOREACH_SAFE(objl->head,obj,tmp) {
 		if(object_remove(objl, obj) != OBJECT_OK) {
 			return OBJECT_REM;
@@ -86,8 +86,8 @@ enum objectReturnCode object_remove_mult(struct object_list *objl) {
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_remove_id(struct object_list *objl, int id) {
-	struct object *obj, *tmp;
+enum objectReturnCode object_remove_id(object_list *objl, int id) {
+	object *obj, *tmp;
 	DL_FOREACH_SAFE(objl->head,obj,tmp) {
 		if (obj->id == id) {
 			DL_DELETE(objl->head,obj);
@@ -100,7 +100,7 @@ enum objectReturnCode object_remove_id(struct object_list *objl, int id) {
 	return OBJECT_NFD;
 }
 
-enum objectReturnCode object_update(struct object_list *objl, struct object *obj) {
+enum objectReturnCode object_update(object_list *objl, object *obj) {
 	if (position_update(objl, obj) != POSITION_OK) {
 		return OBJECT_OOB;
 	}
@@ -110,10 +110,10 @@ enum objectReturnCode object_update(struct object_list *objl, struct object *obj
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_update_mult(struct object_list *objl_src,
-	struct object_list *objl_update, struct gfx_image_list *imgl) {
+enum objectReturnCode object_update_mult(object_list *objl_src,
+	object_list *objl_update, struct gfx_image_list *imgl) {
 	enum objectReturnCode ret;
-	struct object *obj, *tmp;
+	object *obj, *tmp;
 	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
 		if (obj->dead != 0) {
 			continue;

@@ -1,6 +1,6 @@
 #include "rocket.h"
 
-enum objectReturnCode rocket_update(struct object_list *objl, struct object *obj) {
+enum objectReturnCode rocket_update(object_list *objl, object *obj) {
 	if (position_update(objl, obj) != POSITION_OK) {
 		return OBJECT_OOB;
 	}
@@ -10,10 +10,10 @@ enum objectReturnCode rocket_update(struct object_list *objl, struct object *obj
 	return OBJECT_OK;
 }
 
-enum objectReturnCode rocket_update_mult(struct object_list *objl_src,
-	struct object_list *objl_update, struct gfx_image_list *imgl) {
+enum objectReturnCode rocket_update_mult(object_list *objl_src,
+	object_list *objl_update, struct gfx_image_list *imgl) {
 	enum objectReturnCode ret;
-	struct object *obj, *tmp;
+	object *obj, *tmp;
 	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
 		if (obj->dead != 0) {
 			continue;
@@ -35,7 +35,7 @@ enum objectReturnCode rocket_update_mult(struct object_list *objl_src,
 	return OBJECT_OK;
 }
 
-enum rocketReturnCode rocket_add(struct object_list *pnl, struct gfx_image_list *imgl,
+enum rocketReturnCode rocket_add(object_list *pnl, struct gfx_image_list *imgl,
 	double x, double y, double m, double vx, double vy) {
 
 	struct SDL_Surface *image;

@@ -7,7 +7,6 @@ enum moonReturnCode {
     MOON_ADD_FAILED,
 };
 
-struct object_list;
 struct gfx_image_list;
 
 enum moonReturnCode moon_add(struct object_list *, struct gfx_image_list *,
