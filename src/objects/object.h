@@ -12,6 +12,7 @@ struct object {
 	double mass;
 	struct position *pos;
 	SDL_Surface *image;
+	int (*object_update)(struct object_list *, struct object *);
 	struct object *next, *prev;
 };
 
