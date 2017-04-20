@@ -6,21 +6,6 @@
 #include "init.h"
 #include "collision.h"
 
-typedef struct object {
-	int id;
-	int dead;
-	double mass;
-	struct position *pos;
-	SDL_Surface *image;
-	int (*object_update)(struct object_list *, struct object *);
-	struct object *next, *prev;
-} object;
-
-typedef struct object_list {
-	int n_objs;
-	struct object *head;
-} object_list;
-
 enum objectReturnCode {
 	OBJECT_OK = 0,
 	OBJECT_ADD,
@@ -29,6 +14,21 @@ enum objectReturnCode {
 	OBJECT_COL,
 	OBJECT_NFD,
 };
+
+typedef struct object {
+	int id;
+	int dead;
+	double mass;
+	struct position *pos;
+	SDL_Surface *image;
+	enum objectReturnCode (*obj_upd)(struct gholder *, struct object *);
+	struct object *next, *prev;
+} object;
+
+typedef struct object_list {
+	int n_objs;
+	struct object *head;
+} object_list;
 
 struct gfx_image_list;
 
@@ -39,6 +39,7 @@ object * object_init(int, SDL_Surface *,
 	double, double, double, double, double);
 int object_destroy(object *);
 enum objectReturnCode object_add(object_list *, int, SDL_Surface *,
+	enum objectReturnCode (*)(struct gholder *, struct object *),
 	double, double, double, double, double);
 enum objectReturnCode object_remove(object_list *, object *);
 enum objectReturnCode object_remove_id(object_list *, int);

@@ -12,6 +12,14 @@ const char* object_enum2str(enum objectReturnCode ret) {
 	}
 }
 
+/**
+ * @brief Object list initialization.
+ * @param void
+ * @return Pointer to object list, NULL if failed
+ * @see object_list_destroy
+ *
+ * Initialize and allocate object list.
+ */
 object_list * object_list_init() {
 	object_list *objl;
 	objl = calloc(1, sizeof(object_list));
@@ -20,6 +28,14 @@ object_list * object_list_init() {
 	return objl;
 }
 
+/**
+ * @brief Object list desctruction.
+ * @param Pointer to object list
+ * @return 0 if passed
+ * @see object_list_init
+ *
+ * Free object list.
+ */
 int object_list_destroy(object_list *objl) {
 	free(objl);
 	return 0;
@@ -53,8 +69,9 @@ int object_destroy(object *obj) {
 	return 0;
 }
 
-enum objectReturnCode object_add(object_list *objl, int id,
-	SDL_Surface *image, double x, double y, double m, double vx, double vy) {
+enum objectReturnCode object_add(object_list *objl, int id, SDL_Surface *image,
+	enum objectReturnCode (*obj_upd)(struct gholder *, struct object *),
+	double x, double y, double m, double vx, double vy) {
 
 	object *obj;
 	obj = object_init(id, image, x, y, m, vx, vy);
@@ -62,6 +79,7 @@ enum objectReturnCode object_add(object_list *objl, int id,
 		printf("WARN: Unable to init object number\n");
 		return OBJECT_ADD;
 	}
+	obj->obj_upd = obj_upd;
 	DL_APPEND(objl->head, obj);
 	objl->n_objs++;
 	return OBJECT_OK;

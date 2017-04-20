@@ -3,15 +3,12 @@
 #include "object.h"
 #include "gholder.h"
 
-enum rocketReturnCode {
-    ROCKET_OK = 0,
-    ROCKET_ADD_FAILED,
-};
-
 struct gholder;
+struct object;
 
-enum rocketReturnCode rocket_add(struct gholder *,
+unsigned int rocket_add(struct gholder *,
 	double, double, double, double, double);
-enum rocketReturnCode rocket_update_mult(struct gholder *);
+unsigned int rocket_update(struct gholder *, struct object *);
+unsigned int rocket_update_mult(struct gholder *);
 #endif
 

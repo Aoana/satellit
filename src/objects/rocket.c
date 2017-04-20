@@ -1,6 +1,6 @@
 #include "rocket.h"
 
-enum rocketReturnCode rocket_add(gholder *gh,
+unsigned int rocket_add(gholder *gh,
 	double x, double y, double m, double vx, double vy) {
 
 	struct SDL_Surface *image;
@@ -9,18 +9,43 @@ enum rocketReturnCode rocket_add(gholder *gh,
 	gfx_img = gfx_get_image(gh->imgl,"gfx_ship.png");
 	if (gfx_img == NULL ) {
 		printf("ERR: Unable to get image\n");
-		return ROCKET_ADD_FAILED;
+		return OBJECT_ADD;
 	}
 	image = gfx_img->image;
 
-	if (object_add(gh->rtl, gh->rtl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
+	if (object_add(gh->rtl, gh->rtl->n_objs, image, &rocket_update, x, y, m, vx, vy) != OBJECT_OK) {
 		printf("ERR: Unable to add rocket\n");
-		return ROCKET_ADD_FAILED;
+		return OBJECT_ADD;
 	}
-	return ROCKET_OK;
+	return OBJECT_OK;
 }
 
-enum rocketReturnCode rocket_update_mult(gholder *gh) {
+unsigned int rocket_update(gholder *gh, struct object *rt) {
+
+	if (rt->dead != 0) {
+		return OBJECT_OK;
+	}
+
+	if (position_update(gh->ptl, rt) != POSITION_OK) {
+		if (object_remove(gh->rtl, rt) != OBJECT_OK) {
+			printf("ERR: Failed to remove object, id=%d\n", rt->id);
+		}
+		return OBJECT_OOB;
+	}
+
+	if (collision_planet_mult(gh->ptl, rt) != COLLISION_OK) {
+		/*TODO Free the old picture*/
+		gfx_image *gfx_img;
+		rt->dead = 1;
+		gfx_img = gfx_get_image(gh->imgl, "gfx_broken_ship.png");
+		rt->image = gfx_img->image;
+		return OBJECT_COL;
+	}
+
+	return OBJECT_OK;
+}
+
+unsigned int rocket_update_mult(gholder *gh) {
 	enum objectReturnCode ret;
 	object *obj, *tmp;
 	DL_FOREACH_SAFE(gh->rtl->head, obj, tmp) {
@@ -41,6 +66,6 @@ enum rocketReturnCode rocket_update_mult(gholder *gh) {
 			}
 		}
 	}
-	return ROCKET_OK;
+	return OBJECT_OK;
 }
 
