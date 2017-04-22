@@ -70,7 +70,6 @@ int object_destroy(object *obj) {
 }
 
 enum objectReturnCode object_add(object_list *objl, int id, SDL_Surface *image,
-	enum objectReturnCode (*obj_upd)(struct gholder *, struct object *),
 	double x, double y, double m, double vx, double vy) {
 
 	object *obj;
@@ -79,7 +78,6 @@ enum objectReturnCode object_add(object_list *objl, int id, SDL_Surface *image,
 		printf("WARN: Unable to init object number\n");
 		return OBJECT_ADD;
 	}
-	obj->obj_upd = obj_upd;
 	DL_APPEND(objl->head, obj);
 	objl->n_objs++;
 	return OBJECT_OK;
@@ -116,40 +114,5 @@ enum objectReturnCode object_remove_id(object_list *objl, int id) {
 		}
     }
 	return OBJECT_NFD;
-}
-
-enum objectReturnCode object_update(object_list *objl, object *obj) {
-	if (position_update(objl, obj) != POSITION_OK) {
-		return OBJECT_OOB;
-	}
-	if (collision_planet_mult(objl, obj) != COLLISION_OK) {
-		return OBJECT_COL;
-	}
-	return OBJECT_OK;
-}
-
-enum objectReturnCode object_update_mult(object_list *objl_src,
-	object_list *objl_update, gfx_image_list *imgl) {
-	enum objectReturnCode ret;
-	object *obj, *tmp;
-	DL_FOREACH_SAFE(objl_update->head, obj, tmp) {
-		if (obj->dead != 0) {
-			continue;
-		}
-		if((ret = object_update(objl_src, obj)) != OBJECT_OK) {
-			printf("WARN: Object update failed %s, id=%d\n", object_enum2str(ret), obj->id);
-			if (ret == OBJECT_COL) {
-				gfx_image *gfx_img;
-				obj->dead = 1;
-				gfx_img = gfx_get_image(imgl, "gfx_broken_ship.png");
-				obj->image = gfx_img->image;
-			} else {
-				if (object_remove(objl_update, obj) != OBJECT_OK) {
-					printf("ERR: Failed to remove object, id=%d\n", obj->id);
-				}
-			}
-		}
-	}
-	return OBJECT_OK;
 }
 

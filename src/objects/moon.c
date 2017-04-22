@@ -14,7 +14,7 @@ unsigned int moon_add(gholder *gh,
 	image = gfx_img->image;
 
 	/*TODO: Define an update function for moon*/
-	if (object_add(gh->mnl, gh->mnl->n_objs, image, NULL, x, y, m, vx, vy) != OBJECT_OK) {
+	if (object_add(gh->mnl, gh->mnl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
 		printf("ERR: Unable to add moon\n");
 		return OBJECT_ADD;
 	}
