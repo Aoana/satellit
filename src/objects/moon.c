@@ -18,6 +18,6 @@ unsigned int moon_add(gholder *gh,
 		printf("ERR: Unable to add moon\n");
 		return OBJECT_ADD;
 	}
-	return OBJECT_ADD;
+	return OBJECT_OK;
 }
 

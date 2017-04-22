@@ -113,7 +113,6 @@ gfx_image_list * gfx_init_images() {
 			}
 			DL_APPEND(imgl->head,img);
 			imgl->n_images++;
-			printf ("INFO: Image loaded: %s, name=%s\n", img_path, file->d_name);
 
 			/* Reset img_dir to top */
 			set_image_folder(img_path);

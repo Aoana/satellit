@@ -28,19 +28,19 @@ int main(int argc, char *argv[])
 
 	/* Add rocket */
 	if (rocket_add(gh, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, vx_0, vy_0) != OBJECT_OK) {
-		printf( "Init rocket failed\n");
+		printf( "ERR: Init rocket failed\n");
 		exit(1);
 	}
 
 	/* Add planet 1*/
-	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != PLANET_OK) {
-		printf( "Init planet failed\n");
+	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
+		printf( "ERR: Init planet failed\n");
 		exit(1);
 	}
 
 	/* Add moon */
-	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != MOON_OK) {
-		printf( "Init moon failed\n");
+	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != OBJECT_OK) {
+		printf( "ERR: Init moon failed\n");
 		exit(1);
 	}
 
