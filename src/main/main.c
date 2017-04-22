@@ -48,9 +48,15 @@ int main(int argc, char *argv[])
 	while (1) {
 		getInput();
 
-		/* Update position for all objects */
+		/* Update all rockets */
 		if (rocket_update_mult(gh) != 0) {
 			printf("ERR: Rocket update failed\n");
+			exit(1);
+		}
+
+		/* Update all moons */
+		if (moon_update_mult(gh) != 0) {
+			printf("ERR: Moon update failed\n");
 			exit(1);
 		}
 

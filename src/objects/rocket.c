@@ -13,6 +13,7 @@ unsigned int rocket_add(gholder *gh,
 	}
 	image = gfx_img->image;
 
+	printf("INFO: Adding rocket id=%d\n", gh->rtl->n_objs);
 	if (object_add(gh->rtl, gh->rtl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
 		printf("ERR: Unable to add rocket\n");
 		return OBJECT_ADD;
