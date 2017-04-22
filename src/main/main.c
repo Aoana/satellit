@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 	}
 
 	/* Add moon */
-	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 0, 0) != OBJECT_OK) {
+	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 50, 50) != OBJECT_OK) {
 		printf( "ERR: Init moon failed\n");
 		exit(1);
 	}
