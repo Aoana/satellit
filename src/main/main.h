@@ -4,6 +4,7 @@
 #include "moon.h"
 #include "graphics.h"
 #include "init.h"
+#include "input.h"
 #include "gholder.h"
 
 SDL_Surface *screen;

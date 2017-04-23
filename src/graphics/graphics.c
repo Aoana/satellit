@@ -83,7 +83,6 @@ void gfx_update_screen(gholder * gh) {
 		gfx_draw_image(rt->image, rt->pos->x, rt->pos->y);
 	}
 
-	
 	/* Swap the image buffers */
 	SDL_Flip(screen);
 }

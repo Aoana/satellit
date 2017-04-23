@@ -39,6 +39,9 @@ gholder * gholder_init(void) {
 	gh->ptl = ptl;
 	gh->mnl = mnl;
 	gh->imgl = imgl;
+	gh->vx_0 = 0;
+	gh->vy_0 = 0;
+	gh->state = STATE_INTRO;
 
 	return gh;
 }
