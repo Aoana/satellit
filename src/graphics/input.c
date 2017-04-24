@@ -52,6 +52,9 @@ void input_get_intro(gholder *gh) {
 				break;
 		}
 	}
+	char new_str[128];
+	snprintf(new_str, sizeof(new_str), "Please set start velocity: vx0 %lf vy0 %lf", gh->vx_0, gh->vy_0);
+	gfx_change_texts(gh, "txt_intro", new_str);
 }
 
 void input_get_runtime(gholder *gh) {

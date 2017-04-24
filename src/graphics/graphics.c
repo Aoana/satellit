@@ -72,6 +72,7 @@ void gfx_update_screen(gholder * gh) {
 	object *rt;
 	object *pt;
 	object *mn;
+	gfx_image *txt;
 
 	/* Blank the screen */
 	SDL_FillRect(screen, NULL, 0);
@@ -89,6 +90,11 @@ void gfx_update_screen(gholder * gh) {
 	/* Draw the rockets to x and y */
 	DL_FOREACH(gh->rtl->head, rt) {
 		gfx_draw_image(rt->image, rt->pos->x, rt->pos->y);
+	}
+
+	/* Draw the text to x and y */
+	DL_FOREACH(gh->txtl->head, txt) {
+		gfx_draw_image(txt->image, (double)RES_WIDTH/2, (double)SPACE_H_MIN);
 	}
 
 	/* Swap the image buffers */
@@ -164,6 +170,31 @@ gfx_image_list * gfx_init_texts() {
 
 
 	return txtl;
+}
+
+void gfx_change_texts(gholder *gh, char *id, char *new_txt) {
+
+	TTF_Font* font;
+	SDL_Color tmpfontcolor = {255, 255, 255, 70};
+	char font_path[128];
+	gfx_image *text = gfx_get_image(gh->txtl, "txt_intro");
+
+	TTF_Init();
+
+	set_fonts_folder(font_path);
+	strcat(font_path, "FreeMono.ttf");
+
+	font = TTF_OpenFont(font_path, 20);
+	if (font == NULL) {
+		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
+		exit(1);
+	}
+
+	SDL_FreeSurface(text->image);
+	text->image = TTF_RenderText_Blended(font, new_txt, tmpfontcolor);
+
+	TTF_Quit();
+
 }
 
 gfx_image * gfx_get_image(gfx_image_list *imgl, char *image) {

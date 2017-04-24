@@ -25,6 +25,7 @@ void gfx_draw_image(SDL_Surface *, int, int);
 void gfx_update_screen(struct gholder *);
 gfx_image_list * gfx_init_images(void);
 gfx_image_list * gfx_init_texts(void);
+void gfx_change_texts(struct gholder *, char *, char *);
 gfx_image * gfx_get_image(gfx_image_list *, char *);
 void gfx_destroy_images(gfx_image_list *);
 void gfx_destroy_texts(gfx_image_list *txtl);
