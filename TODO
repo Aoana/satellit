@@ -1,7 +1,6 @@
 = Add intro =
 
-	- Input at start (rocket idle before)
-	- Add intro screen
+	- Add intro screen (count and text)
 
 = Add goal =
 
@@ -50,3 +49,5 @@
 = Add sound =
 
 - Background music
+- Ship crash in planet/moon
+- Ship OOB
