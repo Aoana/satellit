@@ -27,6 +27,8 @@ gfx_image_list * gfx_init_images(void);
 gfx_image_list * gfx_init_texts(void);
 gfx_image * gfx_get_image(gfx_image_list *, char *);
 void gfx_destroy_images(gfx_image_list *);
+void gfx_destroy_texts(gfx_image_list *txtl);
+
 extern SDL_Surface *screen;
 
 #endif

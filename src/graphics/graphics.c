@@ -190,3 +190,15 @@ void gfx_destroy_images(gfx_image_list *imgl) {
 		imgl->n_images--;
 	}
 }
+void gfx_destroy_texts(gfx_image_list *txtl) {
+
+	gfx_image *img,*tmp;
+
+	DL_FOREACH_SAFE(txtl->head,img,tmp) {
+		DL_DELETE(txtl->head,img);
+		gfx_cleanup(img->image);
+		free(img->name);
+		free(img);
+		txtl->n_images--;
+	}
+}
