@@ -16,6 +16,7 @@ typedef struct gholder {
 	struct object_list *ptl;
 	struct object_list *mnl;
 	struct gfx_image_list *imgl;
+	struct gfx_image_list *txtl;
 	double vx_0, vy_0;
 } gholder; 
 

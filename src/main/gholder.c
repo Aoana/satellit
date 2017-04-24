@@ -3,7 +3,7 @@
 gholder * gholder_init(void) {
 
 	object_list *rtl, *ptl, *mnl;
-	gfx_image_list *imgl;
+	gfx_image_list *imgl, *txtl;
 	gholder *gh;
 
 	/* Initialize rocket list */
@@ -34,11 +34,19 @@ gholder * gholder_init(void) {
 		return NULL;
 	}
 
+	/* Initialize Texts */
+	txtl = gfx_init_texts();
+	if (txtl == NULL) {
+		printf("ERR: Could not init texts\n");
+		return NULL;
+	}
+
 	gh = calloc(1,sizeof(gholder));
 	gh->rtl = rtl;
 	gh->ptl = ptl;
 	gh->mnl = mnl;
 	gh->imgl = imgl;
+	gh->txtl = txtl;
 	gh->vx_0 = 0;
 	gh->vy_0 = 0;
 	gh->state = STATE_INTRO;

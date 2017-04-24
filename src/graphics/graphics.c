@@ -12,6 +12,14 @@ void set_image_folder(char *buf) {
 	strcat(buf, img_dir);
 }
 
+void set_fonts_folder(char *buf) {
+
+	char img_dir[32] = "/src/graphics/fonts/";
+
+    strcpy(buf, getenv("DUCKSPOND"));
+	strcat(buf, img_dir);
+}
+
 /*
  * Graphics API
  */
@@ -108,6 +116,7 @@ gfx_image_list * gfx_init_images() {
 			img->image = gfx_load_image(img_path);
 			if (img->image == NULL) {
 				printf("ERR: Could not load image %s\n", img_path);
+				free(imgl);
 				return NULL;
 			}
 			DL_APPEND(imgl->head,img);
@@ -119,10 +128,42 @@ gfx_image_list * gfx_init_images() {
 		closedir (dir);
 	} else {
 		printf("ERR: Could not read images\n");
+		free(imgl);
 		return NULL;
 	}
 
 	return imgl;
+}
+
+gfx_image_list * gfx_init_texts() {
+
+	gfx_image *text = calloc(1, sizeof(gfx_image));
+	gfx_image_list *txtl = calloc(1, sizeof(gfx_image_list));
+	TTF_Font* font;
+  	SDL_Color tmpfontcolor = {255, 255, 255, 70};
+	char font_path[128];
+
+	TTF_Init();
+
+	set_fonts_folder(font_path);
+	strcat(font_path, "FreeMono.ttf");
+
+	printf ("INFO: Loading texts in dir %s\n", font_path);
+	font = TTF_OpenFont(font_path, 20);
+	if (font == NULL) {
+		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
+		exit(1);
+	}
+
+	text->image = TTF_RenderText_Blended(font, "Please set start velocity", tmpfontcolor);
+	text->name = strdup("txt_intro");
+	DL_APPEND(txtl->head, text);
+	txtl->n_images++;
+
+	TTF_Quit();
+
+
+	return txtl;
 }
 
 gfx_image * gfx_get_image(gfx_image_list *imgl, char *image) {
