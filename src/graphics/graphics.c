@@ -155,13 +155,13 @@ gfx_image_list * gfx_init_texts() {
 	strcat(font_path, "FreeMono.ttf");
 
 	printf ("INFO: Loading texts in dir %s\n", font_path);
-	font = TTF_OpenFont(font_path, 20);
+	font = TTF_OpenFont(font_path, 30);
 	if (font == NULL) {
 		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
 		exit(1);
 	}
 
-	text->image = TTF_RenderText_Blended(font, "Please set start velocity", tmpfontcolor);
+	text->image = TTF_RenderText_Blended(font, "Please set start velocity using arrow keys", tmpfontcolor);
 	text->name = strdup("txt_intro");
 	DL_APPEND(txtl->head, text);
 	txtl->n_images++;
@@ -184,7 +184,7 @@ void gfx_change_texts(gholder *gh, char *id, char *new_txt) {
 	set_fonts_folder(font_path);
 	strcat(font_path, "FreeMono.ttf");
 
-	font = TTF_OpenFont(font_path, 20);
+	font = TTF_OpenFont(font_path, 30);
 	if (font == NULL) {
 		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
 		exit(1);

@@ -1,6 +1,6 @@
 = Add intro =
 
-	- Add intro screen (count and text)
+	- Cleanup intro text (remove list and use only one func for set text) 
 
 = Add goal =
 

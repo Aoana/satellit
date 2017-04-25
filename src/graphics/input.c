@@ -27,13 +27,13 @@ void input_get_intro(gholder *gh) {
 						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
-					case SDLK_LEFT:
-						if(gh->vx_0 < 101) {gh->vx_0 = gh->vx_0 - INPUT_INCR;}
+					case SDLK_RIGHT:
+						if(gh->vx_0 < 101) {gh->vx_0 = gh->vx_0 + INPUT_INCR;}
 						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
-					case SDLK_RIGHT:
-						if(gh->vx_0 > -1) {gh->vx_0 = gh->vx_0 + INPUT_INCR;}
+					case SDLK_LEFT:
+						if(gh->vx_0 > 0) {gh->vx_0 = gh->vx_0 - INPUT_INCR;}
 						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
@@ -53,7 +53,7 @@ void input_get_intro(gholder *gh) {
 		}
 	}
 	char new_str[128];
-	snprintf(new_str, sizeof(new_str), "Please set start velocity: vx0 %lf vy0 %lf", gh->vx_0, gh->vy_0);
+	snprintf(new_str, sizeof(new_str), "Please set start velocity using arrow keys vx0 %f vy0 %f", gh->vx_0, gh->vy_0);
 	gfx_change_texts(gh, "txt_intro", new_str);
 }
 
