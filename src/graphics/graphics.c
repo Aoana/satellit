@@ -91,6 +91,10 @@ void gfx_update_screen(gholder * gh) {
 		gfx_draw_image(mn->image, mn->pos->x, mn->pos->y);
 	}
 
+	/* Draw the Home and Goal base */
+	gfx_draw_image(gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y);
+	gfx_draw_image(gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y);
+
 	/* Draw the rockets to x and y */
 	DL_FOREACH(gh->rtl->head, rt) {
 		gfx_draw_image(rt->image, rt->pos->x, rt->pos->y);
