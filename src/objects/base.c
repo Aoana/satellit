@@ -7,7 +7,9 @@ unsigned int base_add(gholder *gh, int type, double x, double y) {
 
 	if (type == 0) {
 		gfx_img = gfx_get_image(gh->imgl,"gfx_home_base.png");
+		printf("INFO: Adding home base, id=%d\n", type);
 	} else if (type == 1) {
+		printf("INFO: Adding goal base, id=%d\n", type);
 		gfx_img = gfx_get_image(gh->imgl,"gfx_goal_base.png");
 	} else {
 		printf("ERR: %s called with wrong type", __func__);

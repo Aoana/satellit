@@ -33,6 +33,18 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	/* Add home base */
+	if (base_add(gh, 0, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5) != OBJECT_OK) {
+		printf("ERR: Init home base failed\n");
+		exit(1);
+	}
+
+	/* Add goal base */
+	if (base_add(gh, 1, SPACE_W_MAX, (SPACE_H_MAX+SPACE_H_MIN)*0.5) != OBJECT_OK) {
+		printf("ERR: Init goal base failed\n");
+		exit(1);
+	}
+
 	printf("INFO: Starting Intro\n");
 	/* Start Intro */
 	while (gh->state == STATE_INTRO) {
