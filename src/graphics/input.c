@@ -20,26 +20,23 @@ void input_get_intro(gholder *gh) {
 				switch (event.key.keysym.sym) {
 					case SDLK_UP:
 						if(gh->vy_0 < 101) {gh->vy_0 = gh->vy_0 + INPUT_INCR;}
-						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
 					case SDLK_DOWN:
 						if(gh->vy_0 > -101) {gh->vy_0 = gh->vy_0 - INPUT_INCR;}
-						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
 					case SDLK_RIGHT:
 						if(gh->vx_0 < 101) {gh->vx_0 = gh->vx_0 + INPUT_INCR;}
-						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
 					case SDLK_LEFT:
 						if(gh->vx_0 > 0) {gh->vx_0 = gh->vx_0 - INPUT_INCR;}
-						printf("DEBUG: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
 					case SDLK_RETURN:
 						gh->state = STATE_RUNTIME;
+						gfx_change_text(gh->txtl, "txt_header", "Bon Voyage!");
 						printf("DEBUG: ENTER PRESSED: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
@@ -59,12 +56,10 @@ void input_get_intro(gholder *gh) {
 		event.key.keysym.sym == SDLK_RIGHT ||
 		event.key.keysym.sym == SDLK_LEFT) {
 
-		snprintf(new_str, sizeof(new_str), "Please set start velocity using arrow keys, press Enter to start, vx0 %f vy0 %f", gh->vx_0, gh->vy_0);
+		snprintf(new_str, sizeof(new_str), "Start Values: vx0 %f vy0 %f, Press Enter to start", gh->vx_0, gh->vy_0);
 		gfx_change_text(gh->txtl, "txt_header", new_str);
 
 	}
-
-
 }
 
 void input_get_runtime(gholder *gh) {
