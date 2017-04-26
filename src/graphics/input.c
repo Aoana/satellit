@@ -3,6 +3,7 @@
 void input_get_intro(gholder *gh) {
 
 	SDL_Event event;
+	char new_str[128];
 
 	/* Loop through waiting messages and process them */
 
@@ -52,9 +53,18 @@ void input_get_intro(gholder *gh) {
 				break;
 		}
 	}
-	char new_str[128];
-	snprintf(new_str, sizeof(new_str), "Please set start velocity using arrow keys vx0 %f vy0 %f", gh->vx_0, gh->vy_0);
-	gfx_change_text(gh->txtl, "txt_header", new_str);
+
+	if (event.key.keysym.sym == SDLK_UP ||
+		event.key.keysym.sym == SDLK_DOWN ||
+		event.key.keysym.sym == SDLK_RIGHT ||
+		event.key.keysym.sym == SDLK_LEFT) {
+
+		snprintf(new_str, sizeof(new_str), "Please set start velocity using arrow keys, press Enter to start, vx0 %f vy0 %f", gh->vx_0, gh->vy_0);
+		gfx_change_text(gh->txtl, "txt_header", new_str);
+
+	}
+
+
 }
 
 void input_get_runtime(gholder *gh) {

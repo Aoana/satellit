@@ -173,6 +173,8 @@ gfx_image_list * gfx_init_texts() {
 	DL_APPEND(txtl->head, text);
 	txtl->n_images++;
 
+	gfx_change_text(txtl, "txt_header", "Please set start velocity using arrow keys, press Enter to start");
+
 	return txtl;
 }
 
