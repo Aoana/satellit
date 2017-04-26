@@ -54,7 +54,7 @@ void input_get_intro(gholder *gh) {
 	}
 	char new_str[128];
 	snprintf(new_str, sizeof(new_str), "Please set start velocity using arrow keys vx0 %f vy0 %f", gh->vx_0, gh->vy_0);
-	gfx_change_texts(gh, "txt_intro", new_str);
+	gfx_change_text(gh->txtl, "txt_header", new_str);
 }
 
 void input_get_runtime(gholder *gh) {

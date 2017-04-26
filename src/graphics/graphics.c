@@ -55,6 +55,10 @@ SDL_Surface *gfx_load_image(char *name) {
 
 void gfx_draw_image(SDL_Surface *image, int x, int y) {
 
+	if(image == NULL) {
+		return;
+	}
+
 	SDL_Rect dest;
 	
 	/* Set the blitting rectangle to the size of the src image */
@@ -103,6 +107,8 @@ void gfx_update_screen(gholder * gh) {
 
 gfx_image_list * gfx_init_images() {
 
+	/*printf("DEBUG: Enter %s\n", __func__);*/
+
 	gfx_image *img;
 	DIR *dir;
 	struct dirent *file;
@@ -143,61 +149,56 @@ gfx_image_list * gfx_init_images() {
 
 gfx_image_list * gfx_init_texts() {
 
-	gfx_image *text = calloc(1, sizeof(gfx_image));
-	gfx_image_list *txtl = calloc(1, sizeof(gfx_image_list));
-	TTF_Font* font;
-  	SDL_Color tmpfontcolor = {255, 255, 255, 70};
-	char font_path[128];
+	/*printf("DEBUG: Enter %s\n", __func__);*/
 
-	TTF_Init();
+	gfx_image_list *txtl = calloc(1, sizeof(gfx_image_list));
+	char font_path[128];
 
 	set_fonts_folder(font_path);
 	strcat(font_path, "FreeMono.ttf");
+	printf ("INFO: Loading fonts in dir %s\n", font_path);
 
-	printf ("INFO: Loading texts in dir %s\n", font_path);
-	font = TTF_OpenFont(font_path, 30);
-	if (font == NULL) {
+	TTF_Init();
+	gfx_image *text = calloc(1, sizeof(gfx_image));
+	text->font = TTF_OpenFont(font_path, 30);
+	if (text->font == NULL) {
 		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
 		exit(1);
 	}
-
-	text->image = TTF_RenderText_Blended(font, "Please set start velocity using arrow keys", tmpfontcolor);
-	text->name = strdup("txt_intro");
+	text->fontcolor.r = 255;
+	text->fontcolor.b = 255;
+	text->fontcolor.g = 255;
+	text->image = NULL;
+	text->name = strdup("txt_header");
 	DL_APPEND(txtl->head, text);
 	txtl->n_images++;
-
-	TTF_Quit();
-
 
 	return txtl;
 }
 
-void gfx_change_texts(gholder *gh, char *id, char *new_txt) {
+void gfx_change_text(gfx_image_list *txtl, char *id, char *new_txt) {
 
-	TTF_Font* font;
-	SDL_Color tmpfontcolor = {255, 255, 255, 70};
-	char font_path[128];
-	gfx_image *text = gfx_get_image(gh->txtl, "txt_intro");
+	/*printf("DEBUG: Enter %s\n", __func__);*/
 
-	TTF_Init();
-
-	set_fonts_folder(font_path);
-	strcat(font_path, "FreeMono.ttf");
-
-	font = TTF_OpenFont(font_path, 30);
-	if (font == NULL) {
-		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
+	gfx_image *text = gfx_get_image(txtl, id);
+	if(text == NULL) {
+		printf("ERR: Unable to get image %s\n", id);
 		exit(1);
 	}
-
-	SDL_FreeSurface(text->image);
-	text->image = TTF_RenderText_Blended(font, new_txt, tmpfontcolor);
-
-	TTF_Quit();
+	if(text->image != NULL) {
+		SDL_FreeSurface(text->image);
+	}
+	text->image = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
+	if(text->image == NULL) {
+		printf("ERR: Unable to change text to %s, %s %s\n", new_txt, id, TTF_GetError());
+		exit(1);
+	}
 
 }
 
 gfx_image * gfx_get_image(gfx_image_list *imgl, char *image) {
+
+	/*printf("DEBUG: Enter %s\n", __func__);*/
 
 	gfx_image *img;
 
@@ -211,6 +212,8 @@ gfx_image * gfx_get_image(gfx_image_list *imgl, char *image) {
 
 void gfx_destroy_images(gfx_image_list *imgl) {
 
+	/*printf("DEBUG: Enter %s\n", __func__);*/
+
 	gfx_image *img,*tmp;
 
 	DL_FOREACH_SAFE(imgl->head,img,tmp) {
@@ -223,6 +226,8 @@ void gfx_destroy_images(gfx_image_list *imgl) {
 }
 void gfx_destroy_texts(gfx_image_list *txtl) {
 
+	/*printf("DEBUG: Enter %s\n", __func__);*/
+
 	gfx_image *img,*tmp;
 
 	DL_FOREACH_SAFE(txtl->head,img,tmp) {
@@ -232,4 +237,5 @@ void gfx_destroy_texts(gfx_image_list *txtl) {
 		free(img);
 		txtl->n_images--;
 	}
+	TTF_Quit();
 }

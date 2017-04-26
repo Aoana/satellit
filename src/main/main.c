@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	}
 
 	/* Countdown */
-	sleep(3);
+	sleep(1);
 
 	printf("INFO: Starting Runtime\n");
 	/* Start game */
