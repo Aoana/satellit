@@ -1,7 +1,3 @@
-= Add intro =
-
-	- Cleanup intro text (remove list and use only one func for set text) 
-
 = Add goal =
 
 	- Add goal base
@@ -18,8 +14,6 @@
 
 = Background =
 
-	- Add home base
-	- Add goal base
 	- Add rectangle
 	- Add background picture as default sdl drawing (no object)
 

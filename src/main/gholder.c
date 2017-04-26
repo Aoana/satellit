@@ -45,6 +45,8 @@ gholder * gholder_init(void) {
 	gh->rtl = rtl;
 	gh->ptl = ptl;
 	gh->mnl = mnl;
+	gh->hbase = NULL;
+	gh->gbase = NULL;
 	gh->imgl = imgl;
 	gh->txtl = txtl;
 	gh->vx_0 = 0;
