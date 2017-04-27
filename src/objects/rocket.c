@@ -34,12 +34,17 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 		return OBJECT_OOB;
 	}
 
-	if (collision_planet_mult(gh->ptl, rt) != COLLISION_OK) {
-		/*TODO Free the old picture*/
-		gfx_image *gfx_img;
+	/* Check collision for all planets */
+	if (collision_object_mult(gh->ptl, rt) != COLLISION_OK) {
 		rt->dead = 1;
-		gfx_img = gfx_get_image(gh->imgl, "gfx_broken_ship.png");
-		rt->image = gfx_img->image;
+		rt->image = (gfx_get_image(gh->imgl, "gfx_broken_ship.png"))->image;
+		return OBJECT_COL;
+	}
+
+	/* Check collision for goal */
+	if (collision_object(gh->gbase, rt) != COLLISION_OK) {
+		rt->dead = 1;
+		rt->image = (gfx_get_image(gh->imgl, "gfx_ship_landed.png"))->image;
 		return OBJECT_COL;
 	}
 

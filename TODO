@@ -1,11 +1,9 @@
-= Cleanup =
-
-	- Move gfx_update_screen to somewhere else.
-
 = Add goal =
 
 	- Add goal condition (collision with gbase)
 	- Add goal screen
+
+= Introduce gravbounce script = 
 
 = Documentation = 
 

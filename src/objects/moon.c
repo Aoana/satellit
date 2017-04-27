@@ -34,7 +34,7 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 		return OBJECT_OOB;
 	}
 
-	if (collision_planet_mult(gh->ptl, mn) != COLLISION_OK) {
+	if (collision_object_mult(gh->ptl, mn) != COLLISION_OK) {
 		gfx_image *gfx_img;
 		mn->dead = 1;
 		gfx_img = gfx_get_image(gh->imgl, "gfx_moon_crash.png");
