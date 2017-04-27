@@ -37,7 +37,6 @@ void input_get_intro(gholder *gh) {
 					case SDLK_RETURN:
 						gh->state = STATE_RUNTIME;
 						gfx_change_text(gh->txtl, "txt_header", "Bon Voyage!");
-						printf("DEBUG: ENTER PRESSED: vx_0,vy_0 = %lf,%lf\n",gh->vx_0,gh->vy_0);
 						break;
 
 					case SDLK_ESCAPE:

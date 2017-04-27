@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	printf("INFO: Starting Intro\n");
+	printf("INFO: Intro Started\n");
 	/* Start Intro */
 	while (gh->state == STATE_INTRO) {
 		/* Get input (and check shutdown signals) */
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
 	}
-	printf("INFO: Done Intro\n");
+	printf("INFO: Intro Done [%lf,%lf]\n", gh->vx_0, gh->vy_0);
 
 	/* Add rocket */
 	if (rocket_add(gh, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, gh->vx_0, gh->vy_0) != OBJECT_OK) {
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 	/* Countdown */
 	sleep(1);
 
-	printf("INFO: Starting Runtime\n");
+	printf("INFO: Runtime Started\n");
 	/* Start game */
 	while (gh->state == STATE_RUNTIME) {
 		/* Get shutdown signals */
@@ -86,7 +86,23 @@ int main(int argc, char *argv[])
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
 	}
-	printf("INFO: Done Runtime\n");
+	printf("INFO: Runtime Done\n");
+
+	if (gh->state == STATE_GAMEOVER) {
+		gfx_change_text(gh->txtl, "txt_header", "GAME OVER!");
+	} else if (gh->state == STATE_VICTORY) {
+		gfx_change_text(gh->txtl, "txt_header", "YOU WON!");
+	}
+	gholder_update_screen(gh);
+
+	printf("INFO: Finish Started\n");
+	while (gh->state != STATE_SHUTDOWN) {
+		/* Get shutdown signals */
+		input_get_runtime(gh);
+		/* Sleep briefly to stop sucking up all the CPU time */
+		SDL_Delay(UPDATE_FREQ);
+	}
+	printf("INFO: Finish Done\n");
 	
 	/* Exit the program and cleanup */
 	gholder_destroy(gh);

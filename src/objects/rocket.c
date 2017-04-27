@@ -38,6 +38,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	if (collision_object_mult(gh->ptl, rt) != COLLISION_OK) {
 		rt->dead = 1;
 		rt->image = (gfx_get_image(gh->imgl, "gfx_ship_broken.png"))->image;
+		gh->state = STATE_GAMEOVER;
 		return OBJECT_COL;
 	}
 
@@ -45,6 +46,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	if (collision_object(gh->gbase, rt) != COLLISION_OK) {
 		rt->dead = 1;
 		rt->image = (gfx_get_image(gh->imgl, "gfx_ship_landed.png"))->image;
+		gh->state = STATE_VICTORY;
 		return OBJECT_COL;
 	}
 
