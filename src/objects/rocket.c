@@ -31,6 +31,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 		if (object_remove(gh->rtl, rt) != OBJECT_OK) {
 			printf("ERR: Failed to remove object, id=%d\n", rt->id);
 		}
+		gh->state = STATE_GAMEOVER;
 		return OBJECT_OOB;
 	}
 
