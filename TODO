@@ -1,7 +1,3 @@
-= Add goal =
-
-	- Add goal screen
-
 = Introduce gravbounce script = 
 
 = Documentation = 
@@ -9,6 +5,10 @@
 Add doxygen to all functions
 
 = Create map structure =
+
+= Introduce state functions for game =
+
+= Add arrow for intro phase =
 
 = Stable rotation for moon =
 
