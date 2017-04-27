@@ -79,17 +79,11 @@ object * object_init(int id, SDL_Surface *image,
 
 /**
  * @brief Object destruction
- * @param param1 Unique ID
- * @param param2 Pointer to image of object
- * @param param3 X position
- * @param param4 Y position
- * @param param5 Mass
- * @param param6 X velocity
- * @param param7 Y velocity
- * @return pointer to object if passed, NULL if failed
+ * @param param1 Pointer to object
+ * @return zero of passed, non-zero if failed
  * @see object_destroy
  *
- * Initialize an object.
+ * Destroy an object.
  */
 int object_destroy(object *obj) {
 	position_destroy(obj->pos);

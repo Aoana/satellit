@@ -24,5 +24,6 @@ typedef struct gholder {
 
 gholder * gholder_init(void);
 int gholder_destroy(gholder *);
+void gholder_update_screen(gholder * gh);
 #endif
 

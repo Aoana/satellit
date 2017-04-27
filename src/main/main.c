@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		/* Get input (and check shutdown signals) */
 		input_get_intro(gh);
 		/* Print screen */
-		gfx_update_screen(gh);
+		gholder_update_screen(gh);
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
 	}
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 		/* Print screen */
-		gfx_update_screen(gh);
+		gholder_update_screen(gh);
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
 	}

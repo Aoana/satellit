@@ -24,7 +24,6 @@ typedef struct gfx_image_list {
 
 SDL_Surface *gfx_load_image(char *);
 void gfx_draw_image(SDL_Surface *, int, int);
-void gfx_update_screen(struct gholder *);
 gfx_image_list * gfx_init_images(void);
 gfx_image_list * gfx_init_texts(void);
 void gfx_change_text(gfx_image_list *, char *, char *);
