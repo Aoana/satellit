@@ -6,7 +6,7 @@ unsigned int moon_add(gholder *gh,
 	struct SDL_Surface *image;
 	gfx_image *gfx_img;
 
-	gfx_img = gfx_get_image(gh->imgl,"gfx_moon.png");
+	gfx_img = gfx_get_image(gh->imgl,"gfx_moon_moving.png");
 	if (gfx_img == NULL ) {
 		printf("ERR: Unable to get image\n");
 		return OBJECT_ADD;
@@ -35,10 +35,8 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 	}
 
 	if (collision_object_mult(gh->ptl, mn) != COLLISION_OK) {
-		gfx_image *gfx_img;
 		mn->dead = 1;
-		gfx_img = gfx_get_image(gh->imgl, "gfx_moon_crash.png");
-		mn->image = gfx_img->image;
+		mn->image = (gfx_get_image(gh->imgl, "gfx_moon_crash.png"))->image;
 		return OBJECT_COL;
 	}
 
