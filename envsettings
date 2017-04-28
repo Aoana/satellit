@@ -1,3 +1,4 @@
 export WORKSPACE=/home/$USER/duckspond-workspace
 export DUCKSPOND=/home/$USER/duckspond
 mkdir -p $WORKSPACE
+mkdir -p $WORKSPACE/doc
