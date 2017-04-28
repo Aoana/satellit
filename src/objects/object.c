@@ -12,14 +12,6 @@ const char* object_enum2str(enum objectReturnCode ret) {
 	}
 }
 
-/**
- * @brief Object list initialization.
- * @param void
- * @return Pointer to object list, NULL if failed
- * @see object_list_destroy
- *
- * Initialize and allocate object list.
- */
 object_list * object_list_init() {
 	object_list *objl;
 	objl = calloc(1, sizeof(object_list));
@@ -28,33 +20,11 @@ object_list * object_list_init() {
 	return objl;
 }
 
-/**
- * @brief Object list desctruction.
- * @param Pointer to object list
- * @return 0 if passed
- * @see object_list_init
- *
- * Free object list.
- */
 int object_list_destroy(object_list *objl) {
 	free(objl);
 	return 0;
 }
 
-/**
- * @brief Object initialization.
- * @param param1 Unique ID
- * @param param2 Pointer to image of object
- * @param param3 X position
- * @param param4 Y position
- * @param param5 Mass
- * @param param6 X velocity
- * @param param7 Y velocity
- * @return pointer to object if passed, NULL if failed
- * @see object_destroy
- *
- * Initialize an object.
- */
 object * object_init(int id, SDL_Surface *image,
 	double x, double y, double m, double vx, double vy) {
 	object *obj;
@@ -77,14 +47,6 @@ object * object_init(int id, SDL_Surface *image,
 	return obj;
 }
 
-/**
- * @brief Object destruction
- * @param param1 Pointer to object
- * @return zero of passed, non-zero if failed
- * @see object_destroy
- *
- * Destroy an object.
- */
 int object_destroy(object *obj) {
 	position_destroy(obj->pos);
 	free(obj);
