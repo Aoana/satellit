@@ -1,9 +1,6 @@
 /**
- * @file object.h
- * @author Anders Markendahl
- * @date 2017-04-28
- * @brief Header file for the object handling functions.
- *
+ * @file
+ * @brief Description of the object API
  */
 
 #ifndef OBJECT_H
@@ -47,22 +44,20 @@ struct gfx_image_list;
 const char* object_enum2str(enum objectReturnCode);
 
 /**
- * @brief Object list initialization.
+ * @brief Object list initialization and allocation.
  * @param void
  * @return Pointer to object list, NULL if failed
  * @see object_list_destroy
  *
- * Initialize and allocate object list.
  */
 object_list * object_list_init(void);
 
 /**
- * @brief Object list desctruction.
+ * @brief Object list destruction and free.
  * @param Pointer to object list
  * @return 0 if passed
  * @see object_list_init
  *
- * Free object list.
  */
 int object_list_destroy(object_list*);
 
@@ -78,7 +73,6 @@ int object_list_destroy(object_list*);
  * @return pointer to object if passed, NULL if failed
  * @see object_destroy
  *
- * Initialize an object.
  */
 object * object_init(int, SDL_Surface *,
 	double, double, double, double, double);
@@ -89,7 +83,6 @@ object * object_init(int, SDL_Surface *,
  * @return zero of passed, non-zero if failed
  * @see object_destroy
  *
- * Destroy an object.
  */
 int object_destroy(object *);
 
