@@ -81,7 +81,7 @@ object * object_init(int, SDL_Surface *,
  * @brief Object destruction
  * @param param1 Pointer to object
  * @return zero of passed, non-zero if failed
- * @see object_destroy
+ * @see object_init
  *
  */
 int object_destroy(object *);
