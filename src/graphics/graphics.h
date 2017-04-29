@@ -5,7 +5,7 @@
 #include "rocket.h"
 #include "planet.h"
 
-#define UPDATE_FREQ 25
+#define UPDATE_FREQ 25 /**< Update frequency for the game. */
 
 struct gholder;
 
