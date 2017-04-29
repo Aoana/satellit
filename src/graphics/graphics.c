@@ -1,9 +1,5 @@
 #include "graphics.h"
 
-/*
- * Helper functions
- */
-
 void set_image_folder(char *buf) {
 
 	char img_dir[32] = "/src/graphics/images/";
@@ -19,10 +15,6 @@ void set_fonts_folder(char *buf) {
     strcpy(buf, getenv("DUCKSPOND"));
 	strcat(buf, img_dir);
 }
-
-/*
- * Graphics API
- */
 
 SDL_Surface *gfx_load_image(char *name) {
 
