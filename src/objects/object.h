@@ -8,7 +8,6 @@
 #include "common.h"
 #include "position.h"
 #include "graphics.h"
-#include "init.h"
 #include "collision.h"
 
 /**

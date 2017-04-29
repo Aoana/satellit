@@ -35,6 +35,22 @@ typedef struct gfx_image_list {
 } gfx_image_list;
 
 /**
+ * @brief Initalize video and set screen.
+ * @param title Title of the video screen.
+ * @param width Width of screen.
+ * @param height Height of screen.
+ *
+ */
+void gfx_init(char *title, int width, int height);
+
+/**
+ * @brief Cleanup video.
+ * @param surface Pointer to image surface to be freed.
+ *
+ */
+void gfx_cleanup(SDL_Surface *surface);
+
+/**
  * @brief Removal of an object including removal from list.
  * @param name Full path to image.
  * @return Pointer to image if passed, NULL if failed.

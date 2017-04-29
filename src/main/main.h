@@ -9,7 +9,6 @@
 #include "moon.h"
 #include "base.h"
 #include "graphics.h"
-#include "init.h"
 #include "input.h"
 #include "gholder.h"
 
