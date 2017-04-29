@@ -9,17 +9,24 @@
 
 struct gholder;
 
+/**
+ * @brief Structure for an image (text or bitmap).
+ */
 typedef struct gfx_image {
-	char *name;
-	SDL_Surface *image;	
-	TTF_Font* font;
-	SDL_Color fontcolor;
-	struct gfx_image *next, *prev;
+	char *name;				/**< Name of image. */
+	SDL_Surface *image;		/**< Pointer to actual image. */
+	TTF_Font* font;			/**< Optional: Font used if image is text. */
+	SDL_Color fontcolor;	/**< Optional: Font color used if image is text. */
+	struct gfx_image *next;	/**< List pointer to next object. */
+	struct gfx_image *prev; /**< List pointer to previous object. */
 } gfx_image;
 
+/**
+ * @brief Structure for an image list.
+ */
 typedef struct gfx_image_list {
-	int n_images;
-	struct gfx_image *head;	
+	int n_images;			/**< Number of images in list */
+	struct gfx_image *head;	/**< Pointer to head of list */	
 } gfx_image_list;
 
 SDL_Surface *gfx_load_image(char *);
