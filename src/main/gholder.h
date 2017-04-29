@@ -1,9 +1,17 @@
+/**
+ * @file
+ * @brief Description of the global holder and functions
+ */
+
 #ifndef GHOLDER_H
 #define GHOLDER_H
 #include "common.h"
 #include "object.h"
 #include "graphics.h"
 
+/**
+ * @brief State of a game.
+ */
 enum gstate {
 	STATE_INTRO = 0,	/**< Game is at welcome screen and where input is gathered. */
 	STATE_RUNTIME,		/**< Game is running. */
@@ -28,8 +36,27 @@ typedef struct gholder {
 	double vy_0;				/**< Initial Y velocity for rocket. */
 } gholder; 
 
+/**
+ * @brief Allocate and initialize the global holder.
+ * @return Pointer to global holder, NULL if failed.
+ *
+ */
 gholder * gholder_init(void);
-int gholder_destroy(gholder *);
-void gholder_update_screen(gholder * gh);
+
+/**
+ * @brief Remove and free global holder.
+ * @param gh Pointer to global holder.
+ * @return 0 if passed, non-zero if failed.
+ *
+ */
+int gholder_destroy(gholder *gh);
+
+/**
+ * @brief Update the screen of the game.
+ * @param gh Pointer to global holder.
+ *
+ */
+void gholder_update_screen(gholder *gh);
+
 #endif
 
