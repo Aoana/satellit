@@ -43,7 +43,7 @@ echo "$1" | grep -qi "^help\|-h" && help
 test -n "$WORKSPACE" || die 'Not set [$WORKSPACE]'
 test -n "$DUCKSPOND" || die 'Not set [$DUCKSPOND]'
 
-##   build
+##   build [--clean]
 ##     Compiles gravbounce
 ##
 cmd_build() {
@@ -66,10 +66,10 @@ cmd_start() {
 
 }
 
-##   documentation
+##   generate_doc
 ##     Generate source documentation
 ##
-cmd_documentation() {
+cmd_generate_doc() {
 
 	doxygen $DUCKSPOND/doc/doc.conf
 
