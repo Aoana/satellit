@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic -Werror -g
 LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_ttf -lm
-PROG = duckspond
+PROG = gravbounce
 PROG_TARGET = $(addprefix $(WORKSPACE)/, $(PROG))
 CXX = gcc
 MD := mkdir
