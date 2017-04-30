@@ -66,6 +66,15 @@ cmd_start() {
 
 }
 
+##   documentation
+##     Generate source documentation
+##
+cmd_documentation() {
+
+	doxygen $DUCKSPOND/doc/doc.conf
+
+}
+
 # Get the command
 cmd=$1
 shift
