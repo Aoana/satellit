@@ -1,17 +1,17 @@
 CFLAGS = -Wall -pedantic -Werror -g
 LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_ttf -lm
 PROG = gravbounce
-PROG_TARGET = $(addprefix $(WORKSPACE)/, $(PROG))
+PROG_TARGET = $(addprefix $(GB_WS)/, $(PROG))
 CXX = gcc
 MD := mkdir
 SOURCEDIR = src
 
 DIRS = generic graphics logic objects main
-TDIRS = $(foreach dir, $(DIRS), $(addprefix $(WORKSPACE)/, $(dir)))
+TDIRS = $(foreach dir, $(DIRS), $(addprefix $(GB_WS)/, $(dir)))
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
 INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
 SOURCES = $(foreach dir,$(SOURCEDIRS),$(wildcard $(dir)/*.c))
-OBJS = $(subst $(SOURCEDIR), $(WORKSPACE), $(SOURCES:.c=.o))
+OBJS = $(subst $(SOURCEDIR), $(GB_WS), $(SOURCES:.c=.o))
 	
 # top-level rule to create the program.
 all: $(TDIRS) $(PROG)
@@ -20,7 +20,7 @@ $(TDIRS):
 	$(MD) -p $(TDIRS)
 
 # Compiling 
-$(OBJS): $(WORKSPACE)/%.o: $(SOURCEDIR)/%.c
+$(OBJS): $(GB_WS)/%.o: $(SOURCEDIR)/%.c
 	$(CXX) -c $(INCLUDES) $(CFLAGS) $< -o $@
 
 # Linking the program.

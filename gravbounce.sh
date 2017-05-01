@@ -40,7 +40,7 @@ help() {
 test -n "$1" || help
 echo "$1" | grep -qi "^help\|-h" && help
 
-test -n "$WORKSPACE" || die 'Not set [$WORKSPACE]'
+test -n "$GB_WS" || die 'Not set [$GB_WS]'
 test -n "$DUCKSPOND" || die 'Not set [$DUCKSPOND]'
 
 ##   build [--clean]
@@ -60,7 +60,7 @@ cmd_build() {
 ##
 cmd_start() {
 
-	gravbounce=$WORKSPACE/gravbounce
+	gravbounce=$GB_WS/gravbounce
 	test -x "$gravbounce" || die 'No executable $gravbounce'
 	$gravbounce
 
