@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	if (getenv("DUCKSPOND") == NULL) {
-		printf( "DUCKSPOND not set, source envsetting\n");
+	if (getenv("GB_GIT") == NULL) {
+		printf( "GB_GIT not set, source envsetting\n");
 		exit(0);
 	}
 	

@@ -1,5 +1,7 @@
-export GB_WS=/home/$USER/duckspond-workspace
-export DUCKSPOND=/home/$USER/duckspond
+pwd=`pwd`
+
+export GB_GIT=$pwd
+export GB_WS=$pwd/../duckspond-workspace
 mkdir -p $GB_WS
 mkdir -p $GB_WS/doc
-alias gravbounce='$DUCKSPOND/gravbounce.sh'
+alias gravbounce='$GB_GIT/gravbounce.sh'

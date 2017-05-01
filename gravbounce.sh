@@ -41,14 +41,14 @@ test -n "$1" || help
 echo "$1" | grep -qi "^help\|-h" && help
 
 test -n "$GB_WS" || die 'Not set [$GB_WS]'
-test -n "$DUCKSPOND" || die 'Not set [$DUCKSPOND]'
+test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 
 ##   build [--clean]
 ##     Compiles gravbounce
 ##
 cmd_build() {
 
-	cd $DUCKSPOND
+	cd $GB_GIT
     if test "$__clean" = "yes"; then
 		make clean
     fi
@@ -71,7 +71,7 @@ cmd_start() {
 ##
 cmd_generate_doc() {
 
-	doxygen $DUCKSPOND/doc/doc.conf
+	doxygen $GB_GIT/doc/doc.conf
 
 }
 

@@ -4,7 +4,7 @@ void set_image_folder(char *buf) {
 
 	char img_dir[32] = "/src/graphics/images/";
 
-    strcpy(buf, getenv("DUCKSPOND"));
+    strcpy(buf, getenv("GB_GIT"));
 	strcat(buf, img_dir);
 }
 
@@ -12,7 +12,7 @@ void set_fonts_folder(char *buf) {
 
 	char img_dir[32] = "/src/graphics/fonts/";
 
-    strcpy(buf, getenv("DUCKSPOND"));
+    strcpy(buf, getenv("GB_GIT"));
 	strcat(buf, img_dir);
 }
 
