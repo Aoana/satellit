@@ -1,3 +1,2 @@
 source envsettings
-make
-../duckspond-workspace/duckspond
+gravbounce # Shows helptext
