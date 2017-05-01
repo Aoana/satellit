@@ -2,21 +2,23 @@
 ##
 ## gravbounce.sh --
 ##
-##   Script for the gravbounce game.
+##  Script for the gravbounce game.
 ##
-##   Preparation;
+##  Preparation;
 ##
-##     # Install the following packages
-##     sudo apt-get install ...
+##      # Install the following packages
+##      sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev \
+##      libsdl-ttf2.0-dev doxygen
 ##
-##   Build Gravbounce;
 ##
-##     gravbounce build
+##  Build Gravbounce;
 ##
-##   Start and stop Gravbounce;
+##      gravbounce build
 ##
-##     gravbounce start
-##     gravbounce stop
+##  Start and stop Gravbounce;
+##
+##      gravbounce start
+##      gravbounce stop
 ##
 ## Commands;
 ##
