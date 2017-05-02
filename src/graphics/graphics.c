@@ -16,30 +16,43 @@ void set_fonts_folder(char *buf) {
 	strcat(buf, img_dir);
 }
 
-void gfx_init(char *title, int width, int height) {
+SDL_Surface *gfx_init_screen(char *title, int width, int height) {
+
+	SDL_Surface *screen;
 
 	/* Initialise SDL Video */
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("Could not initialize SDL: %s\n", SDL_GetError());
-		exit(1);
+		return NULL;
 	}
 
 	screen = SDL_SetVideoMode(width, height, 0, SDL_HWPALETTE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
 
 	if (screen == NULL) {
 		printf("Couldn't set screen mode to %d x %d: %s\n", width, height, SDL_GetError());
-		exit(1);
+		return NULL;
+	}
+
+	/* Initialise text management */
+	if(TTF_Init() != 0) {
+		printf("ERR: TTF_Init: %s\n", TTF_GetError());
+		return NULL;
 	}
 
 	/* Set the screen title */
 	SDL_WM_SetCaption(title, NULL);
+
+	return screen;
 }
 
-void gfx_cleanup(SDL_Surface *surface) {
+void gfx_destroy_screen(SDL_Surface *screen) {
+
+	/* Shut dow text management */
+	TTF_Quit();
 
 	/* Free the image */
-	if (surface != NULL) {
-		SDL_FreeSurface(surface);
+	if (screen != NULL) {
+		SDL_FreeSurface(screen);
 	}
 
 	/* Shut down SDL */
@@ -75,7 +88,7 @@ SDL_Surface *gfx_load_image(char *name) {
 }
 
 
-void gfx_draw_image(SDL_Surface *image, int x, int y) {
+void gfx_draw_image(SDL_Surface *screen, SDL_Surface *image, int x, int y) {
 
 	if(image == NULL) {
 		return;
@@ -146,7 +159,6 @@ gfx_image_list * gfx_init_texts() {
 	strcat(font_path, "FreeMono.ttf");
 	printf ("INFO: Loading fonts in dir %s\n", font_path);
 
-	TTF_Init();
 	gfx_image *text = calloc(1, sizeof(gfx_image));
 	text->font = TTF_OpenFont(font_path, 30);
 	if (text->font == NULL) {
@@ -208,7 +220,7 @@ void gfx_destroy_images(gfx_image_list *imgl) {
 
 	DL_FOREACH_SAFE(imgl->head,img,tmp) {
 		DL_DELETE(imgl->head,img);
-		gfx_cleanup(img->image);
+		SDL_FreeSurface(img->image);
 		free(img->name);
 		free(img);
 		imgl->n_images--;
@@ -222,10 +234,9 @@ void gfx_destroy_texts(gfx_image_list *txtl) {
 
 	DL_FOREACH_SAFE(txtl->head,img,tmp) {
 		DL_DELETE(txtl->head,img);
-		gfx_cleanup(img->image);
+		SDL_FreeSurface(img->image);
 		free(img->name);
 		free(img);
 		txtl->n_images--;
 	}
-	TTF_Quit();
 }

@@ -12,4 +12,3 @@
 #include "input.h"
 #include "gholder.h"
 
-SDL_Surface *screen;	/**< Global screen used by program */

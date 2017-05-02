@@ -35,20 +35,20 @@ typedef struct gfx_image_list {
 } gfx_image_list;
 
 /**
- * @brief Initalize video and set screen.
+ * @brief Initalize video and set screen, also init ttf.
  * @param title Title of the video screen.
  * @param width Width of screen.
  * @param height Height of screen.
- *
+ * @return Pointer to initalized screen, NULL if failed
  */
-void gfx_init(char *title, int width, int height);
+SDL_Surface *gfx_init_screen(char *title, int width, int height);
 
 /**
- * @brief Cleanup video.
- * @param surface Pointer to image surface to be freed.
+ * @brief Destroy video and screen, also shutdown ttf.
+ * @param screen Pointer to screen to be destroyed.
  *
  */
-void gfx_cleanup(SDL_Surface *surface);
+void gfx_destroy_screen(SDL_Surface *screen);
 
 /**
  * @brief Removal of an object including removal from list.
@@ -60,12 +60,13 @@ SDL_Surface *gfx_load_image(char *name);
 
 /**
  * @brief Draw image to screen according to coordinates.
+ * @param screen Pointer to screen to draw on.
  * @param image Pointer to image.
  * @param x Coordinate X.
  * @param y Coordinate Y.
  *
  */
-void gfx_draw_image(SDL_Surface *image, int x, int y);
+void gfx_draw_image(SDL_Surface* screen, SDL_Surface *image, int x, int y);
 
 /**
  * @brief Initialize all images as a image list.
@@ -112,7 +113,5 @@ void gfx_destroy_images(gfx_image_list *imgl);
  *
  */
 void gfx_destroy_texts(gfx_image_list *txtl);
-
-extern SDL_Surface *screen;
 
 #endif

@@ -15,11 +15,29 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 	
-	/* Start up SDL */
-	gfx_init("A Pond of Ducks", RES_WIDTH, RES_HEIGHT);
-	
 	/* Initialize the global holder */
 	gh = gholder_init();
+
+	/* Start up SDL */
+	gh->screen = gfx_init_screen("GravBounce", RES_WIDTH, RES_HEIGHT);
+	if (gh->screen == NULL) {
+		printf("ERR: Could not init screen\n");
+		exit(1);
+	}
+
+	/* Initialize images */
+	gh->imgl = gfx_init_images();
+	if (gh->imgl == NULL) {
+		printf("ERR: Could not init one or more images\n");
+		exit(1);
+	}
+
+	/* Initialize Texts */
+	gh->txtl = gfx_init_texts();
+	if (gh->txtl == NULL) {
+		printf("ERR: Could not init texts\n");
+		exit(1);
+	}
 
 	/* Add planet 1*/
 	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
