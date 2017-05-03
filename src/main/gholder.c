@@ -44,7 +44,7 @@ int gholder_destroy(gholder *gh) {
 	object_remove_mult(gh->mnl);
 	object_list_destroy(gh->mnl);
 	gfx_destroy_images(gh->imgl);
-	gfx_destroy_texts(gh->txtl);
+	gfx_destroy_text(gh->header);
 
 	return 0;
 
@@ -55,7 +55,6 @@ void gholder_update_screen(gholder * gh) {
 	object *rt;
 	object *pt;
 	object *mn;
-	gfx_image *txt;
 
 	/* Blank the screen */
 	SDL_FillRect(gh->screen, NULL, 0);
@@ -79,10 +78,8 @@ void gholder_update_screen(gholder * gh) {
 		gfx_draw_image(gh->screen, rt->image, rt->pos->x, rt->pos->y);
 	}
 
-	/* Draw the text to x and y */
-	DL_FOREACH(gh->txtl->head, txt) {
-		gfx_draw_image(gh->screen, txt->image, (double)RES_WIDTH/2, (double)SPACE_H_MIN);
-	}
+	/* Draw the header, hardcoded position. */
+	gfx_draw_image(gh->screen, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN);
 
 	/* Swap the image buffers */
 	SDL_Flip(gh->screen);

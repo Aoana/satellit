@@ -148,18 +148,16 @@ gfx_image_list * gfx_init_images() {
 	return imgl;
 }
 
-gfx_image_list * gfx_init_texts() {
+gfx_text *gfx_init_text() {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
-
-	gfx_image_list *txtl = calloc(1, sizeof(gfx_image_list));
 	char font_path[128];
 
 	set_fonts_folder(font_path);
 	strcat(font_path, "FreeMono.ttf");
 	printf ("INFO: Loading fonts in dir %s\n", font_path);
 
-	gfx_image *text = calloc(1, sizeof(gfx_image));
+	gfx_text *text = calloc(1, sizeof(gfx_text));
 	text->font = TTF_OpenFont(font_path, 30);
 	if (text->font == NULL) {
 		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
@@ -168,31 +166,23 @@ gfx_image_list * gfx_init_texts() {
 	text->fontcolor.r = 255;
 	text->fontcolor.b = 255;
 	text->fontcolor.g = 255;
-	text->image = NULL;
-	text->name = strdup("txt_header");
-	DL_APPEND(txtl->head, text);
-	txtl->n_images++;
+	text->text = NULL;
 
-	gfx_change_text(txtl, "txt_header", "Welcome to GravBounce! Please set start velocity using arrow keys");
+	gfx_change_text(text, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
-	return txtl;
+	return text;
 }
 
-void gfx_change_text(gfx_image_list *txtl, char *id, char *new_txt) {
+void gfx_change_text(gfx_text *text, char *new_txt) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
-	gfx_image *text = gfx_get_image(txtl, id);
-	if(text == NULL) {
-		printf("ERR: Unable to get image %s\n", id);
-		exit(1);
+	if(text->text != NULL) {
+		SDL_FreeSurface(text->text);
 	}
-	if(text->image != NULL) {
-		SDL_FreeSurface(text->image);
-	}
-	text->image = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
-	if(text->image == NULL) {
-		printf("ERR: Unable to change text to %s, %s %s\n", new_txt, id, TTF_GetError());
+	text->text = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
+	if(text->text == NULL) {
+		printf("ERR: Unable to change text to %s, %s\n", new_txt, TTF_GetError());
 		exit(1);
 	}
 
@@ -226,17 +216,10 @@ void gfx_destroy_images(gfx_image_list *imgl) {
 		imgl->n_images--;
 	}
 }
-void gfx_destroy_texts(gfx_image_list *txtl) {
+void gfx_destroy_text(gfx_text *text) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
-	gfx_image *img,*tmp;
-
-	DL_FOREACH_SAFE(txtl->head,img,tmp) {
-		DL_DELETE(txtl->head,img);
-		SDL_FreeSurface(img->image);
-		free(img->name);
-		free(img);
-		txtl->n_images--;
-	}
+	SDL_FreeSurface(text->text);
+	free(text);
 }

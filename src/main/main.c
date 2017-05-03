@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
 	}
 
 	/* Initialize Texts */
-	gh->txtl = gfx_init_texts();
-	if (gh->txtl == NULL) {
+	gh->header = gfx_init_text();
+	if (gh->header == NULL) {
 		printf("ERR: Could not init texts\n");
 		exit(1);
 	}
@@ -107,9 +107,9 @@ int main(int argc, char *argv[])
 	printf("INFO: Runtime Done\n");
 
 	if (gh->state == STATE_GAMEOVER) {
-		gfx_change_text(gh->txtl, "txt_header", "GAME OVER!");
+		gfx_change_text(gh->header, "GAME OVER!");
 	} else if (gh->state == STATE_VICTORY) {
-		gfx_change_text(gh->txtl, "txt_header", "YOU WON!");
+		gfx_change_text(gh->header, "YOU WON!");
 	}
 	gholder_update_screen(gh);
 

@@ -1,12 +1,13 @@
+= Look over graphics handling =
+
+	- General cleanup
+	- Make it a library
+
 = Add arrow for intro phase =
 
 = Create map structure =
 
 = Move input from graphics =
-
-= Look over graphics handling =
-
-	- Make it a library
 
 = Look over object API =
 

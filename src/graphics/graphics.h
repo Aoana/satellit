@@ -15,19 +15,30 @@
 struct gholder;
 
 /**
- * @brief Structure for an image (text or bitmap).
+ * @brief Structure for an image.
+ * @see gfx_image_list
  */
 typedef struct gfx_image {
 	char *name;				/**< Name of image. */
 	SDL_Surface *image;		/**< Pointer to actual image. */
-	TTF_Font* font;			/**< Optional: Font used if image is text. */
-	SDL_Color fontcolor;	/**< Optional: Font color used if image is text. */
 	struct gfx_image *next;	/**< List pointer to next object. */
 	struct gfx_image *prev; /**< List pointer to previous object. */
 } gfx_image;
 
 /**
+ * @brief Structure for a text.
+ *
+ */
+typedef struct gfx_text {
+	SDL_Surface *text;		/**< Pointer to actual text. */
+	TTF_Font* font;			/**< Font used. */
+	SDL_Color fontcolor;	/**< Font color. */
+	int fontsize;			/**< Font size. */
+} gfx_text;
+
+/**
  * @brief Structure for an image list.
+ * @see gfx_image
  */
 typedef struct gfx_image_list {
 	int n_images;			/**< Number of images in list */
@@ -80,16 +91,15 @@ gfx_image_list * gfx_init_images(void);
  * @return Pointer image list, NULL if failed.
  *
  */
-gfx_image_list * gfx_init_texts(void);
+gfx_text *gfx_init_text(void);
 
 /**
  * @brief Change text content of text object.
- * @param txtl Pointer to text list.
- * @param id Unique identifier for text object.
+ * @param txt Pointer to text object.
  * @param new_text New text to be used in text object.
  *
  */
-void gfx_change_text(gfx_image_list *txtl, char *id, char *new_text);
+void gfx_change_text(gfx_text *text, char *new_txt);
 
 /**
  * @brief Get image from image list.
@@ -109,9 +119,9 @@ void gfx_destroy_images(gfx_image_list *imgl);
 
 /**
  * @brief Destroy all texts in text list.
- * @param txtl Pointer to text list.
+ * @param text Pointer to text object to destroy.
  *
  */
-void gfx_destroy_texts(gfx_image_list *txtl);
+void gfx_destroy_text(gfx_text *text);
 
 #endif

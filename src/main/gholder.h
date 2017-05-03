@@ -32,7 +32,7 @@ typedef struct gholder {
 	struct object *hbase;		/**< Pointer to home base object. */
 	struct object *gbase;		/**< Pointer to goal base object. */
 	struct gfx_image_list *imgl;/**< Pointer to image list. */
-	struct gfx_image_list *txtl;/**< Pointer to text list. */
+	struct gfx_text *header;	/**< Pointer to header of game. */
 	double vx_0;				/**< Initial X velocity for rocket. */
 	double vy_0;				/**< Initial Y velocity for rocket. */
 } gholder; 
