@@ -95,11 +95,11 @@ gfx_text *gfx_init_text(void);
 
 /**
  * @brief Change text content of text object.
- * @param txt Pointer to text object.
+ * @param text Pointer to text object.
  * @param new_text New text to be used in text object.
  *
  */
-void gfx_change_text(gfx_text *text, char *new_txt);
+void gfx_change_text(gfx_text *text, char *new_text);
 
 /**
  * @brief Get image from image list.
