@@ -62,12 +62,35 @@ SDL_Surface *gfx_init_screen(char *title, int width, int height);
 void gfx_destroy_screen(SDL_Surface *screen);
 
 /**
- * @brief Removal of an object including removal from list.
+ * @brief Allocate an image list.
+ * @return Pointer to allocated image list
+ *
+ */
+gfx_image_list *gfx_image_list_init();
+
+/**
+ * @brief Destroy an image list.
+ * @param imgl Pointer to image list to be destroyed.
+ *
+ */
+void gfx_image_list_destroy(gfx_image_list *imgl);
+
+/**
+ * @brief Load an image from path.
  * @param name Full path to image.
  * @return Pointer to image if passed, NULL if failed.
  *
  */
 SDL_Surface *gfx_load_image(char *name);
+
+/**
+ * @brief Load all images in folder and append to image list.
+ * @param imgl Pointer to image list to append to.
+ * @param name Full path to folder.
+ * @return 0 if passed, 1 if failed.
+ *
+ */
+int gfx_load_image_folder(gfx_image_list *imgl, char *folder);
 
 /**
  * @brief Draw image to screen according to coordinates.

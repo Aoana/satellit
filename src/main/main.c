@@ -1,8 +1,16 @@
 #include "main.h"
 
+void set_image_folder(char *buf) {
+
+	char img_dir[32] = "/src/graphics/images/";
+    strcpy(buf, getenv("GB_GIT"));
+	strcat(buf, img_dir);
+}
+
 int main(int argc, char *argv[])
 {
 	gholder *gh;
+	char img_folder[128];
 
 	if ( argc != 1 ) {
 		/* We print argv[0] assuming it is the program name */
@@ -26,9 +34,14 @@ int main(int argc, char *argv[])
 	}
 
 	/* Initialize images */
-	gh->imgl = gfx_init_images();
+	gh->imgl = gfx_image_list_init();
 	if (gh->imgl == NULL) {
-		printf("ERR: Could not init one or more images\n");
+		printf("ERR: Could not init image list\n");
+		exit(1);
+	}
+	set_image_folder(img_folder);
+	if (gfx_load_image_folder(gh->imgl, img_folder) != 0) {
+		printf("ERR: Could not load one or more images\n");
 		exit(1);
 	}
 

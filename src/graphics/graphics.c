@@ -1,13 +1,5 @@
 #include "graphics.h"
 
-void set_image_folder(char *buf) {
-
-	char img_dir[32] = "/src/graphics/images/";
-
-    strcpy(buf, getenv("GB_GIT"));
-	strcat(buf, img_dir);
-}
-
 void set_fonts_folder(char *buf) {
 
 	char img_dir[32] = "/src/graphics/fonts/";
@@ -59,6 +51,22 @@ void gfx_destroy_screen(SDL_Surface *screen) {
 	SDL_Quit();
 }
 
+gfx_image_list *gfx_image_list_init() {
+
+	/*printf("DEBUG: Enter %s\n", __func__);*/
+
+	gfx_image_list *imgl = calloc(1, sizeof(gfx_image_list));
+
+	return imgl;
+}
+
+void gfx_image_list_destroy(gfx_image_list *imgl) {
+
+	/*printf("DEBUG: Enter %s\n", __func__);*/
+
+	free(imgl);
+}
+
 SDL_Surface *gfx_load_image(char *name) {
 
 	/* Load the image using SDL Image */
@@ -87,36 +95,16 @@ SDL_Surface *gfx_load_image(char *name) {
 	return image;
 }
 
-
-void gfx_draw_image(SDL_Surface *screen, SDL_Surface *image, int x, int y) {
-
-	if(image == NULL) {
-		return;
-	}
-
-	SDL_Rect dest;
-	
-	/* Set the blitting rectangle to the size of the src image */
-	dest.x = x-(image->w/2);
-	dest.y = y-(image->h/2);
-	dest.w = image->w;
-	dest.h = image->h;
-	
-	/* Blit the entire image onto the screen at coordinates x and y */
-	SDL_BlitSurface(image, NULL, screen, &dest);
-}
-
-gfx_image_list * gfx_init_images() {
+int gfx_load_image_folder(gfx_image_list *imgl, char *folder) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
 	gfx_image *img;
 	DIR *dir;
 	struct dirent *file;
-	gfx_image_list *imgl = calloc(1, sizeof(gfx_image_list));
 	char img_path[128];
 
-	set_image_folder(img_path);
+	strcpy(img_path, folder);
 	printf ("INFO: Loading images in dir %s\n",img_path);
 	if ((dir = opendir(img_path)) != NULL) {
 		while ((file = readdir(dir)) != NULL) {
@@ -130,23 +118,42 @@ gfx_image_list * gfx_init_images() {
 			if (img->image == NULL) {
 				printf("ERR: Could not load image %s\n", img_path);
 				free(imgl);
-				return NULL;
+				return 1;
 			}
 			DL_APPEND(imgl->head,img);
 			imgl->n_images++;
 
 			/* Reset img_dir to top */
-			set_image_folder(img_path);
+			strcpy(img_path, folder);
 		}
 		closedir (dir);
 	} else {
 		printf("ERR: Could not read images\n");
 		free(imgl);
-		return NULL;
+		return 1;
 	}
 
-	return imgl;
+	return 0;
 }
+
+void gfx_draw_image(SDL_Surface *screen, SDL_Surface *image, int x, int y) {
+
+	if(image == NULL) {
+		return;
+	}
+
+	SDL_Rect dest;
+
+	/* Set the blitting rectangle to the size of the src image */
+	dest.x = x-(image->w/2);
+	dest.y = y-(image->h/2);
+	dest.w = image->w;
+	dest.h = image->h;
+
+	/* Blit the entire image onto the screen at coordinates x and y */
+	SDL_BlitSurface(image, NULL, screen, &dest);
+}
+
 
 gfx_text *gfx_init_text() {
 
@@ -155,7 +162,7 @@ gfx_text *gfx_init_text() {
 
 	set_fonts_folder(font_path);
 	strcat(font_path, "FreeMono.ttf");
-	printf ("INFO: Loading fonts in dir %s\n", font_path);
+	printf ("INFO: Loading font in dir %s\n", font_path);
 
 	gfx_text *text = calloc(1, sizeof(gfx_text));
 	text->font = TTF_OpenFont(font_path, 30);
