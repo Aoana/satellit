@@ -142,11 +142,4 @@ gfx_image * gfx_get_image(gfx_image_list *imgl, char *id);
  */
 void gfx_destroy_images(gfx_image_list *imgl);
 
-/**
- * @brief Destroy all texts in text list.
- * @param text Pointer to text object to destroy.
- *
- */
-void gfx_destroy_text(gfx_text *text);
-
 #endif

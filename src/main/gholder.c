@@ -44,7 +44,7 @@ int gholder_destroy(gholder *gh) {
 	object_remove_mult(gh->mnl);
 	object_list_destroy(gh->mnl);
 	gfx_destroy_images(gh->imgl);
-	gfx_destroy_text(gh->header);
+	gfx_text_destroy(gh->header);
 
 	return 0;
 

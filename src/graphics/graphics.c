@@ -219,10 +219,3 @@ void gfx_destroy_images(gfx_image_list *imgl) {
 		imgl->n_images--;
 	}
 }
-void gfx_destroy_text(gfx_text *text) {
-
-	/*printf("DEBUG: Enter %s\n", __func__);*/
-
-	SDL_FreeSurface(text->text);
-	free(text);
-}
