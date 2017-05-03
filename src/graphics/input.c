@@ -36,7 +36,7 @@ void input_get_intro(gholder *gh) {
 
 					case SDLK_RETURN:
 						gh->state = STATE_RUNTIME;
-						gfx_change_text(gh->header, "Bon Voyage!");
+						gfx_text_change(gh->header, "Bon Voyage!");
 						break;
 
 					case SDLK_ESCAPE:
@@ -56,7 +56,7 @@ void input_get_intro(gholder *gh) {
 		event.key.keysym.sym == SDLK_LEFT) {
 
 		snprintf(new_str, sizeof(new_str), "Start Values: vx0 %f vy0 %f, Press Enter to start", gh->vx_0, gh->vy_0);
-		gfx_change_text(gh->header, new_str);
+		gfx_text_change(gh->header, new_str);
 
 	}
 }

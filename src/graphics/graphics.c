@@ -1,13 +1,5 @@
 #include "graphics.h"
 
-void set_fonts_folder(char *buf) {
-
-	char img_dir[32] = "/src/graphics/fonts/";
-
-    strcpy(buf, getenv("GB_GIT"));
-	strcat(buf, img_dir);
-}
-
 SDL_Surface *gfx_init_screen(char *title, int width, int height) {
 
 	SDL_Surface *screen;
@@ -155,20 +147,17 @@ void gfx_draw_image(SDL_Surface *screen, SDL_Surface *image, int x, int y) {
 }
 
 
-gfx_text *gfx_init_text() {
+gfx_text *gfx_text_init(char *font_path, int font_size) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
-	char font_path[128];
 
-	set_fonts_folder(font_path);
-	strcat(font_path, "FreeMono.ttf");
-	printf ("INFO: Loading font in dir %s\n", font_path);
+	printf ("INFO: Loading font %s\n", font_path);
 
 	gfx_text *text = calloc(1, sizeof(gfx_text));
-	text->font = TTF_OpenFont(font_path, 30);
+	text->font = TTF_OpenFont(font_path, font_size);
 	if (text->font == NULL) {
 		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
-		exit(1);
+		return NULL;
 	}
 	text->fontcolor.r = 255;
 	text->fontcolor.b = 255;
@@ -178,7 +167,16 @@ gfx_text *gfx_init_text() {
 	return text;
 }
 
-void gfx_change_text(gfx_text *text, char *new_txt) {
+void gfx_text_destroy(gfx_text *text) {
+
+	/*printf("DEBUG: Enter %s\n", __func__);*/
+	if(text->text != NULL) {
+		SDL_FreeSurface(text->text);
+	}
+	free(text);
+}
+
+void gfx_text_change(gfx_text *text, char *new_txt) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 

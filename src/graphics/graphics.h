@@ -103,18 +103,20 @@ int gfx_load_image_folder(gfx_image_list *imgl, char *folder);
 void gfx_draw_image(SDL_Surface* screen, SDL_Surface *image, int x, int y);
 
 /**
- * @brief Initialize all images as a image list.
- * @return Pointer image list, NULL if failed.
+ * @brief Initialize all texts as an image list.
+ * @param font_path Full path to font to be used.
+ * @param font_size Size of font.
+ * @return Pointer text object if passed, NULL if failed.
  *
  */
-gfx_image_list * gfx_init_images(void);
+gfx_text *gfx_text_init(char *font_path, int font_size);
 
 /**
  * @brief Initialize all texts as an image list.
- * @return Pointer image list, NULL if failed.
+ * @param Pointer to text to be destroyed
  *
  */
-gfx_text *gfx_init_text(void);
+void gfx_text_destroy(gfx_text *text);
 
 /**
  * @brief Change text content of text object.
@@ -122,7 +124,7 @@ gfx_text *gfx_init_text(void);
  * @param new_text New text to be used in text object.
  *
  */
-void gfx_change_text(gfx_text *text, char *new_text);
+void gfx_text_change(gfx_text *text, char *new_text);
 
 /**
  * @brief Get image from image list.

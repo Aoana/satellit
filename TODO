@@ -1,5 +1,6 @@
 = Look over graphics handling =
 
+	- Create a change_image function.
 	- General cleanup
 	- Make it a library
 

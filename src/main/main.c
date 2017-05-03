@@ -7,10 +7,19 @@ void set_image_folder(char *buf) {
 	strcat(buf, img_dir);
 }
 
+void set_font_path(char *buf) {
+
+	char img_dir[64] = "/src/graphics/fonts/FreeMono.ttf";
+    strcpy(buf, getenv("GB_GIT"));
+	strcat(buf, img_dir);
+}
+
+
 int main(int argc, char *argv[])
 {
 	gholder *gh;
 	char img_folder[128];
+	char font_path[128];
 
 	if ( argc != 1 ) {
 		/* We print argv[0] assuming it is the program name */
@@ -46,13 +55,14 @@ int main(int argc, char *argv[])
 	}
 
 	/* Initialize Texts */
-	gh->header = gfx_init_text();
+	set_font_path(font_path);
+	gh->header = gfx_text_init(font_path, 30);
 	if (gh->header == NULL) {
 		printf("ERR: Could not init texts\n");
 		exit(1);
 	}
 	/* Set welcome text*/
-	gfx_change_text(gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
+	gfx_text_change(gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
 	/* Add planet 1*/
 	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
@@ -122,9 +132,9 @@ int main(int argc, char *argv[])
 	printf("INFO: Runtime Done\n");
 
 	if (gh->state == STATE_GAMEOVER) {
-		gfx_change_text(gh->header, "GAME OVER!");
+		gfx_text_change(gh->header, "GAME OVER!");
 	} else if (gh->state == STATE_VICTORY) {
-		gfx_change_text(gh->header, "YOU WON!");
+		gfx_text_change(gh->header, "YOU WON!");
 	}
 	gholder_update_screen(gh);
 
