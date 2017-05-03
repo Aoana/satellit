@@ -51,6 +51,8 @@ int main(int argc, char *argv[])
 		printf("ERR: Could not init texts\n");
 		exit(1);
 	}
+	/* Set welcome text*/
+	gfx_change_text(gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
 	/* Add planet 1*/
 	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {

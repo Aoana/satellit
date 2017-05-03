@@ -175,8 +175,6 @@ gfx_text *gfx_init_text() {
 	text->fontcolor.g = 255;
 	text->text = NULL;
 
-	gfx_change_text(text, "Welcome to GravBounce! Please set start velocity using arrow keys");
-
 	return text;
 }
 
