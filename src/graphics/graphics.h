@@ -76,14 +76,6 @@ gfx_image_list *gfx_image_list_init();
 void gfx_image_list_destroy(gfx_image_list *imgl);
 
 /**
- * @brief Load an image from path.
- * @param name Full path to image.
- * @return Pointer to image if passed, NULL if failed.
- *
- */
-SDL_Surface *gfx_load_image(char *name);
-
-/**
  * @brief Load all images in folder and append to image list.
  * @param imgl Pointer to image list to append to.
  * @param folder Full path to folder.
@@ -107,14 +99,6 @@ gfx_text *gfx_text_init(char *font_path, int font_size);
  *
  */
 void gfx_text_destroy(gfx_text *text);
-
-/**
- * @brief Initialize all texts as an image list.
- * @param path Full file path of image.
- * @return Pointer text image surface if passed, NULL if failed.
- *
- */
-SDL_Surface *gfx_image_sdlload(char *path);
 
 /**
  * @brief Initialize an image.

@@ -1,5 +1,34 @@
 #include "graphics.h"
 
+SDL_Surface *sdl_image_load(char *name) {
+
+	/* Load the image using SDL Image */
+	SDL_Surface *temp = IMG_Load(name);
+	SDL_Surface *image;
+	
+	if (temp == NULL) 	{
+		printf("Failed to load image %s\n", name);
+		return NULL;
+	}
+	
+	/* Make the background transparent */
+	SDL_SetColorKey(temp, (SDL_SRCCOLORKEY|SDL_RLEACCEL), SDL_MapRGB(temp->format, 0, 0, 0));
+	
+	/* Convert the image to the screen's native format */
+	image = SDL_DisplayFormat(temp);
+	
+	SDL_FreeSurface(temp);
+	
+	if (image == NULL) 	{
+		printf("Failed to convert image %s to native format\n", name);
+		return NULL;
+	}
+	
+	/* Return the processed image */
+	return image;
+}
+
+
 SDL_Surface *gfx_screen_init(char *title, int width, int height) {
 
 	SDL_Surface *screen;
@@ -88,41 +117,13 @@ void gfx_text_destroy(gfx_text *text) {
 	free(text);
 }
 
-SDL_Surface *gfx_image_sdlload(char *name) {
-
-	/* Load the image using SDL Image */
-	SDL_Surface *temp = IMG_Load(name);
-	SDL_Surface *image;
-	
-	if (temp == NULL) 	{
-		printf("Failed to load image %s\n", name);
-		return NULL;
-	}
-	
-	/* Make the background transparent */
-	SDL_SetColorKey(temp, (SDL_SRCCOLORKEY|SDL_RLEACCEL), SDL_MapRGB(temp->format, 0, 0, 0));
-	
-	/* Convert the image to the screen's native format */
-	image = SDL_DisplayFormat(temp);
-	
-	SDL_FreeSurface(temp);
-	
-	if (image == NULL) 	{
-		printf("Failed to convert image %s to native format\n", name);
-		return NULL;
-	}
-	
-	/* Return the processed image */
-	return image;
-}
-
 gfx_image *gfx_image_init(char *name, char* path) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
 	gfx_image *img = calloc(1,sizeof(gfx_image));
 	img->name = strdup(name);
-	img->image = gfx_image_sdlload(path);
+	img->image = sdl_image_load(path);
 	if (img->image == NULL) {
 		printf("ERR: Could not load image %s\n", path);
 		free(img->name);
