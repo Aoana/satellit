@@ -86,7 +86,7 @@ SDL_Surface *gfx_load_image(char *name);
 /**
  * @brief Load all images in folder and append to image list.
  * @param imgl Pointer to image list to append to.
- * @param name Full path to folder.
+ * @param folder Full path to folder.
  * @return 0 if passed, 1 if failed.
  *
  */
@@ -103,18 +103,55 @@ gfx_text *gfx_text_init(char *font_path, int font_size);
 
 /**
  * @brief Initialize all texts as an image list.
- * @param Pointer to text to be destroyed
+ * @param text Pointer to text to be destroyed
  *
  */
 void gfx_text_destroy(gfx_text *text);
 
 /**
- * @brief Change text content of text object.
- * @param text Pointer to text object.
- * @param new_text New text to be used in text object.
+ * @brief Initialize all texts as an image list.
+ * @param path Full file path of image.
+ * @return Pointer text image surface if passed, NULL if failed.
  *
  */
-void gfx_text_set(gfx_text *text, char *new_text);
+SDL_Surface *gfx_image_sdlload(char *path);
+
+/**
+ * @brief Initialize an image.
+ * @param name ID to use for image.
+ * @param path Full file path of image.
+ * @return Pointer to created image object, NULL if failed.
+ * @see gfx_image_destroy
+ *
+ */
+gfx_image *gfx_image_init(char *name, char* path);
+
+/**
+ * @brief Destroy an image.
+ * @param img Pointer to image to destroy.
+ * @see gfx_image_init
+ *
+ */
+void gfx_image_destroy(gfx_image *img);
+
+/**
+ * @brief Initialize a folder of images and add to image list.
+ * @param imgl Pointer to image list to add images to.
+ * @param folder Full path to folder.
+ * @return 0 if passed, 1 if failed.
+ * @see gfx_image_destroy
+ *
+ * ID for images will be file name.
+ */
+int gfx_image_init_mult(gfx_image_list *imgl, char *folder);
+
+/**
+ * @brief Destroy a list of images.
+ * @param imgl Pointer to image list to destroy.
+ * @see gfx_image_init_mult
+ *
+ */
+void gfx_image_destroy_mult(gfx_image_list *imgl);
 
 /**
  * @brief Get image from image list.
@@ -126,11 +163,12 @@ void gfx_text_set(gfx_text *text, char *new_text);
 gfx_image * gfx_image_get(gfx_image_list *imgl, char *id);
 
 /**
- * @brief Destroy all images of image list.
- * @param imgl Pointer to image list.
+ * @brief Set text content of text object.
+ * @param text Pointer to text object.
+ * @param new_text New text to be used in text object.
  *
  */
-void gfx_image_destroy_mult(gfx_image_list *imgl);
+void gfx_text_set(gfx_text *text, char *new_text);
 
 /**
  * @brief Draw image to screen according to coordinates.

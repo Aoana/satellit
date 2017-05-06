@@ -222,20 +222,6 @@ void gfx_text_set(gfx_text *text, char *new_txt) {
 	}
 }
 
-void gfx_image_set(gfx_text *text, char *new_txt) {
-
-	/*printf("DEBUG: Enter %s\n", __func__);*/
-
-	if(text->text != NULL) {
-		SDL_FreeSurface(text->text);
-	}
-	text->text = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
-	if(text->text == NULL) {
-		printf("ERR: Unable to change text to %s, %s\n", new_txt, TTF_GetError());
-		exit(1);
-	}
-}
-
 void gfx_surface_draw(SDL_Surface *screen, SDL_Surface *image, int x, int y) {
 
 	if(image == NULL) {
