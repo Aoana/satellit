@@ -6,7 +6,7 @@ unsigned int rocket_add(gholder *gh,
 	struct SDL_Surface *image;
 	gfx_image *gfx_img;
 
-	gfx_img = gfx_get_image(gh->imgl,"gfx_ship_moving.png");
+	gfx_img = gfx_image_get(gh->imgl,"gfx_ship_moving.png");
 	if (gfx_img == NULL ) {
 		printf("ERR: Unable to get image\n");
 		return OBJECT_ADD;
@@ -39,7 +39,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	/* Check collision for all planets */
 	if (collision_object_mult(gh->ptl, rt) != COLLISION_OK) {
 		rt->dead = 1;
-		rt->image = (gfx_get_image(gh->imgl, "gfx_ship_broken.png"))->image;
+		rt->image = (gfx_image_get(gh->imgl, "gfx_ship_broken.png"))->image;
 		gh->state = STATE_GAMEOVER;
 		return OBJECT_COL;
 	}
@@ -47,7 +47,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	/* Check collision for goal */
 	if (collision_object(gh->gbase, rt) != COLLISION_OK) {
 		rt->dead = 1;
-		rt->image = (gfx_get_image(gh->imgl, "gfx_ship_landed.png"))->image;
+		rt->image = (gfx_image_get(gh->imgl, "gfx_ship_landed.png"))->image;
 		gh->state = STATE_VICTORY;
 		return OBJECT_COL;
 	}

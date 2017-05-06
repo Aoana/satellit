@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	gh = gholder_init();
 
 	/* Start up SDL */
-	gh->screen = gfx_init_screen("GravBounce", RES_WIDTH, RES_HEIGHT);
+	gh->screen = gfx_screen_init("GravBounce", RES_WIDTH, RES_HEIGHT);
 	if (gh->screen == NULL) {
 		printf("ERR: Could not init screen\n");
 		exit(1);
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	set_image_folder(img_folder);
-	if (gfx_load_image_folder(gh->imgl, img_folder) != 0) {
+	if (gfx_image_init_mult(gh->imgl, img_folder) != 0) {
 		printf("ERR: Could not load one or more images\n");
 		exit(1);
 	}
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	/* Set welcome text*/
-	gfx_text_change(gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
+	gfx_text_set(gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
 	/* Add planet 1*/
 	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
@@ -132,9 +132,9 @@ int main(int argc, char *argv[])
 	printf("INFO: Runtime Done\n");
 
 	if (gh->state == STATE_GAMEOVER) {
-		gfx_text_change(gh->header, "GAME OVER!");
+		gfx_text_set(gh->header, "GAME OVER!");
 	} else if (gh->state == STATE_VICTORY) {
-		gfx_text_change(gh->header, "YOU WON!");
+		gfx_text_set(gh->header, "YOU WON!");
 	}
 	gholder_update_screen(gh);
 

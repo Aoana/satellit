@@ -43,7 +43,7 @@ int gholder_destroy(gholder *gh) {
 	object_list_destroy(gh->ptl);
 	object_remove_mult(gh->mnl);
 	object_list_destroy(gh->mnl);
-	gfx_destroy_images(gh->imgl);
+	gfx_image_destroy_mult(gh->imgl);
 	gfx_text_destroy(gh->header);
 
 	return 0;
@@ -61,25 +61,25 @@ void gholder_update_screen(gholder * gh) {
 
 	/* Draw the planets to x and y */
 	DL_FOREACH(gh->ptl->head, pt) {
-		gfx_draw_image(gh->screen, pt->image, pt->pos->x, pt->pos->y);
+		gfx_surface_draw(gh->screen, pt->image, pt->pos->x, pt->pos->y);
 	}
 
 	/* Draw the moons to x and y */
 	DL_FOREACH(gh->mnl->head, mn) {
-		gfx_draw_image(gh->screen, mn->image, mn->pos->x, mn->pos->y);
+		gfx_surface_draw(gh->screen, mn->image, mn->pos->x, mn->pos->y);
 	}
 
 	/* Draw the Home and Goal base */
-	gfx_draw_image(gh->screen, gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y);
-	gfx_draw_image(gh->screen, gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y);
+	gfx_surface_draw(gh->screen, gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y);
+	gfx_surface_draw(gh->screen, gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y);
 
 	/* Draw the rockets to x and y */
 	DL_FOREACH(gh->rtl->head, rt) {
-		gfx_draw_image(gh->screen, rt->image, rt->pos->x, rt->pos->y);
+		gfx_surface_draw(gh->screen, rt->image, rt->pos->x, rt->pos->y);
 	}
 
 	/* Draw the header, hardcoded position. */
-	gfx_draw_image(gh->screen, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN);
+	gfx_surface_draw(gh->screen, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN);
 
 	/* Swap the image buffers */
 	SDL_Flip(gh->screen);

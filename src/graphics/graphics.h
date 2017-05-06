@@ -52,14 +52,14 @@ typedef struct gfx_image_list {
  * @param height Height of screen.
  * @return Pointer to initalized screen, NULL if failed
  */
-SDL_Surface *gfx_init_screen(char *title, int width, int height);
+SDL_Surface *gfx_screen_init(char *title, int width, int height);
 
 /**
  * @brief Destroy video and screen, also shutdown ttf.
  * @param screen Pointer to screen to be destroyed.
  *
  */
-void gfx_destroy_screen(SDL_Surface *screen);
+void gfx_screen_destroy(SDL_Surface *screen);
 
 /**
  * @brief Allocate an image list.
@@ -90,17 +90,7 @@ SDL_Surface *gfx_load_image(char *name);
  * @return 0 if passed, 1 if failed.
  *
  */
-int gfx_load_image_folder(gfx_image_list *imgl, char *folder);
-
-/**
- * @brief Draw image to screen according to coordinates.
- * @param screen Pointer to screen to draw on.
- * @param image Pointer to image.
- * @param x Coordinate X.
- * @param y Coordinate Y.
- *
- */
-void gfx_draw_image(SDL_Surface* screen, SDL_Surface *image, int x, int y);
+int gfx_image_init_mult(gfx_image_list *imgl, char *folder);
 
 /**
  * @brief Initialize all texts as an image list.
@@ -124,7 +114,7 @@ void gfx_text_destroy(gfx_text *text);
  * @param new_text New text to be used in text object.
  *
  */
-void gfx_text_change(gfx_text *text, char *new_text);
+void gfx_text_set(gfx_text *text, char *new_text);
 
 /**
  * @brief Get image from image list.
@@ -133,13 +123,23 @@ void gfx_text_change(gfx_text *text, char *new_text);
  * @return Pointer to image, NULL if failed.
  *
  */
-gfx_image * gfx_get_image(gfx_image_list *imgl, char *id);
+gfx_image * gfx_image_get(gfx_image_list *imgl, char *id);
 
 /**
  * @brief Destroy all images of image list.
  * @param imgl Pointer to image list.
  *
  */
-void gfx_destroy_images(gfx_image_list *imgl);
+void gfx_image_destroy_mult(gfx_image_list *imgl);
+
+/**
+ * @brief Draw image to screen according to coordinates.
+ * @param screen Pointer to screen to draw on.
+ * @param image Pointer to image.
+ * @param x Coordinate X.
+ * @param y Coordinate Y.
+ *
+ */
+void gfx_surface_draw(SDL_Surface* screen, SDL_Surface *image, int x, int y);
 
 #endif
