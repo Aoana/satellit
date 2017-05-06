@@ -1,3 +1,17 @@
+= Switch to SDL2.0 =
+
+	- Packages switch in ubuntu (dont forget udate doc).
+	- Switch to renderer 
+		> take away surface and switch to texture
+		> Change from screen to render (init screen -> init renderer and the gholder update)
+
+= Background =
+
+	- Add background picture as default sdl drawing (no object)
+	- Add background to gholder
+	- Create "load background function (possibly in gholder only)
+	- Add rectangle
+
 = Look over graphics handling =
 
 	- Make it a library
@@ -5,8 +19,6 @@
 = Add arrow for intro phase =
 
 = Create map structure =
-
-= Move input from graphics =
 
 = Look over object API =
 
@@ -19,11 +31,6 @@
 = Collisions =
 
 	- Merge with collision of boundary
-
-= Background =
-
-	- Add rectangle
-	- Add background picture as default sdl drawing (no object)
 
 = Make ship rotate =
 
