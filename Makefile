@@ -1,12 +1,12 @@
 CFLAGS = -Wall -pedantic -Werror -g
-LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_ttf -lm
+LFLAGS = `sdl-config --libs` -lSDL_image -lSDL_ttf -lm
 PROG = gravbounce
 PROG_TARGET = $(addprefix $(GB_WS)/, $(PROG))
 CXX = gcc
 MD := mkdir
 SOURCEDIR = src
 
-DIRS = generic graphics logic objects main
+DIRS = generic graphics logic objects controls main
 TDIRS = $(foreach dir, $(DIRS), $(addprefix $(GB_WS)/, $(dir)))
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
 INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
