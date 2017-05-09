@@ -147,7 +147,7 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *id);
  * @brief Set text content of text object.
  * @param renderer Pointer to active renderer.
  * @param text Pointer to text object.
- * @param new_text New text to be used in text object.
+ * @param new_txt New text to be used in text object.
  *
  */
 void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
