@@ -1,10 +1,3 @@
-= Switch to SDL2.0 =
-
-	- Packages switch in ubuntu (dont forget udate doc).
-	- Switch to renderer 
-		> take away surface and switch to texture
-		> Change from screen to render (init screen -> init renderer and the gholder update)
-
 = Background =
 
 	- Add background picture as default sdl drawing (no object)
