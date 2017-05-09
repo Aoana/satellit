@@ -25,7 +25,7 @@ int object_list_destroy(object_list *objl) {
 	return 0;
 }
 
-object * object_init(int id, SDL_Surface *image,
+object * object_init(int id, SDL_Texture *image,
 	double x, double y, double m, double vx, double vy) {
 	object *obj;
 	obj = calloc(1, sizeof(object));
@@ -53,7 +53,7 @@ int object_destroy(object *obj) {
 	return 0;
 }
 
-enum objectReturnCode object_add(object_list *objl, int id, SDL_Surface *image,
+enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
 	double x, double y, double m, double vx, double vy) {
 
 	object *obj;

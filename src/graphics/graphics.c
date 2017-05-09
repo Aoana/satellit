@@ -1,71 +1,82 @@
 #include "graphics.h"
 
-SDL_Surface *sdl_image_load(char *name) {
+SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 
 	/* Load the image using SDL Image */
 	SDL_Surface *temp = IMG_Load(name);
-	SDL_Surface *image;
+	SDL_Texture *image;
 	
 	if (temp == NULL) 	{
-		printf("Failed to load image %s\n", name);
+		printf("ERR: Failed to load image %s: %s\n", name, SDL_GetError());
 		return NULL;
 	}
-	
-	/* Make the background transparent */
-	SDL_SetColorKey(temp, (SDL_SRCCOLORKEY|SDL_RLEACCEL), SDL_MapRGB(temp->format, 0, 0, 0));
-	
-	/* Convert the image to the screen's native format */
-	image = SDL_DisplayFormat(temp);
-	
-	SDL_FreeSurface(temp);
-	
+
+	image = SDL_CreateTextureFromSurface(renderer, temp);
 	if (image == NULL) 	{
 		printf("Failed to convert image %s to native format\n", name);
 		return NULL;
 	}
 	
+	SDL_FreeSurface(temp);
+
 	/* Return the processed image */
 	return image;
 }
 
 
-SDL_Surface *gfx_screen_init(char *title, int width, int height) {
-
-	SDL_Surface *screen;
+int gfx_screen_init(char *title, int width, int height,
+	SDL_Window **window, SDL_Renderer **renderer) {
 
 	/* Initialise SDL Video */
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("Could not initialize SDL: %s\n", SDL_GetError());
-		return NULL;
+		printf("ERR: Could not initialize SDL: %s\n", SDL_GetError());
+		return 1;
 	}
 
-	screen = SDL_SetVideoMode(width, height, 0, SDL_HWPALETTE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+	*window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		width, height, SDL_WINDOW_FULLSCREEN);
+	if (*window == NULL) {
+		printf("ERR: Couldn't create window %d x %d: %s\n", width, height, SDL_GetError());
+		return 1;
+	}
 
-	if (screen == NULL) {
-		printf("Couldn't set screen mode to %d x %d: %s\n", width, height, SDL_GetError());
-		return NULL;
+	*renderer = SDL_CreateRenderer(*window, -1, 0);
+	if (*renderer == NULL) {
+		printf("ERR: Couldn't create renderer: %s\n", SDL_GetError());
+		SDL_DestroyWindow(*window);
+		return 1;
+	}
+
+	if (SDL_SetRenderDrawColor(*renderer, 0, 0, 0, 255) != 0) {
+		printf("ERR: Couldn't set draw color: %s\n", SDL_GetError());
+		SDL_DestroyWindow(*window);
+		SDL_DestroyRenderer(*renderer);
+		return 1;
 	}
 
 	/* Initialise text management */
 	if(TTF_Init() != 0) {
 		printf("ERR: TTF_Init: %s\n", TTF_GetError());
-		return NULL;
+		SDL_DestroyWindow(*window);
+		SDL_DestroyRenderer(*renderer);
+		return 1;
 	}
 
-	/* Set the screen title */
-	SDL_WM_SetCaption(title, NULL);
-
-	return screen;
+	return 0;
 }
 
-void gfx_screen_destroy(SDL_Surface *screen) {
+void gfx_screen_destroy(SDL_Window *window, SDL_Renderer *renderer) {
 
 	/* Shut dow text management */
 	TTF_Quit();
 
-	/* Free the image */
-	if (screen != NULL) {
-		SDL_FreeSurface(screen);
+	/* Destroy the renderer */
+	if (renderer != NULL) {
+		SDL_DestroyRenderer(renderer);
+	}
+	/* Destroy the window */
+	if (window != NULL) {
+		SDL_DestroyWindow(window);
 	}
 
 	/* Shut down SDL */
@@ -112,18 +123,18 @@ void gfx_text_destroy(gfx_text *text) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 	if(text->text != NULL) {
-		SDL_FreeSurface(text->text);
+		SDL_DestroyTexture(text->text);
 	}
 	free(text);
 }
 
-gfx_image *gfx_image_init(char *name, char* path) {
+gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
 	gfx_image *img = calloc(1,sizeof(gfx_image));
 	img->name = strdup(name);
-	img->image = sdl_image_load(path);
+	img->image = sdl_image_load(renderer, path);
 	if (img->image == NULL) {
 		printf("ERR: Could not load image %s\n", path);
 		free(img->name);
@@ -137,12 +148,12 @@ void gfx_image_destroy(gfx_image *img) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
-	SDL_FreeSurface(img->image);
+	SDL_DestroyTexture(img->image);
 	free(img->name);
 	free(img);
 }
 
-int gfx_image_init_mult(gfx_image_list *imgl, char *folder) {
+int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
@@ -159,7 +170,7 @@ int gfx_image_init_mult(gfx_image_list *imgl, char *folder) {
 				continue;
 			}
 			strcat(img_path, file->d_name);
-			img = gfx_image_init(file->d_name, img_path);
+			img = gfx_image_init(renderer, file->d_name, img_path);
 			if (img == NULL) {
 				printf("ERR: Could not init image image %s\n", img_path);
 				gfx_image_destroy_mult(imgl);
@@ -209,35 +220,50 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
 	return NULL;
 }
 
-void gfx_text_set(gfx_text *text, char *new_txt) {
+void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/
 
+	SDL_Surface *surf;
+
 	if(text->text != NULL) {
-		SDL_FreeSurface(text->text);
+		SDL_DestroyTexture(text->text);
 	}
-	text->text = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
-	if(text->text == NULL) {
-		printf("ERR: Unable to change text to %s, %s\n", new_txt, TTF_GetError());
+
+	surf = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
+	if(surf == NULL) {
+		printf("ERR: Unable to render text to %s, %s\n", new_txt, TTF_GetError());
 		exit(1);
 	}
+
+	text->text = SDL_CreateTextureFromSurface(renderer, surf);
+	if(text->text == NULL) {
+		printf("ERR: Unable to create texture from text, %s, %s\n", new_txt, TTF_GetError());
+		exit(1);
+	}
+
+	SDL_FreeSurface(surf);
+
 }
 
-void gfx_surface_draw(SDL_Surface *screen, SDL_Surface *image, int x, int y) {
+void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y) {
+
+	SDL_Rect dest;
+	int w, h;
 
 	if(image == NULL) {
 		return;
 	}
 
-	SDL_Rect dest;
+	SDL_QueryTexture(image, NULL, NULL, &w, &h);
 
 	/* Set the blitting rectangle to the size of the src image */
-	dest.x = x-(image->w/2);
-	dest.y = y-(image->h/2);
-	dest.w = image->w;
-	dest.h = image->h;
+	dest.x = x-(w/2);
+	dest.y = y-(h/2);
+	dest.w = w;
+	dest.h = h;
 
 	/* Blit the entire image onto the screen at coordinates x and y */
-	SDL_BlitSurface(image, NULL, screen, &dest);
+	SDL_RenderCopy(renderer, image, NULL, &dest);
 }
 

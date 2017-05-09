@@ -2,7 +2,7 @@
 
 unsigned int planet_add(gholder *gh, double x, double y, double m) {
 
-	struct SDL_Surface *image;
+	struct SDL_Texture *image;
 	struct gfx_image *gfx_img;
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_planet_1.png");

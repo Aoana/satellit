@@ -20,7 +20,7 @@ struct gholder;
  */
 typedef struct gfx_image {
 	char *name;				/**< Name of image. */
-	SDL_Surface *image;		/**< Pointer to actual image. */
+	SDL_Texture *image;		/**< Pointer to actual image. */
 	struct gfx_image *next;	/**< List pointer to next object. */
 	struct gfx_image *prev; /**< List pointer to previous object. */
 } gfx_image;
@@ -30,7 +30,7 @@ typedef struct gfx_image {
  *
  */
 typedef struct gfx_text {
-	SDL_Surface *text;		/**< Pointer to actual text. */
+	SDL_Texture *text;		/**< Pointer to actual text. */
 	TTF_Font* font;			/**< Font used. */
 	SDL_Color fontcolor;	/**< Font color. */
 	int fontsize;			/**< Font size. */
@@ -50,16 +50,20 @@ typedef struct gfx_image_list {
  * @param title Title of the video screen.
  * @param width Width of screen.
  * @param height Height of screen.
- * @return Pointer to initalized screen, NULL if failed
+ * @param window Pointer to window pointer to set
+ * @param renderer Pointer to renderer pointer to set
+ * @return 0 if passed, 1 if failed
  */
-SDL_Surface *gfx_screen_init(char *title, int width, int height);
+int gfx_screen_init(char *title, int width, int height,
+	SDL_Window **window, SDL_Renderer **renderer);
 
 /**
  * @brief Destroy video and screen, also shutdown ttf.
- * @param screen Pointer to screen to be destroyed.
+ * @param window Pointer to window to be destroyed.
+ * @param renderer Pointer to renderer to be destroyed.
  *
  */
-void gfx_screen_destroy(SDL_Surface *screen);
+void gfx_screen_destroy(SDL_Window *window, SDL_Renderer *renderer);
 
 /**
  * @brief Allocate an image list.
@@ -74,15 +78,6 @@ gfx_image_list *gfx_image_list_init();
  *
  */
 void gfx_image_list_destroy(gfx_image_list *imgl);
-
-/**
- * @brief Load all images in folder and append to image list.
- * @param imgl Pointer to image list to append to.
- * @param folder Full path to folder.
- * @return 0 if passed, 1 if failed.
- *
- */
-int gfx_image_init_mult(gfx_image_list *imgl, char *folder);
 
 /**
  * @brief Initialize all texts as an image list.
@@ -102,13 +97,14 @@ void gfx_text_destroy(gfx_text *text);
 
 /**
  * @brief Initialize an image.
+ * @param renderer Pointer to active renderer.
  * @param name ID to use for image.
  * @param path Full file path of image.
  * @return Pointer to created image object, NULL if failed.
  * @see gfx_image_destroy
  *
  */
-gfx_image *gfx_image_init(char *name, char* path);
+gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path);
 
 /**
  * @brief Destroy an image.
@@ -120,6 +116,7 @@ void gfx_image_destroy(gfx_image *img);
 
 /**
  * @brief Initialize a folder of images and add to image list.
+ * @param renderer Pointer to active renderer.
  * @param imgl Pointer to image list to add images to.
  * @param folder Full path to folder.
  * @return 0 if passed, 1 if failed.
@@ -127,7 +124,7 @@ void gfx_image_destroy(gfx_image *img);
  *
  * ID for images will be file name.
  */
-int gfx_image_init_mult(gfx_image_list *imgl, char *folder);
+int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder);
 
 /**
  * @brief Destroy a list of images.
@@ -148,20 +145,21 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *id);
 
 /**
  * @brief Set text content of text object.
+ * @param renderer Pointer to active renderer.
  * @param text Pointer to text object.
  * @param new_text New text to be used in text object.
  *
  */
-void gfx_text_set(gfx_text *text, char *new_text);
+void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
 
 /**
  * @brief Draw image to screen according to coordinates.
- * @param screen Pointer to screen to draw on.
+ * @param renderer Pointer to active renderer.
  * @param image Pointer to image.
  * @param x Coordinate X.
  * @param y Coordinate Y.
  *
  */
-void gfx_surface_draw(SDL_Surface* screen, SDL_Surface *image, int x, int y);
+void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y);
 
 #endif

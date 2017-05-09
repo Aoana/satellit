@@ -30,7 +30,7 @@ typedef struct object {
 	int dead;				/**< Set to non-zero if further updates are not needed, zero by default. */
 	double mass;			/**< Total mass of object. */
 	struct position *pos;	/**< Position of object. */
-	SDL_Surface *image;		/**< Image representation of object. */
+	SDL_Texture *image;		/**< Image representation of object. */
 	struct object *next;	/**< List pointer next. */
 	struct object *prev;	/**< List pointer previous. */
 } object;
@@ -83,7 +83,7 @@ int object_list_destroy(object_list *objl);
  * @see object_destroy
  *
  */
-object * object_init(int id, SDL_Surface *image,
+object * object_init(int id, SDL_Texture *image,
 	double x, double y, double m, double vx, double vy);
 
 /**
@@ -110,7 +110,7 @@ int object_destroy(object *obj);
  * @see object_remove
  *
  */
-enum objectReturnCode object_add(object_list *objl, int id, SDL_Surface * image,
+enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
 	double x, double y, double m, double vx, double vy);
 
 /**

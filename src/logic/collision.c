@@ -1,12 +1,14 @@
 #include "collision.h"
 
-enum collisionReturnCode collision_object(object * pt, object *rt) {
+enum collisionReturnCode collision_object(object *pt, object *rt) {
 
 	double dx, dy, d, rad;
+	int w, h;
 	dx = pt->pos->x - rt->pos->x;
 	dy = pt->pos->y - rt->pos->y;
 	d = sqrt(pow(dx,2)+pow(dy,2));
-	rad = (pt->image->w+pt->image->h)/4;
+	SDL_QueryTexture(pt->image, NULL, NULL, &w, &h);
+	rad = (w+h)/4;
 	if ( d < rad ) {
 		return COLLISION_OBJ;
 

@@ -25,7 +25,8 @@ enum gstate {
  */
 typedef struct gholder {
 	enum gstate state;			/**< State of current game. */
-	SDL_Surface *screen;		/**< Screen of game. */
+	SDL_Window *window;			/**< Window of game. */
+	SDL_Renderer *renderer;		/**< Renderer for game. */
 	struct object_list *rtl;	/**< Pointer to object list for all rockets. */
 	struct object_list *ptl;	/**< Pointer to object list or all planets. */
 	struct object_list *mnl;	/**< Pointer to object list for all moons. */

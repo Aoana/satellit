@@ -3,7 +3,7 @@
 unsigned int rocket_add(gholder *gh,
 	double x, double y, double m, double vx, double vy) {
 
-	struct SDL_Surface *image;
+	struct SDL_Texture *image;
 	gfx_image *gfx_img;
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_ship_moving.png");

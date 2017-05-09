@@ -3,7 +3,7 @@
 unsigned int moon_add(gholder *gh,
 	double x, double y, double m, double vx, double vy) {
 
-	struct SDL_Surface *image;
+	struct SDL_Texture *image;
 	gfx_image *gfx_img;
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_moon_moving.png");
