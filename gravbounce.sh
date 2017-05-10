@@ -2,23 +2,23 @@
 ##
 ## gravbounce.sh --
 ##
-##  Script for the gravbounce game.
+##	Script for the gravbounce game.
 ##
-##  Preparation;
+##	Preparation;
 ##
-##      # Install the following packages
-##      sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev \
-##      libsdl-ttf2.0-dev doxygen
+##	# Install the following packages
+##		sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev \
+##		doxygen
 ##
 ##
-##  Build Gravbounce;
+##	Build Gravbounce;
 ##
-##      gravbounce build
+##		gravbounce build
 ##
-##  Start and stop Gravbounce;
+##	Start and stop Gravbounce;
 ##
-##      gravbounce start
-##      gravbounce stop
+##		gravbounce start
+##		gravbounce stop
 ##
 ## Commands;
 ##
@@ -45,8 +45,8 @@ echo "$1" | grep -qi "^help\|-h" && help
 test -n "$GB_WS" || die 'Not set [$GB_WS]'
 test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 
-##   build [--clean]
-##     Compiles gravbounce
+##	build [--clean]
+##		Compiles gravbounce
 ##
 cmd_build() {
 
@@ -57,8 +57,8 @@ cmd_build() {
 	make
 }
 
-##   start
-##     Starts gravbounce
+##	start
+##		Starts gravbounce
 ##
 cmd_start() {
 
@@ -68,8 +68,8 @@ cmd_start() {
 
 }
 
-##   generate_doc
-##     Generate source documentation
+##	generate_doc
+##		Generate source documentation
 ##
 cmd_generate_doc() {
 
