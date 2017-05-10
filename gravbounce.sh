@@ -51,9 +51,9 @@ test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 cmd_build() {
 
 	cd $GB_GIT
-    if test "$__clean" = "yes"; then
+	if test "$__clean" = "yes"; then
 		make clean
-    fi
+	fi
 	make
 }
 
@@ -83,15 +83,15 @@ shift
 grep -q "^cmd_$cmd()" $0 $hook || die "Invalid command [$cmd]"
 
 while echo "$1" | grep -q '^--'; do
-    if echo $1 | grep -q =; then
+	if echo $1 | grep -q =; then
 		o=$(echo "$1" | cut -d= -f1 | sed -e 's,-,_,g')
 		v=$(echo "$1" | cut -d= -f2-)
 		eval "$o=\"$v\""
-    else
+	else
 		o=$(echo "$1" | sed -e 's,-,_,g')
 		eval "$o=yes"
-    fi
-    shift
+	fi
+	shift
 done
 unset o v
 long_opts=`set | grep '^__' | cut -d= -f1`
