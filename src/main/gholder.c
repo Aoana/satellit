@@ -47,7 +47,19 @@ int gholder_destroy(gholder *gh) {
 	gfx_text_destroy(gh->header);
 
 	return 0;
+}
 
+int gholder_background_set(gholder *gh, char *background) {
+
+	gfx_image *tmp = gfx_image_get(gh->imgl, background);
+	if(tmp == NULL) {
+		printf("ERR: Unable to set background to %s\n", background);
+		return 1;
+	}
+
+	gh->background = tmp->image;
+
+	return 0;
 }
 
 void gholder_update_screen(gholder * gh) {
@@ -58,6 +70,9 @@ void gholder_update_screen(gholder * gh) {
 
 	/* Blank the screen */
 	SDL_RenderClear(gh->renderer);
+
+	/* Draw the background. */
+	gfx_surface_draw(gh->renderer, gh->background, (double)RES_WIDTH/2, (double)RES_HEIGHT/2);
 
 	/* Draw the planets to x and y */
 	DL_FOREACH(gh->ptl->head, pt) {

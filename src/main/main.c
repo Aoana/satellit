@@ -63,6 +63,14 @@ int main(int argc, char *argv[])
 	/* Set welcome text*/
 	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
+
+	/***** Loading Map *****/
+
+	if(gholder_background_set(gh, "gfx_background1.png") != 0) {
+		printf("ERR: Set background failed\n");
+		exit(1);
+	}
+
 	/* Add planet 1*/
 	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
 		printf("ERR: Init planet failed\n");
@@ -86,6 +94,7 @@ int main(int argc, char *argv[])
 		printf("ERR: Init goal base failed\n");
 		exit(1);
 	}
+	/***** Done loading Map *****/
 
 	printf("INFO: Intro Started\n");
 	/* Start Intro */

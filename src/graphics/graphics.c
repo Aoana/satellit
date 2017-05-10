@@ -220,6 +220,7 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
 	return NULL;
 }
 
+
 void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
 	/*printf("DEBUG: Enter %s\n", __func__);*/

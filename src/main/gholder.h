@@ -27,6 +27,7 @@ typedef struct gholder {
 	enum gstate state;			/**< State of current game. */
 	SDL_Window *window;			/**< Window of game. */
 	SDL_Renderer *renderer;		/**< Renderer for game. */
+	SDL_Texture *background;	/**< Current Background in game. */
 	struct object_list *rtl;	/**< Pointer to object list for all rockets. */
 	struct object_list *ptl;	/**< Pointer to object list or all planets. */
 	struct object_list *mnl;	/**< Pointer to object list for all moons. */
@@ -52,6 +53,15 @@ gholder * gholder_init(void);
  *
  */
 int gholder_destroy(gholder *gh);
+
+/**
+ * @brief Set the background of game.
+ * @param gh Pointer to global holder.
+ * @param background String ID of background to use.
+ * @return 0 if passed, non-zero if failed.
+ *
+ */
+int gholder_background_set(gholder *gh, char *background);
 
 /**
  * @brief Update the screen of the game.
