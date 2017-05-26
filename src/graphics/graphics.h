@@ -162,4 +162,15 @@ void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
  */
 void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y);
 
+/**
+ * @brief Draw image to screen according to coordinates.
+ * @param renderer Pointer to active renderer.
+ * @param s_x Start x coordinate of line.
+ * @param s_y Start y coordinate of line.
+ * @param e_x End x coordinate of line.
+ * @param e_y End y coordinate of line.
+ *
+ */
+void gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y);
+
 #endif

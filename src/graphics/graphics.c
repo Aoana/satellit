@@ -268,3 +268,16 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y) 
 	SDL_RenderCopy(renderer, image, NULL, &dest);
 }
 
+void gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {
+
+	if(SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE) != 0) {
+		printf("ERR: Unable to set renderer color for line, %s\n", SDL_GetError());
+		exit(1);
+	}
+
+	if(SDL_RenderDrawLine(renderer, s_x, s_y, e_x, e_y) != 0) {
+		printf("ERR: Unable to draw line %s\n", SDL_GetError());
+		exit(1);
+	}
+
+}

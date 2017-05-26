@@ -1,8 +1,11 @@
+= Make ship rotate =
+
+	- Based on direction update image
+	- Can vector graphics be used?
+
 = Look over graphics handling =
 
 	- Make it a library
-
-= Add arrow for intro phase =
 
 = Create map structure =
 
@@ -17,11 +20,6 @@
 = Collisions =
 
 	- Merge with collision of boundary
-
-= Make ship rotate =
-
-	- Based on direction update image
-	- Can vector graphics be used?
 
 = Introduce wormhole =
 
