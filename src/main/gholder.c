@@ -78,7 +78,7 @@ void gholder_update_screen(gholder * gh) {
 	/* Draw the Line describing the background. */
 	gfx_line_draw(gh->renderer, 
 		gh->hbase->pos->x, gh->hbase->pos->y,
-		gh->hbase->pos->x+gh->vx_0, gh->hbase->pos->y+gh->vy_0);
+		gh->hbase->pos->x+gh->vx_0*2, gh->hbase->pos->y+gh->vy_0*2);
 
 	/* Draw the planets to x and y */
 	DL_FOREACH(gh->ptl->head, pt) {
