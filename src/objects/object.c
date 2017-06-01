@@ -100,3 +100,10 @@ enum objectReturnCode object_remove_id(object_list *objl, int id) {
 	return OBJECT_NFD;
 }
 
+double object_get_angle(object *obj) {
+
+	double ret;
+	ret = atan(obj->pos->vy/obj->pos->vx)*(180/M_PI);
+	return ret;
+
+}

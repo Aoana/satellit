@@ -146,5 +146,13 @@ enum objectReturnCode object_remove_id(object_list *objl, int id);
  *
  */
 enum objectReturnCode object_remove_mult(object_list *objl);
+
+/**
+ * @brief Return the velocity angle of object.
+ * @param obj Pointer to object.
+ * @return return angle of object
+ *
+ */
+double object_get_angle(object *obj);
 #endif
 

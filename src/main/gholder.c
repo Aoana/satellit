@@ -73,7 +73,7 @@ void gholder_update_screen(gholder * gh) {
 	SDL_RenderClear(gh->renderer);
 
 	/* Draw the background. */
-	gfx_surface_draw(gh->renderer, gh->background, (double)RES_WIDTH/2, (double)RES_HEIGHT/2);
+	gfx_surface_draw(gh->renderer, gh->background, (double)RES_WIDTH/2, (double)RES_HEIGHT/2, 0);
 
 	/* Draw the Line describing the background. */
 	gfx_line_draw(gh->renderer, 
@@ -82,25 +82,25 @@ void gholder_update_screen(gholder * gh) {
 
 	/* Draw the planets to x and y */
 	DL_FOREACH(gh->ptl->head, pt) {
-		gfx_surface_draw(gh->renderer, pt->image, pt->pos->x, pt->pos->y);
+		gfx_surface_draw(gh->renderer, pt->image, pt->pos->x, pt->pos->y, 0);
 	}
 
 	/* Draw the moons to x and y */
 	DL_FOREACH(gh->mnl->head, mn) {
-		gfx_surface_draw(gh->renderer, mn->image, mn->pos->x, mn->pos->y);
+		gfx_surface_draw(gh->renderer, mn->image, mn->pos->x, mn->pos->y, 0);
 	}
 
 	/* Draw the Home and Goal base */
-	gfx_surface_draw(gh->renderer, gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y);
-	gfx_surface_draw(gh->renderer, gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y);
+	gfx_surface_draw(gh->renderer, gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y, 0);
+	gfx_surface_draw(gh->renderer, gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y, 0);
 
 	/* Draw the rockets to x and y */
 	DL_FOREACH(gh->rtl->head, rt) {
-		gfx_surface_draw(gh->renderer, rt->image, rt->pos->x, rt->pos->y);
+		gfx_surface_draw(gh->renderer, rt->image, rt->pos->x, rt->pos->y, object_get_angle(rt));
 	}
 
 	/* Draw the header, hardcoded position. */
-	gfx_surface_draw(gh->renderer, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN);
+	gfx_surface_draw(gh->renderer, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN, 0);
 
 	/* Swap the image buffers */
 	SDL_RenderPresent(gh->renderer);

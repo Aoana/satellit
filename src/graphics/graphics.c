@@ -247,7 +247,7 @@ void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
 }
 
-void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y) {
+void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle) {
 
 	SDL_Rect dest;
 	int w, h;
@@ -265,7 +265,7 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y) 
 	dest.h = h;
 
 	/* Blit the entire image onto the screen at coordinates x and y */
-	SDL_RenderCopy(renderer, image, NULL, &dest);
+	SDL_RenderCopyEx(renderer, image, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
 }
 
 void gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {

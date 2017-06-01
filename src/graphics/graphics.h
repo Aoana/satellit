@@ -158,9 +158,10 @@ void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
  * @param image Pointer to image.
  * @param x Coordinate X.
  * @param y Coordinate Y.
+ * @param angle Rotation angle, 0 to disable.
  *
  */
-void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y);
+void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle);
 
 /**
  * @brief Draw image to screen according to coordinates.
