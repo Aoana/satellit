@@ -1,11 +1,6 @@
-= Make ship rotate =
-
-	- Based on direction update image
-	- Can vector graphics be used?
-
-= Look over graphics handling =
-
-	- Make it a library
+= Introduce state functions for game =
+  - State functions
+  - Logical jumps (try again?)
 
 = Create map structure =
 
@@ -13,26 +8,24 @@
 
 	- Make it a library
 
-= Introduce state functions for game =
-
-= Stable rotation for moon =
-
-= Collisions =
-
-	- Merge with collision of boundary
-
-= Introduce wormhole =
-
-	- Jump from one place to the other
-
 = Introduce booster =
 
 = Add logging =
-
-= Add timestamped meteor =
 
 = Add sound =
 
 - Background music
 - Ship crash in planet/moon
 - Ship OOB
+
+= Add timestamped meteor =
+
+= Introduce wormhole =
+
+	- Jump from one place to the other
+
+= Fix ship rotate bug negative speed =
+
+= Stable rotation for moon =
+
+

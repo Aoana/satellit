@@ -75,7 +75,7 @@ void gholder_update_screen(gholder * gh) {
 	/* Draw the background. */
 	gfx_surface_draw(gh->renderer, gh->background, (double)RES_WIDTH/2, (double)RES_HEIGHT/2, 0);
 
-	/* Draw the Line describing the background. */
+	/* Draw the Line describing init velocity*/
 	gfx_line_draw(gh->renderer, 
 		gh->hbase->pos->x, gh->hbase->pos->y,
 		gh->hbase->pos->x+gh->vx_0*2, gh->hbase->pos->y+gh->vy_0*2);
