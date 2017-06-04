@@ -8,7 +8,20 @@
 #include "common.h"
 #include "object.h"
 #include "graphics.h"
-#include "gstate.h"
+#include "input.h"
+#include "moon.h"
+#include "rocket.h"
+
+/**
+ * @brief State of a game.
+ */
+enum gstate {
+	STATE_INTRO = 0,	/**< Game is at welcome screen and where input is gathered. */
+	STATE_RUNTIME,		/**< Game is running. */
+	STATE_GAMEOVER,		/**< Game over. */
+	STATE_VICTORY,		/**< Game finished successfully. */
+	STATE_SHUTDOWN,		/**< Game set to shutdown */
+};
 
 /**
  * @brief Structure for global game holder.
@@ -60,5 +73,25 @@ int gholder_background_set(gholder *gh, char *background);
  */
 void gholder_update_screen(gholder *gh);
 
+/**
+ * @brief Enter intro state. Move to next stage when Enter is pressed.
+ * @param gh Pointer to global holder.
+ *
+ */
+void gholder_state_intro(gholder *gh);
+
+/**
+ * @brief Enter runtime state. Move to next stage when game over or victory.
+ * @param gh Pointer to global holder.
+ *
+ */
+void gholder_state_runtime(gholder *gh);
+
+/**
+ * @brief Enter finish state. Shuts down when Esc is pressed.
+ * @param gh Pointer to global holder.
+ *
+ */
+void gholder_state_finish(gholder *gh);
 #endif
 

@@ -9,6 +9,7 @@
 #include "gholder.h"
 
 struct gholder;
+struct object;
 
 /**
  * @brief Add a moon object.
@@ -35,7 +36,7 @@ unsigned int moon_add(struct gholder *gh,
  * @see moon_update_mult.
  *
  */
-unsigned int moon_update(gholder *gh, struct object *mn);
+unsigned int moon_update(struct gholder *gh, struct object *mn);
 
 /**
  * @brief Update function for all moon objects.
@@ -45,6 +46,6 @@ unsigned int moon_update(gholder *gh, struct object *mn);
  * @see moon_update
  *
  */
-unsigned int moon_update_mult(gholder *gh);
+unsigned int moon_update_mult(struct gholder *gh);
 #endif
 

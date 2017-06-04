@@ -63,9 +63,7 @@ int main(int argc, char *argv[])
 	/* Set welcome text*/
 	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
-
 	/***** Loading Map *****/
-
 	if(gholder_background_set(gh, "gfx_background1.png") != 0) {
 		printf("ERR: Set background failed\n");
 		exit(1);
@@ -96,65 +94,12 @@ int main(int argc, char *argv[])
 	}
 	/***** Done loading Map *****/
 
-	printf("INFO: Intro Started\n");
-	/* Start Intro */
-	while (gh->state == STATE_INTRO) {
-		/* Get input (and check shutdown signals) */
-		input_get_intro(gh);
-		/* Print screen */
-		gholder_update_screen(gh);
-		/* Sleep briefly to stop sucking up all the CPU time */
-		SDL_Delay(UPDATE_FREQ);
-	}
-	printf("INFO: Intro Done [%lf,%lf]\n", gh->vx_0, gh->vy_0);
+	gholder_state_intro(gh);
 
-	/* Add rocket */
-	if (rocket_add(gh, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, gh->vx_0, gh->vy_0) != OBJECT_OK) {
-		printf("ERR: Init rocket failed\n");
-		exit(1);
-	}
+	gholder_state_runtime(gh);
 
-	/* Countdown */
-	sleep(1);
+	gholder_state_finish(gh);
 
-	printf("INFO: Runtime Started\n");
-	/* Start game */
-	while (gh->state == STATE_RUNTIME) {
-		/* Get shutdown signals */
-		input_get_runtime(gh);
-		/* Update all rockets */
-		if (rocket_update_mult(gh) != 0) {
-			printf("ERR: Rocket update failed\n");
-			exit(1);
-		}
-		/* Update all moons */
-		if (moon_update_mult(gh) != 0) {
-			printf("ERR: Moon update failed\n");
-			exit(1);
-		}
-		/* Print screen */
-		gholder_update_screen(gh);
-		/* Sleep briefly to stop sucking up all the CPU time */
-		SDL_Delay(UPDATE_FREQ);
-	}
-	printf("INFO: Runtime Done\n");
-
-	if (gh->state == STATE_GAMEOVER) {
-		gfx_text_set(gh->renderer, gh->header, "GAME OVER!");
-	} else if (gh->state == STATE_VICTORY) {
-		gfx_text_set(gh->renderer, gh->header, "YOU WON!");
-	}
-	gholder_update_screen(gh);
-
-	printf("INFO: Finish Started\n");
-	while (gh->state != STATE_SHUTDOWN) {
-		/* Get shutdown signals */
-		input_get_runtime(gh);
-		/* Sleep briefly to stop sucking up all the CPU time */
-		SDL_Delay(UPDATE_FREQ);
-	}
-	printf("INFO: Finish Done\n");
-	
 	/* Exit the program and cleanup */
 	gholder_destroy(gh);
 	exit(0);
