@@ -110,6 +110,9 @@ void gholder_state_intro(gholder *gh) {
 
 	printf("INFO: Enter %s\n", __func__);
 
+	/* Set welcome text*/
+	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
+
 	/* Start Intro */
 	while (gh->state == STATE_INTRO) {
 		/* Get input (and check shutdown signals) */
@@ -162,15 +165,16 @@ void gholder_state_finish(gholder *gh) {
 	printf("INFO: Enter %s\n", __func__);
 
 	if (gh->state == STATE_GAMEOVER) {
-		gfx_text_set(gh->renderer, gh->header, "GAME OVER!");
+		gfx_text_set(gh->renderer, gh->header, "GAME OVER! PRESS ENTER TO TRY AGAIN");
 	} else if (gh->state == STATE_VICTORY) {
-		gfx_text_set(gh->renderer, gh->header, "YOU WON!");
+		gfx_text_set(gh->renderer, gh->header, "YOU WON! PRESS ENTER TO RUN AGAIN");
 	}
 	gholder_update_screen(gh);
 
-	while (gh->state != STATE_SHUTDOWN) {
+	/* Break when we have gotten shutdown or we want to restart */
+	while (gh->state != STATE_SHUTDOWN && gh->state != STATE_INTRO) {
 		/* Get shutdown signals */
-		input_get_runtime(gh);
+		input_get_finish(gh);
 		/* Sleep briefly to stop sucking up all the CPU time */
 		SDL_Delay(UPDATE_FREQ);
 	}

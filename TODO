@@ -1,5 +1,4 @@
-= Introduce state functions for game =
-  - Logical jumps (try again?)
+= Add logging =
 
 = Create map structure =
 
@@ -8,8 +7,6 @@
 	- Make it a library
 
 = Introduce booster =
-
-= Add logging =
 
 = Add sound =
 

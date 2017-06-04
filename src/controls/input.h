@@ -28,3 +28,11 @@ void input_get_intro(struct gholder *gh);
  * Handling of shutdown (ESC or closing screen).
  */
 void input_get_runtime(struct gholder *gh);
+
+/**
+ * @brief Get input during shutdown phase.
+ * @param gh Pointer to global game holder.
+ *
+ * Handling of restart (Enter) or shutdown (ESC or closing screen).
+ */
+void input_get_finish(struct gholder *gh);

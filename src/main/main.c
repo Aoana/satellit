@@ -60,8 +60,6 @@ int main(int argc, char *argv[])
 		printf("ERR: Could not init texts\n");
 		exit(1);
 	}
-	/* Set welcome text*/
-	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
 	/***** Loading Map *****/
 	if(gholder_background_set(gh, "gfx_background1.png") != 0) {
@@ -94,11 +92,16 @@ int main(int argc, char *argv[])
 	}
 	/***** Done loading Map *****/
 
+intro:
 	gholder_state_intro(gh);
 
 	gholder_state_runtime(gh);
 
 	gholder_state_finish(gh);
+
+	if(gh->state == STATE_INTRO) {
+		goto intro;
+	}
 
 	/* Exit the program and cleanup */
 	gholder_destroy(gh);

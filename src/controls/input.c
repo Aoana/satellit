@@ -87,3 +87,35 @@ void input_get_runtime(gholder *gh) {
 		}
 	}
 }
+
+void input_get_finish(gholder *gh) {
+
+	SDL_Event event;
+
+	/* Loop through waiting messages and process them */
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+
+			/* Closing the Window or pressing Escape will exit the program */
+			case SDL_QUIT:
+				gh->state = STATE_SHUTDOWN;
+				break;
+
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+
+					case SDLK_RETURN:
+						gh->state = STATE_INTRO;
+						break;
+
+					case SDLK_ESCAPE:
+						gh->state = STATE_SHUTDOWN;
+						break;
+
+					default:
+						break;
+				}
+				break;
+		}
+	}
+}
