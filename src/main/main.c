@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
 		printf("ERR: Initialization of logging failed, quitting, err = %s\n", strerror(errno));
 		exit(1);
 	}
+	LOG("Starting a new game of %s", argv[0]);
 	
 	if (argc != 1) {
 		LOG("%s (no arguments)", argv[0]);
