@@ -8,14 +8,14 @@ unsigned int rocket_add(gholder *gh,
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_ship_moving.png");
 	if (gfx_img == NULL ) {
-		printf("ERR: Unable to get image\n");
+		LOG("ERR: Unable to get image");
 		return OBJECT_ADD;
 	}
 	image = gfx_img->image;
 
-	printf("INFO: Adding rocket id=%d\n", gh->rtl->n_objs);
+	LOG("INFO: Adding rocket id=%d", gh->rtl->n_objs);
 	if (object_add(gh->rtl, gh->rtl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
-		printf("ERR: Unable to add rocket\n");
+		LOG("ERR: Unable to add rocket");
 		return OBJECT_ADD;
 	}
 	return OBJECT_OK;
@@ -30,7 +30,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	/* Update position for rocket (gravity from planets taken into account */
 	if (position_update(gh->ptl, rt) != POSITION_OK) {
 		if (object_remove(gh->rtl, rt) != OBJECT_OK) {
-			printf("ERR: Failed to remove object, id=%d\n", rt->id);
+			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}
 		gh->state = STATE_GAMEOVER;
 		return OBJECT_OOB;
@@ -63,7 +63,7 @@ unsigned int rocket_update_mult(gholder *gh) {
 			continue;
 		} 
 		if ((ret = rocket_update(gh, obj)) != OBJECT_OK) {
-			printf("WARN: Rocket update failed %s, id=%d\n", object_enum2str(ret), obj->id);
+			LOG("WARN: Rocket update failed %s, id=%d", object_enum2str(ret), obj->id);
 		}
 	}
 	return OBJECT_OK;

@@ -19,7 +19,6 @@ enum velocityReturnCode velocity_update(object_list *ptl, object *rt) {
 		d = sqrt(pow(dx,2)+pow(dy,2));
 		f_x = f_x + (GRAV_CONST*pt->mass*rt->mass*dx)/pow(d,3);
 		f_y = f_y + (GRAV_CONST*pt->mass*rt->mass*dy)/pow(d,3);
-		//printf("DEBUG: d=[%f,%f,%f] f=[%f,%f,%f] p=[%f,%f] pt=[%f,%f]\n", dx, dy, d, f_x, f_y, f, p->x, p->y, pt->pos->x, pt->pos->y);
 	}
 	a_x = f_x/rt->mass;
 	a_y = f_y/rt->mass;
@@ -29,7 +28,6 @@ enum velocityReturnCode velocity_update(object_list *ptl, object *rt) {
 	if (velocity_validate(p->vx, p->vy) != 0) {
 		return VELOCITY_NOK;	
 	}
-	//printf("DEBUG: velocity %f,%f\n", p->vx, p->vy);
 	return VELOCITY_OK;
 }
 

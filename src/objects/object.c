@@ -37,7 +37,7 @@ object * object_init(int id, SDL_Texture *image,
 
 	obj->pos = position_init(x, y, vx, vy);
 	if (obj->pos == NULL) {
-		printf("ERR: Unable to init position %f,%f\n", x, y);
+		LOG("ERR: Unable to init position %f,%f", x, y);
 		free(obj);
 		return NULL;
 	}
@@ -59,7 +59,7 @@ enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
 	object *obj;
 	obj = object_init(id, image, x, y, m, vx, vy);
 	if (obj == NULL) {
-		printf("WARN: Unable to init object number\n");
+		LOG("WARN: Unable to init object number");
 		return OBJECT_ADD;
 	}
 	DL_APPEND(objl->head, obj);

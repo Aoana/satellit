@@ -9,12 +9,14 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <errno.h>
 #include <math.h>
 #include <dirent.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
 #include "utlist.h"
+#include "log.h"
 
 
 #define RES_WIDTH 1920 				/**< Resolution width of screen. */

@@ -7,13 +7,13 @@ SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 	SDL_Texture *image;
 	
 	if (temp == NULL) 	{
-		printf("ERR: Failed to load image %s: %s\n", name, SDL_GetError());
+		LOG("ERR: Failed to load image %s: %s", name, SDL_GetError());
 		return NULL;
 	}
 
 	image = SDL_CreateTextureFromSurface(renderer, temp);
 	if (image == NULL) 	{
-		printf("Failed to convert image %s to native format\n", name);
+		LOG("Failed to convert image %s to native format", name);
 		return NULL;
 	}
 	
@@ -29,26 +29,26 @@ int gfx_screen_init(char *title, int width, int height,
 
 	/* Initialise SDL Video */
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("ERR: Could not initialize SDL: %s\n", SDL_GetError());
+		LOG("ERR: Could not initialize SDL: %s", SDL_GetError());
 		return 1;
 	}
 
 	*window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		width, height, SDL_WINDOW_FULLSCREEN);
 	if (*window == NULL) {
-		printf("ERR: Couldn't create window %d x %d: %s\n", width, height, SDL_GetError());
+		LOG("ERR: Couldn't create window %d x %d: %s", width, height, SDL_GetError());
 		return 1;
 	}
 
 	*renderer = SDL_CreateRenderer(*window, -1, 0);
 	if (*renderer == NULL) {
-		printf("ERR: Couldn't create renderer: %s\n", SDL_GetError());
+		LOG("ERR: Couldn't create renderer: %s", SDL_GetError());
 		SDL_DestroyWindow(*window);
 		return 1;
 	}
 
 	if (SDL_SetRenderDrawColor(*renderer, 0, 0, 0, 255) != 0) {
-		printf("ERR: Couldn't set draw color: %s\n", SDL_GetError());
+		LOG("ERR: Couldn't set draw color: %s", SDL_GetError());
 		SDL_DestroyWindow(*window);
 		SDL_DestroyRenderer(*renderer);
 		return 1;
@@ -56,7 +56,7 @@ int gfx_screen_init(char *title, int width, int height,
 
 	/* Initialise text management */
 	if(TTF_Init() != 0) {
-		printf("ERR: TTF_Init: %s\n", TTF_GetError());
+		LOG("ERR: TTF_Init: %s", TTF_GetError());
 		SDL_DestroyWindow(*window);
 		SDL_DestroyRenderer(*renderer);
 		return 1;
@@ -85,7 +85,7 @@ void gfx_screen_destroy(SDL_Window *window, SDL_Renderer *renderer) {
 
 gfx_image_list *gfx_image_list_init() {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image_list *imgl = calloc(1, sizeof(gfx_image_list));
 
@@ -94,21 +94,21 @@ gfx_image_list *gfx_image_list_init() {
 
 void gfx_image_list_destroy(gfx_image_list *imgl) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	free(imgl);
 }
 
 gfx_text *gfx_text_init(char *font_path, int font_size) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
-	printf ("INFO: Loading font %s\n", font_path);
+	LOG ("INFO: Loading font %s", font_path);
 
 	gfx_text *text = calloc(1, sizeof(gfx_text));
 	text->font = TTF_OpenFont(font_path, font_size);
 	if (text->font == NULL) {
-		printf("ERR: Unable to load font: %s %s \n", font_path, TTF_GetError());
+		LOG("ERR: Unable to load font: %s %s ", font_path, TTF_GetError());
 		return NULL;
 	}
 	text->fontcolor.r = 255;
@@ -121,7 +121,7 @@ gfx_text *gfx_text_init(char *font_path, int font_size) {
 
 void gfx_text_destroy(gfx_text *text) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 	if(text->text != NULL) {
 		SDL_DestroyTexture(text->text);
 	}
@@ -130,13 +130,13 @@ void gfx_text_destroy(gfx_text *text) {
 
 gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img = calloc(1,sizeof(gfx_image));
 	img->name = strdup(name);
 	img->image = sdl_image_load(renderer, path);
 	if (img->image == NULL) {
-		printf("ERR: Could not load image %s\n", path);
+		LOG("ERR: Could not load image %s", path);
 		free(img->name);
 		free(img);
 		return NULL;
@@ -146,7 +146,7 @@ gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path) {
 
 void gfx_image_destroy(gfx_image *img) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	SDL_DestroyTexture(img->image);
 	free(img->name);
@@ -155,7 +155,7 @@ void gfx_image_destroy(gfx_image *img) {
 
 int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img;
 	DIR *dir;
@@ -163,7 +163,7 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 	char img_path[128];
 
 	strcpy(img_path, folder);
-	printf ("INFO: Loading images in dir %s\n",img_path);
+	LOG ("INFO: Loading images in dir %s",img_path);
 	if ((dir = opendir(img_path)) != NULL) {
 		while ((file = readdir(dir)) != NULL) {
 			if (strcmp(file->d_name,".") == 0 || strcmp(file->d_name,"..") == 0) {
@@ -172,7 +172,7 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 			strcat(img_path, file->d_name);
 			img = gfx_image_init(renderer, file->d_name, img_path);
 			if (img == NULL) {
-				printf("ERR: Could not init image image %s\n", img_path);
+				LOG("ERR: Could not init image image %s", img_path);
 				gfx_image_destroy_mult(imgl);
 				return 1;
 			}
@@ -184,7 +184,7 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 		}
 		closedir (dir);
 	} else {
-		printf("ERR: Could not read images\n");
+		LOG("ERR: Could not read images");
 		gfx_image_destroy_mult(imgl);
 		return 1;
 	}
@@ -194,7 +194,7 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 
 void gfx_image_destroy_mult(gfx_image_list *imgl) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img,*tmp;
 
@@ -208,7 +208,7 @@ void gfx_image_destroy_mult(gfx_image_list *imgl) {
 
 gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img;
 
@@ -223,7 +223,7 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
 
 void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
-	/*printf("DEBUG: Enter %s\n", __func__);*/
+	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	SDL_Surface *surf;
 
@@ -233,13 +233,13 @@ void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
 	surf = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
 	if(surf == NULL) {
-		printf("ERR: Unable to render text to %s, %s\n", new_txt, TTF_GetError());
+		LOG("ERR: Unable to render text to %s, %s", new_txt, TTF_GetError());
 		exit(1);
 	}
 
 	text->text = SDL_CreateTextureFromSurface(renderer, surf);
 	if(text->text == NULL) {
-		printf("ERR: Unable to create texture from text, %s, %s\n", new_txt, TTF_GetError());
+		LOG("ERR: Unable to create texture from text, %s, %s", new_txt, TTF_GetError());
 		exit(1);
 	}
 
@@ -271,12 +271,12 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, 
 void gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {
 
 	if(SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE) != 0) {
-		printf("ERR: Unable to set renderer color for line, %s\n", SDL_GetError());
+		LOG("ERR: Unable to set renderer color for line, %s", SDL_GetError());
 		exit(1);
 	}
 
 	if(SDL_RenderDrawLine(renderer, s_x, s_y, e_x, e_y) != 0) {
-		printf("ERR: Unable to draw line %s\n", SDL_GetError());
+		LOG("ERR: Unable to draw line %s", SDL_GetError());
 		exit(1);
 	}
 

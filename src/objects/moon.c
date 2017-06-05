@@ -8,14 +8,14 @@ unsigned int moon_add(gholder *gh,
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_moon_moving.png");
 	if (gfx_img == NULL ) {
-		printf("ERR: Unable to get image\n");
+		LOG("ERR: Unable to get image");
 		return OBJECT_ADD;
 	}
 	image = gfx_img->image;
 
-	printf("INFO: Adding moon, id=%d\n", gh->mnl->n_objs);
+	LOG("INFO: Adding moon, id=%d", gh->mnl->n_objs);
 	if (object_add(gh->mnl, gh->mnl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
-		printf("ERR: Unable to add moon\n");
+		LOG("ERR: Unable to add moon");
 		return OBJECT_ADD;
 	}
 	return OBJECT_OK;
@@ -29,7 +29,7 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 
 	if (position_update(gh->ptl, mn) != POSITION_OK) {
 		if (object_remove(gh->mnl, mn) != OBJECT_OK) {
-			printf("ERR: Failed to remove object, id=%d\n", mn->id);
+			LOG("ERR: Failed to remove object, id=%d", mn->id);
 		}
 		return OBJECT_OOB;
 	}
@@ -51,7 +51,7 @@ unsigned int moon_update_mult(gholder *gh) {
 			continue;
 		} 
 		if ((ret = moon_update(gh, obj)) != OBJECT_OK) {
-			printf("WARN: Moon update failed %s, id=%d\n", object_enum2str(ret), obj->id);
+			LOG("WARN: Moon update failed %s, id=%d", object_enum2str(ret), obj->id);
 		}
 	}
 	return OBJECT_OK;

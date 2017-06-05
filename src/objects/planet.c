@@ -7,14 +7,14 @@ unsigned int planet_add(gholder *gh, double x, double y, double m) {
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_planet_1.png");
 	if (gfx_img == NULL ) {
-		printf("ERR: Unable to get image\n");
+		LOG("ERR: Unable to get image");
 		return OBJECT_ADD;
 	}
 	image = gfx_img->image;
 
-	printf("INFO: Adding planet, id=%d\n", gh->ptl->n_objs);
+	LOG("INFO: Adding planet, id=%d", gh->ptl->n_objs);
 	if (object_add(gh->ptl, gh->ptl->n_objs, image, x, y, m, 0, 0) != OBJECT_OK) {
-		printf("ERR: Unable to add planet\n");
+		LOG("ERR: Unable to add planet");
 		return OBJECT_ADD;
 	}
 	return OBJECT_OK;

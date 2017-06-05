@@ -7,23 +7,23 @@ unsigned int base_add(gholder *gh, int type, double x, double y) {
 
 	if (type == 0) {
 		gfx_img = gfx_image_get(gh->imgl,"gfx_base_home.png");
-		printf("INFO: Adding home base, id=%d\n", type);
+		LOG("INFO: Adding home base, id=%d", type);
 	} else if (type == 1) {
-		printf("INFO: Adding goal base, id=%d\n", type);
+		LOG("INFO: Adding goal base, id=%d", type);
 		gfx_img = gfx_image_get(gh->imgl,"gfx_base_goal.png");
 	} else {
-		printf("ERR: %s called with wrong type", __func__);
+		LOG("ERR: %s called with wrong type", __func__);
 		exit(1);
 	}
 
 	if (gfx_img == NULL) {
-		printf("ERR: Unable to get image\n");
+		LOG("ERR: Unable to get image");
 		return OBJECT_ADD;
 	}
 
 	base = object_init(type, gfx_img->image, x, y, 0, 0, 0);
 	if (base == NULL) {
-		printf("ERR: Unable to initialize base\n");
+		LOG("ERR: Unable to initialize base");
 		return OBJECT_ADD;
 	}
 

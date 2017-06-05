@@ -8,21 +8,21 @@ gholder *gholder_init(void) {
 	/* Initialize rocket list */
 	rtl = object_list_init();
 	if (rtl == NULL) {
-		printf("ERR: Could not init one or more images\n");
+		LOG("ERR: Could not init one or more images");
 		return NULL;
 	}
 
 	/* Initialize planet list */
 	ptl = object_list_init();
 	if (ptl == NULL) {
-		printf("ERR: Could not init planet list\n");
+		LOG("ERR: Could not init planet list");
 		return NULL;
 	}
 
 	/* Initialize moon list */
 	mnl = object_list_init();
 	if (mnl == NULL) {
-		printf("ERR: Could not init moon list\n");
+		LOG("ERR: Could not init moon list");
 		return NULL;
 	}
 
@@ -53,7 +53,7 @@ int gholder_background_set(gholder *gh, char *background) {
 
 	gfx_image *tmp = gfx_image_get(gh->imgl, background);
 	if(tmp == NULL) {
-		printf("ERR: Unable to set background to %s\n", background);
+		LOG("ERR: Unable to set background to %s", background);
 		return 1;
 	}
 
@@ -108,7 +108,7 @@ void gholder_update_screen(gholder * gh) {
 
 void gholder_state_intro(gholder *gh) {
 
-	printf("INFO: Enter %s\n", __func__);
+	LOG("INFO: Enter %s", __func__);
 
 	/* Set welcome text*/
 	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
@@ -123,17 +123,17 @@ void gholder_state_intro(gholder *gh) {
 		SDL_Delay(UPDATE_FREQ);
 	}
 
-	printf("INFO: Leave %s\n", __func__);
+	LOG("INFO: Leave %s", __func__);
 }
 
 void gholder_state_runtime(gholder *gh) {
 
-	printf("INFO: Enter %s\n", __func__);
+	LOG("INFO: Enter %s", __func__);
 
 	/*TODO Switch to hbase position*/
 	/* Add rocket */
 	if (rocket_add(gh, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, gh->vx_0, gh->vy_0) != OBJECT_OK) {
-		printf("ERR: Init rocket failed\n");
+		LOG("ERR: Init rocket failed");
 		exit(1);
 	}
 
@@ -143,12 +143,12 @@ void gholder_state_runtime(gholder *gh) {
 		input_get_runtime(gh);
 		/* Update all rockets */
 		if (rocket_update_mult(gh) != 0) {
-			printf("ERR: Rocket update failed\n");
+			LOG("ERR: Rocket update failed");
 			exit(1);
 		}
 		/* Update all moons */
 		if (moon_update_mult(gh) != 0) {
-			printf("ERR: Moon update failed\n");
+			LOG("ERR: Moon update failed");
 			exit(1);
 		}
 		/* Print screen */
@@ -157,12 +157,12 @@ void gholder_state_runtime(gholder *gh) {
 		SDL_Delay(UPDATE_FREQ);
 	}
 
-	printf("INFO: Leave %s\n", __func__);
+	LOG("INFO: Leave %s", __func__);
 }
 
 void gholder_state_finish(gholder *gh) {
 
-	printf("INFO: Enter %s\n", __func__);
+	LOG("INFO: Enter %s", __func__);
 
 	if (gh->state == STATE_GAMEOVER) {
 		gfx_text_set(gh->renderer, gh->header, "GAME OVER! PRESS ENTER TO TRY AGAIN");
@@ -179,6 +179,6 @@ void gholder_state_finish(gholder *gh) {
 		SDL_Delay(UPDATE_FREQ);
 	}
 
-	printf("INFO: Leave %s\n", __func__);
+	LOG("INFO: Leave %s", __func__);
 
 }
