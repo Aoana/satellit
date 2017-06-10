@@ -74,36 +74,11 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	/***** Loading Map *****/
-	if(gholder_background_set(gh, "gfx_background1.png") != 0) {
-		LOG("ERR: Set background failed");
+	/* Loading Map */
+	if(map_load(gh, "gravbounce_map1") != 0) {
+		LOG("ERR: Loading map failed");
 		exit(1);
 	}
-
-	/* Add planet 1*/
-	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
-		LOG("ERR: Init planet failed");
-		exit(1);
-	}
-
-	/* Add moon */
-	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 50, 50) != OBJECT_OK) {
-		LOG("ERR: Init moon failed");
-		exit(1);
-	}
-
-	/* Add home base */
-	if (base_add(gh, 0, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5) != OBJECT_OK) {
-		LOG("ERR: Init home base failed");
-		exit(1);
-	}
-
-	/* Add goal base */
-	if (base_add(gh, 1, SPACE_W_MAX, (SPACE_H_MAX+SPACE_H_MIN)*0.5) != OBJECT_OK) {
-		LOG("ERR: Init goal base failed");
-		exit(1);
-	}
-	/***** Done loading Map *****/
 
 intro:
 	gholder_state_intro(gh);
