@@ -2,10 +2,12 @@
 #define LOG_H
 
 #include <stdio.h>
+#include <time.h>
 
 #define LOG(...) do { \
-						fprintf(logfile,"%s:%d:", __FILE__, __LINE__); \
+						fprintf(logfile,"%s %s: ", __DATE__, __TIME__); \
 						fprintf(logfile, __VA_ARGS__); \
+						fprintf(logfile," %s:%d", __FILE__, __LINE__); \
 						fprintf(logfile, "\n"); \
 						fflush(logfile); \
 					} while (0) /**< Logging Macro. */
