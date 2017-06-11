@@ -7,9 +7,9 @@ unsigned int base_add(gholder *gh, int type, double x, double y) {
 
 	if (type == 0) {
 		gfx_img = gfx_image_get(gh->imgl,"gfx_base_home.png");
-		LOG("INFO: Adding home base, id=%d", type);
+		LOG("INFO: Adding home base, id=%d %f %f", type, x, y);
 	} else if (type == 1) {
-		LOG("INFO: Adding goal base, id=%d", type);
+		LOG("INFO: Adding goal base, id=%d %f %f", type, x, y);
 		gfx_img = gfx_image_get(gh->imgl,"gfx_base_goal.png");
 	} else {
 		LOG("ERR: %s called with wrong type", __func__);

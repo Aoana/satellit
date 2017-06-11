@@ -12,7 +12,7 @@ unsigned int planet_add(gholder *gh, double x, double y, double m) {
 	}
 	image = gfx_img->image;
 
-	LOG("INFO: Adding planet, id=%d", gh->ptl->n_objs);
+	LOG("INFO: Adding planet, id=%d %f %f %f", gh->ptl->n_objs, x, y, m);
 	if (object_add(gh->ptl, gh->ptl->n_objs, image, x, y, m, 0, 0) != OBJECT_OK) {
 		LOG("ERR: Unable to add planet");
 		return OBJECT_ADD;

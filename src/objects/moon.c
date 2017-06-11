@@ -13,7 +13,7 @@ unsigned int moon_add(gholder *gh,
 	}
 	image = gfx_img->image;
 
-	LOG("INFO: Adding moon, id=%d", gh->mnl->n_objs);
+	LOG("INFO: Adding moon, id=%d %f %f %f %f %f", gh->mnl->n_objs, x, y, m, vx, vy);
 	if (object_add(gh->mnl, gh->mnl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
 		LOG("ERR: Unable to add moon");
 		return OBJECT_ADD;
