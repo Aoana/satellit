@@ -2,7 +2,18 @@
 
 int map_load(struct gholder *gh, char *map) {
 
-	/* TODO Read File */
+	config_t cfg;
+
+	config_init(&cfg);
+
+	/* Read the file. If there is an error, report it and exit. */
+	if(config_read_file(&cfg, map) != CONFIG_TRUE) {
+		LOG("ERR: Unable to read config file %s", map);
+		config_destroy(&cfg);
+		return 1;
+	}
+
+	config_destroy(&cfg);
 
 	if(gholder_background_set(gh, "gfx_background1.png") != 0) {
 		LOG("ERR: Set background failed");

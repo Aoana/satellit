@@ -3,14 +3,14 @@
 void set_image_folder(char *buf) {
 
 	char img_dir[32] = "/src/graphics/images/";
-    strcpy(buf, getenv("GB_GIT"));
+	strcpy(buf, getenv("GB_GIT"));
 	strcat(buf, img_dir);
 }
 
 void set_font_path(char *buf) {
 
 	char img_dir[64] = "/src/graphics/fonts/FreeMono.ttf";
-    strcpy(buf, getenv("GB_GIT"));
+	strcpy(buf, getenv("GB_GIT"));
 	strcat(buf, img_dir);
 }
 
@@ -21,12 +21,20 @@ void set_log_path(char *buf) {
 	strcat(buf, log_name);
 }
 
+void set_map_path(char *buf) {
+
+	char img_dir[64] = "/src/main/maps/map1";
+	strcpy(buf, getenv("GB_GIT"));
+	strcat(buf, img_dir);
+}
+
 int main(int argc, char *argv[])
 {
 	gholder *gh;
 	char img_folder[128];
 	char font_path[128];
 	char log_path[128];
+	char map_path[128];
 
 	if (getenv("GB_GIT") == NULL || getenv("GB_WS") == NULL) {
 		printf( "GB_GIT or GB_WS not set, source envsetting\n");
@@ -75,7 +83,8 @@ int main(int argc, char *argv[])
 	}
 
 	/* Loading Map */
-	if(map_load(gh, "gravbounce_map1") != 0) {
+	set_map_path(map_path);
+	if(map_load(gh, map_path) != 0) {
 		LOG("ERR: Loading map failed");
 		exit(1);
 	}

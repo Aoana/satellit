@@ -5,6 +5,7 @@
 
 #ifndef MAPS_H
 #define MAPS_H
+#include <libconfig.h>
 #include "common.h"
 #include "gholder.h"
 #include "object.h"

@@ -1,5 +1,5 @@
 CFLAGS = -Wall -pedantic -Werror -g
-LFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lm
+LFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lm -lconfig
 PROG = gravbounce
 PROG_TARGET = $(addprefix $(GB_WS)/, $(PROG))
 CXX = gcc
