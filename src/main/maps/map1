@@ -1,4 +1,4 @@
-background = ("gfx_background1.png");
+background = "gfx_background1.png";
 planets = ( { 	x = 576.0;
 				y = 648.0;
 				m = 1000.0;},

@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 		printf("ERR: Initialization of logging failed, quitting, err = %s\n", strerror(errno));
 		exit(1);
 	}
-	LOG("Starting a new game of %s", argv[0]);
+	LOG("####### Starting a new game of %s", argv[0]);
 	
 	if (argc != 1) {
 		LOG("%s (no arguments)", argv[0]);
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	/* Loading Map */
 	set_map_path(map_path);
 	if(map_load(gh, map_path) != 0) {
-		LOG("ERR: Loading map failed");
+		LOG("ERR: Loading map failed %s", map_path);
 		exit(1);
 	}
 
