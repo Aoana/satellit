@@ -3,6 +3,7 @@
 int map_load(struct gholder *gh, char *map) {
 
 	config_t cfg;
+	config_setting_t *setting;
 	const char *bgd;
 
 	config_init(&cfg);
@@ -28,12 +29,41 @@ int map_load(struct gholder *gh, char *map) {
 		return 1;
 	}
 
-	/* Add planet 1*/
-	if (planet_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.3, (SPACE_H_MAX+SPACE_H_MIN)*0.6, pow(10,3)) != OBJECT_OK) {
-		LOG("ERR: Init planet failed");
+	/* Load all planets in map. */
+	setting = config_lookup(&cfg, "planets");
+	if(setting != NULL) {
+
+	    int count = config_setting_length(setting);
+	    int i;
+
+	    for(i = 0; i < count; ++i) {
+
+			config_setting_t *planet = config_setting_get_elem(setting, i);
+			double x, y, m;
+
+			if(config_setting_lookup_float(planet, "x", &x)
+				&& config_setting_lookup_float(planet, "y", &y)
+				&& config_setting_lookup_float(planet, "m", &m)) {
+
+				if (planet_add(gh, x, y, m) != OBJECT_OK) {
+					LOG("ERR: Init planet failed");
+					config_destroy(&cfg);
+					return 1;
+				}
+
+			} else {
+				LOG("ERR: Config faulty for planet %d", i);
+				config_destroy(&cfg);
+				return 1;
+			}
+
+		}
+	} else {
+		LOG("ERR: Config faulty for planet list");
 		config_destroy(&cfg);
 		return 1;
 	}
+
 
 	/* Add moon */
 	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 50, 50) != OBJECT_OK) {

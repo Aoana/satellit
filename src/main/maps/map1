@@ -2,9 +2,9 @@ background = "gfx_background1.png";
 planets = ( { 	x = 576.0;
 				y = 648.0;
 				m = 1000.0;},
-			{	x = 648;
-				y = 648;
-				m = 1000;});
+			{	x = 648.0;
+				y = 648.0;
+				m = 1000.0;});
 bases = (	{ 	type = 0;
 				x = 100.0;
 				y = 540.0;},
