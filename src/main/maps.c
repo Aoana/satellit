@@ -33,13 +33,13 @@ int map_load(struct gholder *gh, char *map) {
 	setting = config_lookup(&cfg, "planets");
 	if(setting != NULL) {
 
-	    int count = config_setting_length(setting);
-	    int i;
+		double x, y, m;
+		int i;
+		config_setting_t *planet;
 
-	    for(i = 0; i < count; ++i) {
+		for(i = 0; i < config_setting_length(setting); ++i) {
 
-			config_setting_t *planet = config_setting_get_elem(setting, i);
-			double x, y, m;
+			planet = config_setting_get_elem(setting, i);
 
 			if(config_setting_lookup_float(planet, "x", &x)
 				&& config_setting_lookup_float(planet, "y", &y)
@@ -68,13 +68,13 @@ int map_load(struct gholder *gh, char *map) {
 	setting = config_lookup(&cfg, "moons");
 	if(setting != NULL) {
 
-	    int count = config_setting_length(setting);
-	    int i;
+		double x, y, m, vx, vy;
+		int i;
+		config_setting_t *moon;
 
-	    for(i = 0; i < count; ++i) {
+		for(i = 0; i < config_setting_length(setting); ++i) {
 
-			config_setting_t *moon = config_setting_get_elem(setting, i);
-			double x, y, m, vx, vy;
+			moon = config_setting_get_elem(setting, i);
 
 			if(config_setting_lookup_float(moon, "x", &x)
 				&& config_setting_lookup_float(moon, "y", &y)
