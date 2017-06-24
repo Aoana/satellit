@@ -11,22 +11,19 @@ int map_load(struct gholder *gh, char *map) {
 	/* Read the file. If there is an error, report it and exit. */
 	if(config_read_file(&cfg, map) != CONFIG_TRUE) {
 		LOG("ERR: Unable to read config file %s", map);
-		config_destroy(&cfg);
-		return 1;
+		goto error;
 	}
 
 	/* Set the background image. */
 	if(config_lookup_string(&cfg, "background", &bgd)) {
 		if(gholder_background_set(gh, (char *)bgd) != 0) {
 			LOG("ERR: Set background %s failed", bgd);
-			config_destroy(&cfg);
-			return 1;
+			goto error;
 		}
 		LOG("INFO: Background %s set", bgd);
 	} else {
 		LOG("ERR: Unable to find background in config");
-		config_destroy(&cfg);
-		return 1;
+		goto error;
 	}
 
 	/* Load all planets in map. */
@@ -47,21 +44,18 @@ int map_load(struct gholder *gh, char *map) {
 
 				if (planet_add(gh, x, y, m) != OBJECT_OK) {
 					LOG("ERR: Init planet failed");
-					config_destroy(&cfg);
-					return 1;
+					goto error;
 				}
 
 			} else {
 				LOG("ERR: Config faulty for planet %d", i);
-				config_destroy(&cfg);
-				return 1;
+				goto error;
 			}
 
 		}
 	} else {
 		LOG("ERR: Config faulty for planet list");
-		config_destroy(&cfg);
-		return 1;
+		goto error;
 	}
 
 	/* Load all moons in map. */
@@ -84,39 +78,58 @@ int map_load(struct gholder *gh, char *map) {
 
 				if (moon_add(gh, x, y, m, vx, vy) != OBJECT_OK) {
 					LOG("ERR: Init moon failed");
-					config_destroy(&cfg);
-					return 1;
+					goto error;
 				}
 
 			} else {
 				LOG("ERR: Config faulty for moon %d", i);
-				config_destroy(&cfg);
-				return 1;
+				goto error;
 			}
 
 		}
 	} else {
 		LOG("ERR: Config faulty for moon list");
-		config_destroy(&cfg);
-		return 1;
+		goto error;
 	}
 
-	/* Add home base */
-	if (base_add(gh, 0, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5) != OBJECT_OK) {
-		LOG("ERR: Init home base failed");
-		config_destroy(&cfg);
-		return 1;
-	}
+	/* Load all bases in map. */
+	setting = config_lookup(&cfg, "bases");
+	if(setting != NULL) {
 
-	/* Add goal base */
-	if (base_add(gh, 1, SPACE_W_MAX, (SPACE_H_MAX+SPACE_H_MIN)*0.5) != OBJECT_OK) {
-		LOG("ERR: Init goal base failed");
-		config_destroy(&cfg);
-		return 1;
+		double x, y;
+		int i, type;
+		config_setting_t *base;
+
+		for(i = 0; i < config_setting_length(setting); ++i) {
+
+			base = config_setting_get_elem(setting, i);
+
+			if(config_setting_lookup_int(base, "type", &type)
+				&& config_setting_lookup_float(base, "x", &x)
+				&& config_setting_lookup_float(base, "y", &y)) {
+
+				if (base_add(gh, type, x, y) != OBJECT_OK) {
+					LOG("ERR: Init base failed %d %f %f", type, x, y);
+					goto error;
+				}
+
+			} else {
+				LOG("ERR: Config faulty for base %d", i);
+				goto error;
+			}
+
+		}
+	} else {
+		LOG("ERR: Config faulty for base list");
+		goto error;
 	}
 
 	config_destroy(&cfg);
 	return 0;
+
+error:
+	config_destroy(&cfg);
+	return 1;
 
 }
 
