@@ -64,10 +64,39 @@ int map_load(struct gholder *gh, char *map) {
 		return 1;
 	}
 
+	/* Load all moons in map. */
+	setting = config_lookup(&cfg, "moons");
+	if(setting != NULL) {
 
-	/* Add moon */
-	if (moon_add(gh, (SPACE_W_MIN+SPACE_W_MAX)*0.4, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, 50, 50) != OBJECT_OK) {
-		LOG("ERR: Init moon failed");
+	    int count = config_setting_length(setting);
+	    int i;
+
+	    for(i = 0; i < count; ++i) {
+
+			config_setting_t *moon = config_setting_get_elem(setting, i);
+			double x, y, m, vx, vy;
+
+			if(config_setting_lookup_float(moon, "x", &x)
+				&& config_setting_lookup_float(moon, "y", &y)
+				&& config_setting_lookup_float(moon, "m", &m)
+				&& config_setting_lookup_float(moon, "vx", &vx)
+				&& config_setting_lookup_float(moon, "vy", &vy)) {
+
+				if (moon_add(gh, x, y, m, vx, vy) != OBJECT_OK) {
+					LOG("ERR: Init moon failed");
+					config_destroy(&cfg);
+					return 1;
+				}
+
+			} else {
+				LOG("ERR: Config faulty for moon %d", i);
+				config_destroy(&cfg);
+				return 1;
+			}
+
+		}
+	} else {
+		LOG("ERR: Config faulty for moon list");
 		config_destroy(&cfg);
 		return 1;
 	}
