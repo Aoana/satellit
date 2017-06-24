@@ -28,7 +28,7 @@ int gfx_screen_init(char *title, int width, int height,
 	SDL_Window **window, SDL_Renderer **renderer) {
 
 	/* Initialise SDL Video */
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
 		LOG("ERR: Could not initialize SDL: %s", SDL_GetError());
 		return 1;
 	}

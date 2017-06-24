@@ -1,14 +1,15 @@
-= Create map structure =
-
-= Look over object API =
-
-	- Make it a library
-
 = Add sound =
 
+- Load SDL 
 - Background music
 - Ship crash in planet/moon
 - Ship OOB
+
+= Add map rotation =
+
+- Add map2
+- Add rotation mechanism
+- Add different headers per map
 
 = Introduce booster =
 
