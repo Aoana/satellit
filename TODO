@@ -1,17 +1,16 @@
-= Add sound =
-
-- Load SDL 
-- Ship crash in planet/moon
-- Ship OOB
-- Background music
-
 = Move binary to top in repo =
 
- - Move bin
  - Change path map
  - Change path text
  - Change path images
  - Change path sound
+
+= Add sound =
+
+- Ship crash in planet/moon
+- Ship OOB
+- Background music
+
 
 = Introduce debug build option =
 
@@ -21,6 +20,7 @@
 
 = Add map rotation =
 
+- Add map_unload
 - Add map2
 - Add rotation mechanism
 - Add different headers per map

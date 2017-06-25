@@ -1,19 +1,5 @@
 #include "main.h"
 
-void set_image_folder(char *buf) {
-
-	char img_dir[32] = "/src/graphics/images/";
-	strcpy(buf, getenv("GB_GIT"));
-	strcat(buf, img_dir);
-}
-
-void set_font_path(char *buf) {
-
-	char img_dir[64] = "/src/graphics/fonts/FreeMono.ttf";
-	strcpy(buf, getenv("GB_GIT"));
-	strcat(buf, img_dir);
-}
-
 void set_log_path(char *buf) {
 
 	char log_name[64] = "/gravbounce.log";
@@ -21,20 +7,10 @@ void set_log_path(char *buf) {
 	strcat(buf, log_name);
 }
 
-void set_map_path(char *buf) {
-
-	char map_dir[64] = "/src/main/maps/map1";
-	strcpy(buf, getenv("GB_GIT"));
-	strcat(buf, map_dir);
-}
-
 int main(int argc, char *argv[])
 {
 	gholder *gh;
-	char img_folder[128];
-	char font_path[128];
 	char log_path[128];
-	char map_path[128];
 
 	if (getenv("GB_GIT") == NULL || getenv("GB_WS") == NULL) {
 		printf( "GB_GIT or GB_WS not set, source envsetting\n");
@@ -68,24 +44,21 @@ int main(int argc, char *argv[])
 		LOG("ERR: Could not init image list");
 		exit(1);
 	}
-	set_image_folder(img_folder);
-	if (gfx_image_init_mult(gh->renderer, gh->imgl, img_folder) != 0) {
+	if (gfx_image_init_mult(gh->renderer, gh->imgl, "src/graphics/images/") != 0) {
 		LOG("ERR: Could not load one or more images");
 		exit(1);
 	}
 
 	/* Initialize Texts */
-	set_font_path(font_path);
-	gh->header = gfx_text_init(font_path, 30);
+	gh->header = gfx_text_init("src/graphics/fonts/FreeMono.ttf", 30);
 	if (gh->header == NULL) {
 		LOG("ERR: Could not init texts");
 		exit(1);
 	}
 
 	/* Loading Map */
-	set_map_path(map_path);
-	if(map_load(gh, map_path) != 0) {
-		LOG("ERR: Loading map failed %s", map_path);
+	if(map_load(gh, "src/main/maps/map1") != 0) {
+		LOG("ERR: Loading map failed");
 		exit(1);
 	}
 
