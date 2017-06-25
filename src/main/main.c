@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
 	gholder *gh;
 	char log_path[128];
 
-	if (getenv("GB_GIT") == NULL || getenv("GB_WS") == NULL) {
-		printf( "GB_GIT or GB_WS not set, source envsetting\n");
+	if (getenv("GB_WS") == NULL) {
+		printf( "GB_WS not set, source envsetting\n");
 		exit(1);
 	}
-
 	set_log_path(log_path);
 	if (log_init(log_path) != 0) {
 		printf("ERR: Initialization of logging failed, quitting, err = %s\n", strerror(errno));
 		exit(1);
 	}
+
 	LOG("####### Starting a new game of %s", argv[0]);
 	
 	if (argc != 1) {

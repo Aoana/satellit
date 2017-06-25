@@ -1,16 +1,8 @@
-= Move binary to top in repo =
-
- - Change path map
- - Change path text
- - Change path images
- - Change path sound
-
 = Add sound =
 
 - Ship crash in planet/moon
 - Ship OOB
 - Background music
-
 
 = Introduce debug build option =
 
