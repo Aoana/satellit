@@ -23,9 +23,9 @@ void set_log_path(char *buf) {
 
 void set_map_path(char *buf) {
 
-	char img_dir[64] = "/src/main/maps/map1";
+	char map_dir[64] = "/src/main/maps/map1";
 	strcpy(buf, getenv("GB_GIT"));
-	strcat(buf, img_dir);
+	strcat(buf, map_dir);
 }
 
 int main(int argc, char *argv[])

@@ -8,10 +8,6 @@ int audio_init(struct gholder *gh) {
 		LOG("ERR: Could not open audio dev, %s", SDL_GetError());
 		return 1;
 	}
-
-	/* TODO Load sounds */
-
-
 	return 0;
 
 }
@@ -24,5 +20,18 @@ int audio_destroy(struct gholder *gh) {
 }
 
 int audio_play_sound(struct gholder *gh, char *sound) {
+
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8 *wavBuffer;
+
+	SDL_LoadWAV(sound, &wavSpec, &wavBuffer, &wavLength);
+	if(SDL_QueueAudio(gh->audiodev, wavBuffer, wavLength) != 0) {
+		LOG("ERR: Could not queue audio %s, %s", sound, SDL_GetError());
+		return 1;
+	}
+	SDL_PauseAudioDevice(gh->audiodev, 0);
+	SDL_FreeWAV(wavBuffer);
 	return 0;
+
 }
