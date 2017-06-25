@@ -130,9 +130,8 @@ void gholder_state_runtime(gholder *gh) {
 
 	LOG("INFO: Enter %s", __func__);
 
-	/*TODO Switch to hbase position*/
 	/* Add rocket */
-	if (rocket_add(gh, SPACE_W_MIN, (SPACE_H_MAX+SPACE_H_MIN)*0.5, 1, gh->vx_0, gh->vy_0) != OBJECT_OK) {
+	if (rocket_add(gh, gh->hbase->pos->x, gh->hbase->pos->y, 1, gh->vx_0, gh->vy_0) != OBJECT_OK) {
 		LOG("ERR: Init rocket failed");
 		exit(1);
 	}
