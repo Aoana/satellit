@@ -6,7 +6,7 @@ CXX = gcc
 MD := mkdir
 SOURCEDIR = src
 
-DIRS = generic graphics logic objects controls main
+DIRS = generic graphics logic objects controls audio main
 TDIRS = $(foreach dir, $(DIRS), $(addprefix $(GB_WS)/, $(dir)))
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
 INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
