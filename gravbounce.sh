@@ -62,7 +62,7 @@ cmd_build() {
 ##
 cmd_start() {
 
-	gravbounce=$GB_WS/gravbounce
+	gravbounce=$GB_GIT/gravbounce
 	test -x "$gravbounce" || die 'No executable $gravbounce'
 	$gravbounce
 
