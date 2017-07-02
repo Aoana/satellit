@@ -56,6 +56,12 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	/* Initialize Audio */
+	if (audio_init(gh) != 0) {
+		LOG("ERR: Could not init audio");
+		exit(1);
+	}
+
 	/* Loading Map */
 	if(map_load(gh, "src/main/maps/map1") != 0) {
 		LOG("ERR: Loading map failed");

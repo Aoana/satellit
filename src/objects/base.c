@@ -1,6 +1,6 @@
 #include "base.h"
 
-unsigned int base_add(gholder *gh, int type, double x, double y) {
+unsigned int base_add(struct gholder *gh, int type, double x, double y) {
 
 	gfx_image *gfx_img;
 	object *base;

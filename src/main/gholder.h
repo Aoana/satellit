@@ -11,6 +11,7 @@
 #include "input.h"
 #include "moon.h"
 #include "rocket.h"
+#include "audio.h"
 
 /**
  * @brief State of a game.

@@ -22,6 +22,6 @@ struct object;
  * @see object_add.
  *
  */
-unsigned int base_add(gholder *gh, int type, double x, double y);
+unsigned int base_add(struct gholder *gh, int type, double x, double y);
 #endif
 

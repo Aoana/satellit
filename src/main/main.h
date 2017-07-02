@@ -12,4 +12,5 @@
 #include "input.h"
 #include "gholder.h"
 #include "maps.h"
+#include "audio.h"
 
