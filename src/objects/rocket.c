@@ -33,6 +33,9 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}
 		gh->state = STATE_GAMEOVER;
+		if(audio_play_sound(gh,"src/audio/sounds/151022__bubaproducer__laser-shot-silenced.wav") != 0) {
+			LOG("ERR: Could not queue audio for ship OOB");
+		}
 		return OBJECT_OOB;
 	}
 
@@ -41,6 +44,9 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 		rt->dead = 1;
 		rt->image = (gfx_image_get(gh->imgl, "gfx_ship_broken.png"))->image;
 		gh->state = STATE_GAMEOVER;
+		if(audio_play_sound(gh,"src/audio/sounds/13826__adcbicycle__17.wav") != 0) {
+			LOG("ERR: Could not queue audio for ship collision with planet");
+		}
 		return OBJECT_COL;
 	}
 

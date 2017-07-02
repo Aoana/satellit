@@ -11,7 +11,6 @@ int audio_init(struct gholder *gh) {
 	want.samples = 4096;
 	want.callback = NULL;
 
-
 	LOG("INFO: Opening audio dev: freq=%d, format=%s, channels=%d, samples=%d", want.freq, "AUDIO_F32", want.channels, want.samples);
 	/* Open audio device */
 	gh->audiodev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
