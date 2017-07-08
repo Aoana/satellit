@@ -13,6 +13,10 @@ INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
 SOURCES = $(foreach dir,$(SOURCEDIRS),$(wildcard $(dir)/*.c))
 OBJS = $(subst $(SOURCEDIR), $(GB_WS), $(SOURCES:.c=.o))
 	
+ifdef DEBUG
+CFLAGS  += -DDEBUG
+endif
+
 # top-level rule to create the program.
 all: $(TDIRS) $(PROG)
 

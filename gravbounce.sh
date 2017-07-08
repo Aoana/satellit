@@ -57,7 +57,7 @@ cmd_build() {
 	fi
 	if test "$__debug" = "yes"; then
 		echo "Compiling (debug)"
-		make
+		make DEBUG=1
 	else
 		echo "Compiling (no debug)"
 		make
