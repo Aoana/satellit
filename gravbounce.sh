@@ -50,11 +50,13 @@ test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 ##
 cmd_build() {
 
+	path=`pwd`
 	cd $GB_GIT
 	if test "$__clean" = "yes"; then
 		make clean
 	fi
 	make
+	cd $path
 }
 
 ##	start
@@ -62,9 +64,11 @@ cmd_build() {
 ##
 cmd_start() {
 
-	gravbounce=$GB_GIT/gravbounce
-	test -x "$gravbounce" || die 'No executable gravbounce'
-	$gravbounce
+	path=`pwd`
+	cd $GB_GIT
+	test -x "gravbounce" || die 'No executable gravbounce'
+	./gravbounce
+	cd $path
 
 }
 
