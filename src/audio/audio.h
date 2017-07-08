@@ -33,6 +33,7 @@ int audio_destroy(struct gholder *gh);
 /**
  * @brief Play a sound.
  * @param gh Pointer to global holder.
+ * @param sound path to sound to be played.
  * @return 0 if passed, 1 if failed.
  *
  */
