@@ -1,9 +1,10 @@
 = Add map rotation =
 
 - Add map_unload
-- Add map2
 - Add rotation mechanism
 - Add different headers per map
+
+= Unit tests =
 
 = Add sound =
 

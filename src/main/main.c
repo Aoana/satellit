@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	LOG("####### Starting a new game of %s", argv[0]);
 	
 	if (argc != 1) {
-		LOG("%s (no arguments)", argv[0]);
+		LOG("ERR: %s (no arguments)", argv[0]);
 		exit(1);
 	}
 

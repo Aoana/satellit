@@ -12,6 +12,7 @@
 #include "moon.h"
 #include "rocket.h"
 #include "audio.h"
+#include "maps.h"
 
 /**
  * @brief State of a game.

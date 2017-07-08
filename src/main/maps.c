@@ -133,7 +133,22 @@ error:
 
 }
 
-int unload_map(struct gholder *gh) {
+int map_unload(struct gholder *gh) {
+
+	if (object_remove_mult(gh->ptl) != OBJECT_OK) {
+		LOG("ERR: Unable remove planets from old map");
+		return 1;
+	}
+	if (object_remove_mult(gh->mnl) != OBJECT_OK) {
+		LOG("ERR: Unable remove moons from old map");
+		return 1;
+	}
+	if (object_remove_mult(gh->rtl) != OBJECT_OK) {
+		LOG("ERR: Unable remove old rockets from old map");
+		return 1;
+	}
+	object_destroy(gh->hbase);
+	object_destroy(gh->gbase);
 
 	return 0;
 
