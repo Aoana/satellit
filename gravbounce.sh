@@ -55,7 +55,13 @@ cmd_build() {
 	if test "$__clean" = "yes"; then
 		make clean
 	fi
-	make
+	if test "$__debug" = "yes"; then
+		echo "Compiling (debug)"
+		make
+	else
+		echo "Compiling (no debug)"
+		make
+	fi
 	cd $path
 }
 
