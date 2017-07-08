@@ -6,7 +6,7 @@ int audio_init(struct gholder *gh) {
 	SDL_AudioSpec want, have;
 	SDL_memset(&want, 0, sizeof(want));
 	want.freq = 48000;
-	want.format = AUDIO_F32;
+	want.format = AUDIO_S16;
 	want.channels = 2;
 	want.samples = 4096;
 	want.callback = NULL;

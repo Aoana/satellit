@@ -55,6 +55,9 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 		rt->dead = 1;
 		rt->image = (gfx_image_get(gh->imgl, "gfx_ship_landed.png"))->image;
 		gh->state = STATE_VICTORY;
+		if(audio_play_sound(gh,"src/audio/sounds/198874__bone666138__fanfare.wav") != 0) {
+			LOG("ERR: Could not queue audio for victory");
+		}
 		return OBJECT_COL;
 	}
 
