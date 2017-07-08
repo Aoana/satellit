@@ -10,8 +10,9 @@ void set_log_path(char *buf) {
 int main(int argc, char *argv[])
 {
 	gholder *gh;
-	char log_path[128];
 
+#ifdef DEBUG
+	char log_path[128];
 	if (getenv("GB_WS") == NULL) {
 		printf( "GB_WS not set, source envsetting\n");
 		exit(1);
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
 		printf("ERR: Initialization of logging failed, quitting, err = %s\n", strerror(errno));
 		exit(1);
 	}
+#endif
 
 	LOG("####### Starting a new game of %s", argv[0]);
 	

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#ifdef DEBUG
 #define LOG(...) do { \
 						fprintf(logfile,"%s %s: ", __DATE__, __TIME__); \
 						fprintf(logfile, __VA_ARGS__); \
@@ -11,6 +12,9 @@
 						fprintf(logfile, "\n"); \
 						fflush(logfile); \
 					} while (0) /**< Logging Macro. */
+#else
+#define LOG(...)
+#endif
 
 extern FILE *logfile;
 

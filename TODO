@@ -1,19 +1,13 @@
-= Add sound =
-
-- Allow parallell sounds
-
-= Introduce debug build option =
-
- - Introduce flag
- - Change log macro
- - Change log init
-
 = Add map rotation =
 
 - Add map_unload
 - Add map2
 - Add rotation mechanism
 - Add different headers per map
+
+= Add sound =
+
+- Allow parallell sounds, switch to SDL mixer
 
 = Introduce booster =
 
