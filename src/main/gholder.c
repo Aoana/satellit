@@ -114,6 +114,11 @@ void gholder_state_intro(gholder *gh) {
 	/* Set welcome text*/
 	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
+	/* Start background sound */
+	if(audio_play_sound(gh,"src/audio/sounds/371516__mrthenoronha__space-game-theme-loop.wav") != 0) {
+		LOG("ERR: Could not queue audio for background music");
+	}
+
 	/* Start Intro */
 	while (gh->state == STATE_INTRO) {
 		/* Get input (and check shutdown signals) */
