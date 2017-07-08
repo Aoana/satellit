@@ -58,11 +58,14 @@ cmd_build() {
 	if test "$__debug" = "yes"; then
 		echo "Compiling (debug)"
 		make DEBUG=1
+		ret=$?
 	else
 		echo "Compiling (no debug)"
 		make
+		ret=$?
 	fi
 	cd $path
+	return $ret
 }
 
 ##	start
@@ -74,7 +77,9 @@ cmd_start() {
 	cd $GB_GIT
 	test -x "gravbounce" || die 'No executable gravbounce'
 	./gravbounce
+	ret=$?
 	cd $path
+	return $ret
 
 }
 
