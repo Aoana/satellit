@@ -45,8 +45,9 @@ echo "$1" | grep -qi "^help\|-h" && help
 test -n "$GB_WS" || die 'Not set [$GB_WS]'
 test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 
-##	build [--clean]
+##	build [--clean] [--debug]
 ##		Compiles gravbounce
+##		debug adds logging
 ##
 cmd_build() {
 
