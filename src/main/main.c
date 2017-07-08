@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	/* Loading Map */
-	if(map_load(gh, "src/main/maps/map1") != 0) {
+	/* Loading Map 1*/
+	if(map_load_next(gh) != 0) {
 		LOG("ERR: Loading map failed");
 		exit(1);
 	}

@@ -31,6 +31,7 @@ gholder *gholder_init(void) {
 	gh->ptl = ptl;
 	gh->mnl = mnl;
 	gh->state = STATE_INTRO;
+	gh->map_number = 0;
 
 	return gh;
 }
@@ -173,14 +174,10 @@ void gholder_state_finish(gholder *gh) {
 		gfx_text_set(gh->renderer, gh->header, "GAME OVER! PRESS ENTER TO TRY AGAIN");
 	} else if (gh->state == STATE_VICTORY) {
 		gfx_text_set(gh->renderer, gh->header, "YOU WON! PRESS ENTER TO RUN NEXT MAP");
+
 		/* Loading next map */
-		
-		if(map_unload(gh) != 0) {
-			LOG("ERR: Unloading map failed");
-			exit(1);
-		}
-		if(map_load(gh, "src/main/maps/map2") != 0) {
-			LOG("ERR: Loading map failed");
+		if(map_load_next(gh) != 0) {
+			LOG("ERR: Loading next map failed");
 			exit(1);
 		}
 	}

@@ -48,6 +48,11 @@ object * object_init(int id, SDL_Texture *image,
 }
 
 int object_destroy(object *obj) {
+
+	if(obj == NULL) {
+		return 0;
+	}
+
 	position_destroy(obj->pos);
 	free(obj);
 	return 0;
@@ -78,6 +83,11 @@ enum objectReturnCode object_remove(object_list *objl, object *obj) {
 
 enum objectReturnCode object_remove_mult(object_list *objl) {
 	object *obj, *tmp;
+
+	if(objl == NULL) {
+		return OBJECT_OK;
+	}
+
 	DL_FOREACH_SAFE(objl->head,obj,tmp) {
 		if(object_remove(objl, obj) != OBJECT_OK) {
 			return OBJECT_REM;
