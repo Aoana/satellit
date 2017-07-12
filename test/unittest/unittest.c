@@ -6,11 +6,20 @@
  * Position tests
  ******************/
 
+position *pos = NULL;
+
 int init_position_suite(void) {
+	pos = position_init(SPACE_H_MAX-1, SPACE_H_MAX-1, 0, 0);
+	if(pos == NULL) {
+		return 1;
+	}
 	return 0;
 }
 
 int destroy_position_suite(void) {
+	if(position_destroy(pos) != 0) {
+		return 1;
+	}
 	return 0;
 }
 
