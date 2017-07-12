@@ -6,8 +6,10 @@
 #ifndef POSITION_H
 #define POSITION_H
 #include "common.h"
-#include "planet.h"
 #include "velocity.h"
+
+struct object;
+struct object_list;
 
 /**
  * @brief Structure for position and velocity.
