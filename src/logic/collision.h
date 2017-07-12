@@ -19,6 +19,7 @@ enum collisionReturnCode {
 };
 
 struct object;
+struct object_list;
 
 /**
  * @brief Check collision between two objects.

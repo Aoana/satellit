@@ -7,7 +7,6 @@
 #define OBJECT_H
 #include "common.h"
 #include "position.h"
-#include "graphics.h"
 #include "collision.h"
 
 /**
