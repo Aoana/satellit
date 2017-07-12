@@ -5,7 +5,7 @@ PROG_TARGET = $(addprefix $(GB_GIT)/, $(PROG))
 CXX = gcc
 MD := mkdir
 
-TDIR = $(GB_WS)/unitest
+TDIR = $(GB_WS)/unittest
 INCLUDES = -I$(GB_GIT)/src/generic -I. 
 SOURCES = $(wildcard *.c)
 OBJS = $(addprefix $(TDIR)/, $(SOURCES:.c=.o))

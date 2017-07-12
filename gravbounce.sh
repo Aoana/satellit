@@ -84,6 +84,39 @@ cmd_start() {
 
 }
 
+##	utest_build [--clean]
+##		Compiles unit test binary
+##		Debug adds logging
+##
+cmd_utest_build() {
+
+	path=`pwd`
+	cd $GB_GIT/test/unittest
+	if test "$__clean" = "yes"; then
+		make clean
+	fi
+	echo "Compiling unittest"
+	make DEBUG=1
+	ret=$?
+	cd $path
+	return $ret
+}
+
+##	utest_start
+##		Starts unittest
+##
+cmd_utest_start() {
+
+	path=`pwd`
+	cd $GB_GIT
+	test -x "utest" || die 'No executable utest'
+	./utest
+	ret=$?
+	cd $path
+	return $ret
+
+}
+
 ##	generate_doc
 ##		Generate source documentation
 ##
