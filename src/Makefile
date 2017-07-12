@@ -4,15 +4,13 @@ PROG = gravbounce
 PROG_TARGET = $(addprefix $(GB_GIT)/, $(PROG))
 CXX = gcc
 MD := mkdir
-SOURCEDIR = src
 
 DIRS = generic graphics logic objects controls audio main
 TDIRS = $(foreach dir, $(DIRS), $(addprefix $(GB_WS)/, $(dir)))
-SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
-INCLUDES = $(foreach dir, $(SOURCEDIRS), $(addprefix -I, $(dir)))
-SOURCES = $(foreach dir,$(SOURCEDIRS),$(wildcard $(dir)/*.c))
-OBJS = $(subst $(SOURCEDIR), $(GB_WS), $(SOURCES:.c=.o))
-	
+INCLUDES = $(foreach dir, $(DIRS), $(addprefix -I, $(dir)))
+SOURCES = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.c))
+OBJS = $(addprefix $(GB_WS)/, $(SOURCES:.c=.o))
+
 ifdef DEBUG
 CFLAGS  += -DDEBUG
 endif
@@ -23,8 +21,8 @@ all: $(TDIRS) $(PROG)
 $(TDIRS):
 	$(MD) -p $(TDIRS)
 
-# Compiling 
-$(OBJS): $(GB_WS)/%.o: $(SOURCEDIR)/%.c
+# Compiling
+$(OBJS): $(GB_WS)/%.o: ./%.c
 	$(CXX) -c $(INCLUDES) $(CFLAGS) $< -o $@
 
 # Linking the program.

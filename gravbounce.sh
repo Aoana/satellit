@@ -52,7 +52,7 @@ test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 cmd_build() {
 
 	path=`pwd`
-	cd $GB_GIT
+	cd $GB_GIT/src
 	if test "$__clean" = "yes"; then
 		make clean
 	fi
