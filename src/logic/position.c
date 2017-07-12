@@ -25,7 +25,7 @@ enum positionReturnCode position_validate(double x, double y) {
 	return POSITION_ERR_OOB;
 }
 
-enum positionReturnCode position_update(object_list *objl, object *obj) {
+enum positionReturnCode position_update(struct object_list *objl, struct object *obj) {
 	position *p = obj->pos;
 	p->x = p->x + p->vx/UPDATE_FREQ;
 	p->y = p->y + p->vy/UPDATE_FREQ;

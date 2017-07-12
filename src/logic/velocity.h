@@ -7,9 +7,6 @@
 #define VELOCITY_H
 #include "common.h"
 #include "position.h"
-#include "rocket.h"
-#include "planet.h"
-
 
 #define GRAV_CONST 1000 /**< Gravitational constant, only for tweaking */
 

@@ -27,4 +27,6 @@
 #define SPACE_H_MAX RES_HEIGHT-100	/**< Playable area, max height. */
 #define SPACE_H_MIN 100				/**< Playable area, min height. */
 
+#define UPDATE_FREQ 25 /**< Update frequency for the game. */
+
 #endif
