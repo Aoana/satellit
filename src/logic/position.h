@@ -59,13 +59,4 @@ int position_destroy(position *p);
  */
 enum positionReturnCode position_validate(double x, double y);
 
-/**
- * @brief Update position and velocity.
- * @param objl Pointer to object list to interact with.
- * @param obj Pointer to object to be updated.
- * @return POSITION_OK if pass, positionReturnCode if failed.
- * @see positionReturncode
- * @see velocity_update
- */
-enum positionReturnCode position_update(struct object_list *objl, struct object *obj);
 #endif

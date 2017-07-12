@@ -28,7 +28,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	}
 
 	/* Update position for rocket (gravity from planets taken into account */
-	if (position_update(gh->ptl, rt) != POSITION_OK) {
+	if (object_position_update(gh->ptl, rt) != OBJECT_OK) {
 		if (object_remove(gh->rtl, rt) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}

@@ -25,19 +25,3 @@ enum positionReturnCode position_validate(double x, double y) {
 	return POSITION_ERR_OOB;
 }
 
-enum positionReturnCode position_update(struct object_list *objl, struct object *obj) {
-	position *p = obj->pos;
-	p->x = p->x + p->vx/UPDATE_FREQ;
-	p->y = p->y + p->vy/UPDATE_FREQ;
-	if (position_validate(p->x, p->y) != 0) {
-		return POSITION_ERR_OOB;
-	}
-
-	/* Update velocity for next timestep */
-	velocity_update(objl, obj);
-	if (velocity_validate(p->vx, p->vy) != 0) {
-		return POSITION_ERR_VEL;
-	}
-	return POSITION_OK;
-}
-

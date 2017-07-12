@@ -110,6 +110,23 @@ enum objectReturnCode object_remove_id(object_list *objl, int id) {
 	return OBJECT_NFD;
 }
 
+enum objectReturnCode object_position_update(struct object_list *objl, struct object *obj) {
+	position *p = obj->pos;
+	p->x = p->x + p->vx/UPDATE_FREQ;
+	p->y = p->y + p->vy/UPDATE_FREQ;
+	if (position_validate(p->x, p->y) != 0) {
+		return OBJECT_OOB;
+	}
+
+	/* Update velocity for next timestep */
+	velocity_update(objl, obj);
+	if (velocity_validate(p->vx, p->vy) != 0) {
+		return OBJECT_OOB;
+	}
+	return OBJECT_OK;
+}
+
+
 double object_get_angle(object *obj) {
 
 	double ret;

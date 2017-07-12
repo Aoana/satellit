@@ -27,7 +27,7 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 		return OBJECT_OK;
 	}
 
-	if (position_update(gh->ptl, mn) != POSITION_OK) {
+	if (object_position_update(gh->ptl, mn) != OBJECT_OK) {
 		if (object_remove(gh->mnl, mn) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", mn->id);
 		}
