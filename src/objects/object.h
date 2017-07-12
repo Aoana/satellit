@@ -43,8 +43,6 @@ typedef struct object_list {
 	struct object *head;	/**< Pointer to head of list */
 } object_list;
 
-struct gfx_image_list;
-
 /**
  * @brief Translate from object return code to string.
  * @param ret Enum to be translated to string.
