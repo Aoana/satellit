@@ -96,21 +96,8 @@ enum objectReturnCode object_remove_mult(object_list *objl) {
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_remove_id(object_list *objl, int id) {
-	object *obj, *tmp;
-	DL_FOREACH_SAFE(objl->head,obj,tmp) {
-		if (obj->id == id) {
-			DL_DELETE(objl->head,obj);
-			if(object_destroy(obj) != OBJECT_OK) {
-				return OBJECT_REM;
-			}
-			return OBJECT_OK;
-		}
-    }
-	return OBJECT_NFD;
-}
-
 enum objectReturnCode object_position_update(struct object_list *objl, struct object *obj) {
+
 	position *p = obj->pos;
 	p->x = p->x + p->vx/UPDATE_FREQ;
 	p->y = p->y + p->vy/UPDATE_FREQ;
@@ -125,7 +112,6 @@ enum objectReturnCode object_position_update(struct object_list *objl, struct ob
 	}
 	return OBJECT_OK;
 }
-
 
 double object_get_angle(object *obj) {
 

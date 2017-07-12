@@ -121,18 +121,6 @@ enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
 enum objectReturnCode object_remove(object_list *objl, object *obj);
 
 /**
- * @brief Removal of an object using ID, including removal from list.
- * @param objl Pointer to list.
- * @param id Unique ID of object to remove.
- * @return return OBJECT_OK if passed, OBJECT_REM if failed
- * @see objectReturnCode
- * @see object_remove
- * @see object_add
- *
- */
-enum objectReturnCode object_remove_id(object_list *objl, int id);
-
-/**
  * @brief Removal of all objects list, used for cleanup.
  * @param objl Pointer to list.
  * @return return OBJECT_OK if passed, OBJECT_REM if failed
