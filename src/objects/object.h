@@ -7,7 +7,6 @@
 #define OBJECT_H
 #include "common.h"
 #include "position.h"
-#include "collision.h"
 
 /**
  * @brief Return codes for the object API.

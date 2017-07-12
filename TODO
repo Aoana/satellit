@@ -1,3 +1,5 @@
+= Move src Makefile to src folder =
+
 = Unit tests =
 
 = Add sound =
@@ -15,5 +17,4 @@
 = Fix ship rotate bug negative speed =
 
 = Stable rotation for moon =
-
 

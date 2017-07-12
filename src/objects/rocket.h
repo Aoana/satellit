@@ -6,6 +6,7 @@
 #ifndef ROCKET_H
 #define ROCKET_H
 #include "object.h"
+#include "collision.h"
 #include "gholder.h"
 
 struct gholder;
