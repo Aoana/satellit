@@ -98,7 +98,7 @@ void gholder_update_screen(gholder * gh) {
 
 	/* Draw the rockets to x and y */
 	DL_FOREACH(gh->rtl->head, rt) {
-		gfx_surface_draw(gh->renderer, rt->image, rt->pos->x, rt->pos->y, object_get_angle(rt));
+		gfx_surface_draw(gh->renderer, rt->image, rt->pos->x, rt->pos->y, position_get_angle(rt->pos));
 	}
 
 	/* Draw the header, hardcoded position. */

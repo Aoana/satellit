@@ -1,5 +1,30 @@
 #include "rocket.h"
 
+unsigned int rocket_gravity_update(object_list *ptl, object *rt) {
+
+	double a_x = 0, a_y = 0;
+	double f_x = 0, f_y = 0;
+	double dx, dy, d;
+	object *pt;
+	position *p = rt->pos;
+
+	DL_FOREACH(ptl->head, pt) {
+		dx = pt->pos->x - p->x;
+		dy = pt->pos->y - p->y;
+		d = sqrt(pow(dx,2)+pow(dy,2));
+		f_x = f_x + (GRAV_CONST*pt->mass*rt->mass*dx)/pow(d,3);
+		f_y = f_y + (GRAV_CONST*pt->mass*rt->mass*dy)/pow(d,3);
+	}
+	a_x = f_x/rt->mass;
+	a_y = f_y/rt->mass;
+
+	p->vx = p->vx + a_x/UPDATE_FREQ;
+	p->vy = p->vy + a_y/UPDATE_FREQ;
+
+	return OBJECT_OK;
+
+}
+
 unsigned int rocket_add(gholder *gh,
 	double x, double y, double m, double vx, double vy) {
 
@@ -27,8 +52,8 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 		return OBJECT_OK;
 	}
 
-	/* Update position for rocket (gravity from planets taken into account */
-	if (object_position_update(gh->ptl, rt) != OBJECT_OK) {
+	/* Update position for rocket */
+	if (position_update(rt->pos) != POSITION_OK) {
 		if (object_remove(gh->rtl, rt) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}
@@ -37,6 +62,11 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 			LOG("ERR: Could not queue audio for ship OOB");
 		}
 		return OBJECT_OOB;
+	}
+
+	/* Update velocity based on gravity */
+	if (rocket_gravity_update(gh->ptl, rt) != OBJECT_OK) {
+		LOG("ERR: Failed to apply gravity update for rocket, id=%d", rt->id);
 	}
 
 	/* Check collision for all planets */

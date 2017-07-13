@@ -12,6 +12,8 @@
 struct gholder;
 struct object;
 
+#define GRAV_CONST 1000
+
 /**
  * @brief Add a rocket object.
  * @param gh Pointer to the global game holder.

@@ -7,10 +7,6 @@
 #define POSITION_H
 #include "common.h"
 #include "object.h"
-#include "velocity.h"
-
-//struct object;
-//struct object_list;
 
 /**
  * @brief Structure for position and velocity.
@@ -58,5 +54,22 @@ int position_destroy(position *p);
  *
  */
 enum positionReturnCode position_validate(double x, double y);
+
+/**
+ * @brief Update position of obj based on gravity from objl.
+ * @param p Pointer to position to be updated.
+ * @return return POSITION_OK if passed, POSITION_ERR_OOB if failed
+ * @see positionReturnCode
+ *
+ */
+enum positionReturnCode position_update(position *p);
+
+/**
+ * @brief Return the velocity angle of object.
+ * @param p Pointer to position struct.
+ * @return return angle of velocity vector
+ *
+ */
+double position_get_angle(position *p);
 
 #endif

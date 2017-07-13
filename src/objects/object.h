@@ -131,22 +131,5 @@ enum objectReturnCode object_remove(object_list *objl, object *obj);
  */
 enum objectReturnCode object_remove_mult(object_list *objl);
 
-/**
- * @brief Update position of obj based on gravity from objl.
- * @param objl Pointer to list.
- * @param objl Pointer to object to be updated.
- * @return return OBJECT_OK if passed, OBJECT_OOB if failed
- * @see objectReturnCode
- *
- */
-enum objectReturnCode object_position_update(struct object_list *objl, struct object *obj);
-
-/**
- * @brief Return the velocity angle of object.
- * @param obj Pointer to object.
- * @return return angle of object
- *
- */
-double object_get_angle(object *obj);
 #endif
 
