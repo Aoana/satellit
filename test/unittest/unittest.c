@@ -38,8 +38,27 @@ void test_position_validate(void) {
 	CU_ASSERT(POSITION_ERR_OOB == position_validate(SPACE_W_MAX, SPACE_H_MAX+1));
 }
 
-void test_position_init(void) {
-	CU_ASSERT(0 == 0);
+void test_position_update(void) {
+
+	position p1 = {SPACE_W_MIN, SPACE_H_MIN, 1, 1};
+	position p2 = {SPACE_W_MIN, SPACE_H_MAX, 1, -1};
+	position p3 = {SPACE_W_MAX, SPACE_H_MIN, -1, 1};
+	position p4 = {SPACE_W_MAX, SPACE_H_MAX, -1, -1};
+
+	position p5 = {SPACE_W_MIN, SPACE_H_MIN, -1, 0};
+	position p6 = {SPACE_W_MIN, SPACE_H_MIN, 0, -1};
+	position p7 = {SPACE_W_MAX, SPACE_H_MAX, 1, 0};
+	position p8 = {SPACE_W_MAX, SPACE_H_MAX, 0, 1};
+
+	CU_ASSERT(POSITION_OK == position_update(&p1));
+	CU_ASSERT(POSITION_OK == position_update(&p2));
+	CU_ASSERT(POSITION_OK == position_update(&p3));
+	CU_ASSERT(POSITION_OK == position_update(&p4));
+
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p5));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p6));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p7));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p8));
 }
 
 /*****************
@@ -77,8 +96,8 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	if ((NULL == CU_add_test(pSuite, "Test of position validation", test_position_validate)) ||
-		(NULL == CU_add_test(pSuite, "Test of position init", test_position_init))) {
+	if ((NULL == CU_add_test(pSuite, "Test of position val", test_position_validate)) ||
+		(NULL == CU_add_test(pSuite, "Test of position ini", test_position_update))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
