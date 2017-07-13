@@ -24,6 +24,7 @@ int destroy_position_suite(void) {
 }
 
 void test_position_validate(void) {
+
 	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MIN, SPACE_H_MIN));
 	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MIN, SPACE_H_MAX));
 	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MAX, SPACE_H_MIN));

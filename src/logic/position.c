@@ -40,6 +40,6 @@ enum positionReturnCode position_update(position *p) {
 
 double position_get_angle(position *p) {
 
-	return atan(p->vy/p->vx)*(180/M_PI);
+	return atan2(p->vy, p->vx)*(180/M_PI);
 
 }
