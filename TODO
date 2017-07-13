@@ -1,6 +1,8 @@
-= Move src Makefile to src folder =
-
 = Unit tests =
+
+ - Jenkins job
+ - object api
+ - graphics api
 
 = Add sound =
 

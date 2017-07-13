@@ -12,7 +12,7 @@
 struct gholder;
 struct object;
 
-#define GRAV_CONST 1000
+#define GRAV_CONST 1000 /**< Gravity constant, used for tweaking */
 
 /**
  * @brief Add a rocket object.
