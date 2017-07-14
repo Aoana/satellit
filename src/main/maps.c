@@ -136,15 +136,15 @@ error:
 int map_unload(struct gholder *gh) {
 
 	LOG("INFO: Unloading map %d", gh->map_number);
-	if (object_remove_mult(gh->ptl) != OBJECT_OK) {
+	if (object_list_remove_all(gh->ptl) != OBJECT_OK) {
 		LOG("ERR: Unable remove planets from old map");
 		return 1;
 	}
-	if (object_remove_mult(gh->mnl) != OBJECT_OK) {
+	if (object_list_remove_all(gh->mnl) != OBJECT_OK) {
 		LOG("ERR: Unable remove moons from old map");
 		return 1;
 	}
-	if (object_remove_mult(gh->rtl) != OBJECT_OK) {
+	if (object_list_remove_all(gh->rtl) != OBJECT_OK) {
 		LOG("ERR: Unable remove old rockets from old map");
 		return 1;
 	}

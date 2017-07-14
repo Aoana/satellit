@@ -94,20 +94,13 @@ int object_destroy(object *obj);
 /**
  * @brief Creation of an object and adding it to list.
  * @param objl Pointer to list to which to add.
- * @param id Unique ID
- * @param image Pointer to image of object
- * @param x X position
- * @param y Y position
- * @param m Mass
- * @param vx X start velocity
- * @param vy Y start velocity
+ * @param obj Pointer to object to add.
  * @return return OBJECT_OK if passed, OBJECT_ADD if failed
  * @see objectReturnCode
  * @see object_remove
  *
  */
-enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
-	double x, double y, double m, double vx, double vy);
+enum objectReturnCode object_list_add(object_list *objl, object *obj);
 
 /**
  * @brief Removal of an object including removal from list.
@@ -118,7 +111,7 @@ enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
  * @see object_add
  *
  */
-enum objectReturnCode object_remove(object_list *objl, object *obj);
+enum objectReturnCode object_list_remove(object_list *objl, object *obj);
 
 /**
  * @brief Removal of all objects list, used for cleanup.
@@ -129,7 +122,7 @@ enum objectReturnCode object_remove(object_list *objl, object *obj);
  * @see object_add
  *
  */
-enum objectReturnCode object_remove_mult(object_list *objl);
+enum objectReturnCode object_list_remove_all(object_list *objl);
 
 #endif
 

@@ -58,13 +58,10 @@ int object_destroy(object *obj) {
 	return 0;
 }
 
-enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
-	double x, double y, double m, double vx, double vy) {
+enum objectReturnCode object_list_add(object_list *objl, object *obj) {
 
-	object *obj;
-	obj = object_init(id, image, x, y, m, vx, vy);
-	if (obj == NULL) {
-		LOG("WARN: Unable to init object number");
+	if (objl == NULL || obj == NULL) {
+		LOG("WARN: Object is NULL");
 		return OBJECT_ADD;
 	}
 	DL_APPEND(objl->head, obj);
@@ -72,7 +69,7 @@ enum objectReturnCode object_add(object_list *objl, int id, SDL_Texture *image,
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_remove(object_list *objl, object *obj) {
+enum objectReturnCode object_list_remove(object_list *objl, object *obj) {
 	DL_DELETE(objl->head,obj);
 	if(object_destroy(obj) != OBJECT_OK) {
 		return OBJECT_REM;
@@ -81,7 +78,7 @@ enum objectReturnCode object_remove(object_list *objl, object *obj) {
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_remove_mult(object_list *objl) {
+enum objectReturnCode object_list_remove_all(object_list *objl) {
 	object *obj, *tmp;
 
 	if(objl == NULL) {
@@ -89,7 +86,7 @@ enum objectReturnCode object_remove_mult(object_list *objl) {
 	}
 
 	DL_FOREACH_SAFE(objl->head,obj,tmp) {
-		if(object_remove(objl, obj) != OBJECT_OK) {
+		if(object_list_remove(objl, obj) != OBJECT_OK) {
 			return OBJECT_REM;
 		}
     }

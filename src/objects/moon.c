@@ -5,6 +5,7 @@ unsigned int moon_add(gholder *gh,
 
 	struct SDL_Texture *image;
 	gfx_image *gfx_img;
+	object *moon;
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_moon_moving.png");
 	if (gfx_img == NULL ) {
@@ -14,7 +15,14 @@ unsigned int moon_add(gholder *gh,
 	image = gfx_img->image;
 
 	LOG("INFO: Adding moon, id=%d %f %f %f %f %f", gh->mnl->n_objs, x, y, m, vx, vy);
-	if (object_add(gh->mnl, gh->mnl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
+
+	moon = object_init(gh->mnl->n_objs, image, x, y, m, vx, vy);
+	if (moon == NULL ) {
+		LOG("ERR: Unable to init moon");
+		return OBJECT_ADD;
+	}
+
+	if (object_list_add(gh->mnl, moon) != OBJECT_OK) {
 		LOG("ERR: Unable to add moon");
 		return OBJECT_ADD;
 	}
@@ -28,7 +36,7 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 	}
 
 	if (position_update(mn->pos) != POSITION_OK) {
-		if (object_remove(gh->mnl, mn) != OBJECT_OK) {
+		if (object_list_remove(gh->mnl, mn) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", mn->id);
 		}
 		return OBJECT_OOB;

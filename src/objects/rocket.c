@@ -30,6 +30,7 @@ unsigned int rocket_add(gholder *gh,
 
 	struct SDL_Texture *image;
 	gfx_image *gfx_img;
+	object *rocket;
 
 	gfx_img = gfx_image_get(gh->imgl,"gfx_ship_moving.png");
 	if (gfx_img == NULL ) {
@@ -39,7 +40,12 @@ unsigned int rocket_add(gholder *gh,
 	image = gfx_img->image;
 
 	LOG("INFO: Adding rocket id=%d", gh->rtl->n_objs);
-	if (object_add(gh->rtl, gh->rtl->n_objs, image, x, y, m, vx, vy) != OBJECT_OK) {
+	rocket = object_init(gh->rtl->n_objs, image, x, y, m, vx, vy);
+	if (rocket == NULL ) {
+		LOG("ERR: Unable to init rocket");
+		return OBJECT_ADD;
+	}
+	if (object_list_add(gh->rtl, rocket) != OBJECT_OK) {
 		LOG("ERR: Unable to add rocket");
 		return OBJECT_ADD;
 	}
@@ -54,7 +60,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 
 	/* Update position for rocket */
 	if (position_update(rt->pos) != POSITION_OK) {
-		if (object_remove(gh->rtl, rt) != OBJECT_OK) {
+		if (object_list_remove(gh->rtl, rt) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}
 		gh->state = STATE_GAMEOVER;
