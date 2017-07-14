@@ -83,5 +83,12 @@ intro:
 
 	/* Exit the program and cleanup */
 	gholder_destroy(gh);
+
+#ifdef DEBUG
+	if (log_destroy() != 0) {
+		printf("ERR: Shutting down logging failed, err = %s\n", strerror(errno));
+	}
+#endif
+
 	exit(0);
 }

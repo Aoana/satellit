@@ -82,6 +82,43 @@ void test_object(void) {
 	CU_ASSERT(0 == 0);
 }
 
+/*****************
+ * Utility tests
+ ******************/
+
+int init_util_suite(void) {
+
+	system("rm -f /tmp/tmp.log");
+	if (log_init("/tmp/tmp.log") != 0) {
+		return 1;
+	}
+	return 0;
+
+}
+
+int destroy_util_suite(void) {
+
+	if (log_destroy() != 0) {
+		return 1;
+	}
+	return 0;
+
+}
+
+void test_log(void) {
+
+	LOG("AAA");
+	LOG("BBB%d",1);
+	LOG("CCC%f",3.14);
+	LOG("DDD%s","ddd");
+
+	CU_ASSERT(0 == system("grep -q AAA /tmp/tmp.log"));
+	CU_ASSERT(0 == system("grep -q BBB1 /tmp/tmp.log"));
+	CU_ASSERT(0 == system("grep -q CCC3.14 /tmp/tmp.log"));
+	CU_ASSERT(0 == system("grep -q DDDddd /tmp/tmp.log"));
+
+}
+
 int main()
 {
 	CU_pSuite pSuite = NULL;
@@ -112,6 +149,18 @@ int main()
 	}
 	if ((NULL == CU_add_test(pSuite, "Test of object list", test_object_list)) ||
 		(NULL == CU_add_test(pSuite, "Test of object add", test_object))) {
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+
+	/* Add suite log and test cases */
+	pSuite = NULL;
+	pSuite = CU_add_suite("suite_util", init_util_suite, destroy_util_suite);
+	if (NULL == pSuite) {
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+	if (NULL == CU_add_test(pSuite, "Test log macro", test_log)) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}

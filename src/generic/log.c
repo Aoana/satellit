@@ -11,3 +11,12 @@ int log_init(char *log) {
 	}
 	return 0;
 }
+
+int log_destroy() {
+
+	if(fclose(logfile) != 0) {
+		return 1;
+	}
+	return 0;
+
+}

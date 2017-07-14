@@ -20,10 +20,18 @@ extern FILE *logfile;
 
 /**
  * @brief Initialize logging.
+ * @param log Path to logfile, read/write permission needed
  * @return Zero if initilization passed, 1 if failed.
- * 
+ *
  */
-int log_init();
+int log_init(char *log);
+
+/**
+ * @brief Destroy logging.
+ * @return Zero if initilization passed, 1 if failed.
+ *
+ */
+int log_destroy();
 
 #endif
 
