@@ -176,6 +176,7 @@ void test_log(void) {
 int main()
 {
 	CU_pSuite pSuite = NULL;
+	unsigned int ret;
 
 	/* initialize the CUnit test registry */
 	if (CUE_SUCCESS != CU_initialize_registry())
@@ -223,6 +224,7 @@ int main()
 	/* Run all tests using the CUnit Basic interface */
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
+	ret = CU_get_number_of_failures();
 	CU_cleanup_registry();
-	return CU_get_error();
+	return ret;
 }
