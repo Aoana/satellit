@@ -37,7 +37,6 @@ object * object_init(int id, SDL_Texture *image,
 
 	obj->pos = position_init(x, y, vx, vy);
 	if (obj->pos == NULL) {
-		LOG("ERR: Unable to init position %f,%f", x, y);
 		free(obj);
 		return NULL;
 	}
@@ -61,7 +60,6 @@ int object_destroy(object *obj) {
 enum objectReturnCode object_list_add(object_list *objl, object *obj) {
 
 	if (objl == NULL || obj == NULL) {
-		LOG("WARN: Object is NULL");
 		return OBJECT_ADD;
 	}
 	DL_APPEND(objl->head, obj);
