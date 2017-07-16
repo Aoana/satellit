@@ -38,11 +38,11 @@ gholder *gholder_init(void) {
 
 int gholder_destroy(gholder *gh) {
 
-	object_list_remove_all(gh->rtl);
+	object_list_clean_all(gh->rtl);
 	object_list_destroy(gh->rtl);
-	object_list_remove_all(gh->ptl);
+	object_list_clean_all(gh->ptl);
 	object_list_destroy(gh->ptl);
-	object_list_remove_all(gh->mnl);
+	object_list_clean_all(gh->mnl);
 	object_list_destroy(gh->mnl);
 	gfx_image_destroy_mult(gh->imgl);
 	gfx_text_destroy(gh->header);

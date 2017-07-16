@@ -92,7 +92,7 @@ object * object_init(int id, SDL_Texture *image,
 int object_destroy(object *obj);
 
 /**
- * @brief Creation of an object and adding it to list.
+ * @brief Adding an an object and adding it to list.
  * @param objl Pointer to list to which to add.
  * @param obj Pointer to object to add.
  * @return return OBJECT_OK if passed, OBJECT_ADD if failed
@@ -103,7 +103,7 @@ int object_destroy(object *obj);
 enum objectReturnCode object_list_add(object_list *objl, object *obj);
 
 /**
- * @brief Removal of an object including removal from list.
+ * @brief Removal of an object from list.
  * @param objl Pointer to list.
  * @param obj Pointer to object to remove.
  * @return return OBJECT_OK if passed, OBJECT_REM if failed
@@ -122,7 +122,7 @@ enum objectReturnCode object_list_remove(object_list *objl, object *obj);
  * @see object_add
  *
  */
-enum objectReturnCode object_list_remove_all(object_list *objl);
+enum objectReturnCode object_list_clean_all(object_list *objl);
 
 #endif
 

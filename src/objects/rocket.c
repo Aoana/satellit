@@ -63,6 +63,9 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 		if (object_list_remove(gh->rtl, rt) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}
+		if (object_destroy(rt) != OBJECT_OK) {
+			LOG("ERR: Failed to destroy object, id=%d", rt->id);
+		}
 		gh->state = STATE_GAMEOVER;
 		if(audio_play_sound(gh,"src/audio/sounds/42103__marcuslee__laser-paintball.wav") != 0) {
 			LOG("ERR: Could not queue audio for ship OOB");

@@ -70,15 +70,15 @@ enum objectReturnCode object_list_add(object_list *objl, object *obj) {
 }
 
 enum objectReturnCode object_list_remove(object_list *objl, object *obj) {
-	DL_DELETE(objl->head,obj);
-	if(object_destroy(obj) != OBJECT_OK) {
+	if (objl == NULL || obj == NULL) {
 		return OBJECT_REM;
 	}
+	DL_DELETE(objl->head,obj);
 	objl->n_objs--;
 	return OBJECT_OK;
 }
 
-enum objectReturnCode object_list_remove_all(object_list *objl) {
+enum objectReturnCode object_list_clean_all(object_list *objl) {
 	object *obj, *tmp;
 
 	if(objl == NULL) {
@@ -89,6 +89,10 @@ enum objectReturnCode object_list_remove_all(object_list *objl) {
 		if(object_list_remove(objl, obj) != OBJECT_OK) {
 			return OBJECT_REM;
 		}
+		if(object_destroy(obj) != OBJECT_OK) {
+			return OBJECT_REM;
+		}
+
     }
 	return OBJECT_OK;
 }

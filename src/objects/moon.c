@@ -39,6 +39,9 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 		if (object_list_remove(gh->mnl, mn) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", mn->id);
 		}
+		if (object_destroy(mn) != OBJECT_OK) {
+			LOG("ERR: Failed to destroy object, id=%d", mn->id);
+		}
 		return OBJECT_OOB;
 	}
 
