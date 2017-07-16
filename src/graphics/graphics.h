@@ -7,11 +7,6 @@
 #define GRAPHICS_H
 
 #include "common.h"
-#include "rocket.h"
-#include "planet.h"
-
-
-struct gholder;
 
 /**
  * @brief Structure for an image.
