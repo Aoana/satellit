@@ -120,6 +120,22 @@ void test_object_list_remove(void) {
 	CU_ASSERT(OBJECT_OK == object_list_remove(objl, obj3));
 }
 
+void test_object_list_cleanup(void) {
+
+	CU_ASSERT(OBJECT_OK == object_list_clean_all(objlN));
+
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj1));
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj2));
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj3));
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj4));
+
+	CU_ASSERT(OBJECT_OK == object_list_clean_all(objl));
+
+	obj1 = object_init(1, NULL, SPACE_W_MIN, SPACE_H_MIN, 10, 11, 12);
+	obj2 = object_init(2, NULL, SPACE_W_MIN, SPACE_H_MAX, 20, 21, 22);
+	obj3 = object_init(3, NULL, SPACE_W_MAX, SPACE_H_MIN, 30, 31, 32);
+	obj4 = object_init(4, NULL, SPACE_W_MAX, SPACE_H_MAX, 40, 41, 42);
+}
 /*****************
  * Utility tests
  ******************/
@@ -186,7 +202,8 @@ int main()
 		return CU_get_error();
 	}
 	if ((NULL == CU_add_test(pSuite, "Adding object", test_object_list_add)) ||
-		(NULL == CU_add_test(pSuite, "Removing objects", test_object_list_remove))) {
+		(NULL == CU_add_test(pSuite, "Removing objects", test_object_list_remove)) ||
+		(NULL == CU_add_test(pSuite, "Cleanup object list", test_object_list_cleanup))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
