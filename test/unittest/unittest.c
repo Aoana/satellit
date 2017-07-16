@@ -66,20 +66,58 @@ void test_position_update(void) {
  * Object tests
  ******************/
 
+object_list *objl = NULL;
+object_list *objlN = NULL;
+object *obj1 = NULL;
+object *obj2 = NULL;
+object *obj3 = NULL;
+object *obj4 = NULL;
+object *objN = NULL;
+
 int init_object_suite(void) {
+
+	objl = object_list_init();
+	obj1 = object_init(1, NULL, SPACE_W_MIN, SPACE_H_MIN, 10, 11, 12);
+	obj2 = object_init(2, NULL, SPACE_W_MIN, SPACE_H_MAX, 20, 21, 22);
+	obj3 = object_init(3, NULL, SPACE_W_MAX, SPACE_H_MIN, 30, 31, 32);
+	obj4 = object_init(4, NULL, SPACE_W_MAX, SPACE_H_MAX, 40, 41, 42);
+	if (objl == NULL || obj1 == NULL || obj2 == NULL ||
+		obj3 == NULL || obj4 == NULL) {
+		return 1;
+	}
 	return 0;
 }
 
 int destroy_object_suite(void) {
+
+	object_destroy(obj1);
+	object_destroy(obj2);
+	object_destroy(obj3);
+	object_destroy(obj4);
+	object_list_destroy(objl);
 	return 0;
 }
 
-void test_object_list(void) {
-	CU_ASSERT(0 == 0);
+void test_object_list_add(void) {
+
+	CU_ASSERT(OBJECT_ADD == object_list_add(objlN, obj1));
+	CU_ASSERT(OBJECT_ADD == object_list_add(objl, objN));
+
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj1));
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj2));
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj3));
+	CU_ASSERT(OBJECT_OK == object_list_add(objl, obj4));
 }
 
-void test_object(void) {
-	CU_ASSERT(0 == 0);
+void test_object_list_remove(void) {
+
+	CU_ASSERT(OBJECT_REM == object_list_remove(objlN, obj1));
+	CU_ASSERT(OBJECT_REM == object_list_remove(objl, objN));
+
+	CU_ASSERT(OBJECT_OK == object_list_remove(objl, obj2));
+	CU_ASSERT(OBJECT_OK == object_list_remove(objl, obj1));
+	CU_ASSERT(OBJECT_OK == object_list_remove(objl, obj4));
+	CU_ASSERT(OBJECT_OK == object_list_remove(objl, obj3));
 }
 
 /*****************
@@ -134,8 +172,8 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	if ((NULL == CU_add_test(pSuite, "Test of position val", test_position_validate)) ||
-		(NULL == CU_add_test(pSuite, "Test of position ini", test_position_update))) {
+	if ((NULL == CU_add_test(pSuite, "Validation of position", test_position_validate)) ||
+		(NULL == CU_add_test(pSuite, "Initializiation of position", test_position_update))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
@@ -147,8 +185,8 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	if ((NULL == CU_add_test(pSuite, "Test of object list", test_object_list)) ||
-		(NULL == CU_add_test(pSuite, "Test of object add", test_object))) {
+	if ((NULL == CU_add_test(pSuite, "Adding object", test_object_list_add)) ||
+		(NULL == CU_add_test(pSuite, "Removing objects", test_object_list_remove))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
@@ -160,7 +198,7 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	if (NULL == CU_add_test(pSuite, "Test log macro", test_log)) {
+	if (NULL == CU_add_test(pSuite, "Log macro", test_log)) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}

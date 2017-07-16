@@ -68,6 +68,7 @@ enum objectReturnCode object_list_add(object_list *objl, object *obj) {
 }
 
 enum objectReturnCode object_list_remove(object_list *objl, object *obj) {
+
 	if (objl == NULL || obj == NULL) {
 		return OBJECT_REM;
 	}
