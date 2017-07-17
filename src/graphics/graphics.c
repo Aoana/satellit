@@ -85,8 +85,6 @@ void gfx_screen_destroy(SDL_Window *window, SDL_Renderer *renderer) {
 
 gfx_image_list *gfx_image_list_init() {
 
-	/*LOG("DEBUG: Enter %s", __func__);*/
-
 	gfx_image_list *imgl = calloc(1, sizeof(gfx_image_list));
 
 	return imgl;
@@ -94,14 +92,10 @@ gfx_image_list *gfx_image_list_init() {
 
 void gfx_image_list_destroy(gfx_image_list *imgl) {
 
-	/*LOG("DEBUG: Enter %s", __func__);*/
-
 	free(imgl);
 }
 
 gfx_text *gfx_text_init(char *font_path, int font_size) {
-
-	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	LOG ("INFO: Loading font %s", font_path);
 
@@ -121,7 +115,6 @@ gfx_text *gfx_text_init(char *font_path, int font_size) {
 
 void gfx_text_destroy(gfx_text *text) {
 
-	/*LOG("DEBUG: Enter %s", __func__);*/
 	if(text->text != NULL) {
 		SDL_DestroyTexture(text->text);
 	}
@@ -129,8 +122,6 @@ void gfx_text_destroy(gfx_text *text) {
 }
 
 gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path) {
-
-	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img = calloc(1,sizeof(gfx_image));
 	img->name = strdup(name);
@@ -146,16 +137,12 @@ gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path) {
 
 void gfx_image_destroy(gfx_image *img) {
 
-	/*LOG("DEBUG: Enter %s", __func__);*/
-
 	SDL_DestroyTexture(img->image);
 	free(img->name);
 	free(img);
 }
 
 int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder) {
-
-	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img;
 	DIR *dir;
@@ -194,8 +181,6 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 
 void gfx_image_destroy_mult(gfx_image_list *imgl) {
 
-	/*LOG("DEBUG: Enter %s", __func__);*/
-
 	gfx_image *img,*tmp;
 
 	DL_FOREACH_SAFE(imgl->head,img,tmp) {
@@ -207,8 +192,6 @@ void gfx_image_destroy_mult(gfx_image_list *imgl) {
 
 
 gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
-
-	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	gfx_image *img;
 
@@ -222,8 +205,6 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
 
 
 void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
-
-	/*LOG("DEBUG: Enter %s", __func__);*/
 
 	SDL_Surface *surf;
 
