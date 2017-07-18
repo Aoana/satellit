@@ -7,13 +7,11 @@ SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 	SDL_Texture *image;
 	
 	if (temp == NULL) 	{
-		LOG("ERR: Failed to load image %s: %s", name, SDL_GetError());
 		return NULL;
 	}
 
 	image = SDL_CreateTextureFromSurface(renderer, temp);
 	if (image == NULL) 	{
-		LOG("Failed to convert image %s to native format", name);
 		return NULL;
 	}
 	
@@ -24,45 +22,40 @@ SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 }
 
 
-int gfx_screen_init(char *title, int width, int height,
+enum graphicsReturnCode gfx_screen_init(char *title, int width, int height,
 	SDL_Window **window, SDL_Renderer **renderer) {
 
 	/* Initialise SDL Video */
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
-		LOG("ERR: Could not initialize SDL: %s", SDL_GetError());
-		return 1;
+		return GRAPHICS_SDL;
 	}
 
 	*window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		width, height, SDL_WINDOW_FULLSCREEN);
 	if (*window == NULL) {
-		LOG("ERR: Couldn't create window %d x %d: %s", width, height, SDL_GetError());
-		return 1;
+		return GRAPHICS_SDL;
 	}
 
 	*renderer = SDL_CreateRenderer(*window, -1, 0);
 	if (*renderer == NULL) {
-		LOG("ERR: Couldn't create renderer: %s", SDL_GetError());
 		SDL_DestroyWindow(*window);
-		return 1;
+		return GRAPHICS_SDL;
 	}
 
 	if (SDL_SetRenderDrawColor(*renderer, 0, 0, 0, 255) != 0) {
-		LOG("ERR: Couldn't set draw color: %s", SDL_GetError());
 		SDL_DestroyWindow(*window);
 		SDL_DestroyRenderer(*renderer);
-		return 1;
+		return GRAPHICS_SDL;
 	}
 
 	/* Initialise text management */
 	if(TTF_Init() != 0) {
-		LOG("ERR: TTF_Init: %s", TTF_GetError());
 		SDL_DestroyWindow(*window);
 		SDL_DestroyRenderer(*renderer);
-		return 1;
+		return GRAPHICS_TTF;
 	}
 
-	return 0;
+	return GRAPHICS_OK;
 }
 
 void gfx_screen_destroy(SDL_Window *window, SDL_Renderer *renderer) {
@@ -97,12 +90,9 @@ void gfx_image_list_destroy(gfx_image_list *imgl) {
 
 gfx_text *gfx_text_init(char *font_path, int font_size) {
 
-	LOG ("INFO: Loading font %s", font_path);
-
 	gfx_text *text = calloc(1, sizeof(gfx_text));
 	text->font = TTF_OpenFont(font_path, font_size);
 	if (text->font == NULL) {
-		LOG("ERR: Unable to load font: %s %s ", font_path, TTF_GetError());
 		return NULL;
 	}
 	text->fontcolor.r = 255;
@@ -121,26 +111,68 @@ void gfx_text_destroy(gfx_text *text) {
 	free(text);
 }
 
-gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path) {
+gfx_image *gfx_image_init(char *name) {
 
 	gfx_image *img = calloc(1,sizeof(gfx_image));
+	if (img == NULL) {
+		return NULL;
+	}
 	img->name = strdup(name);
-	img->image = sdl_image_load(renderer, path);
-	if (img->image == NULL) {
-		LOG("ERR: Could not load image %s", path);
-		free(img->name);
+	if (img->name == NULL) {
 		free(img);
 		return NULL;
 	}
 	return img;
 }
 
-void gfx_image_destroy(gfx_image *img) {
+enum graphicsReturnCode gfx_image_destroy(gfx_image *img) {
 
-	SDL_DestroyTexture(img->image);
+	if(img == NULL) {
+		return GRAPHICS_OK;
+	}
+
+	if(img->image != NULL) {
+		SDL_DestroyTexture(img->image);
+	}
+
 	free(img->name);
 	free(img);
+
+	return GRAPHICS_OK;
 }
+
+enum graphicsReturnCode gfx_image_load(SDL_Renderer *renderer, gfx_image *img, char* path) {
+
+	if(renderer == NULL || img == NULL) {
+		return GRAPHICS_ARG;
+	}
+
+	if(img->image != NULL) {
+		SDL_DestroyTexture(img->image);
+	}
+
+	img->image = sdl_image_load(renderer, path);
+	if (img->image == NULL) {
+		free(img->name);
+		free(img);
+		return GRAPHICS_SDL;
+	}
+
+	return GRAPHICS_OK;
+}
+
+gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
+
+	gfx_image *img;
+
+	DL_FOREACH(imgl->head,img) {
+		if (strcmp(img->name, image) == 0) {
+			return img;
+		}
+	}
+	return NULL;
+}
+
 
 int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder) {
 
@@ -157,9 +189,14 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 				continue;
 			}
 			strcat(img_path, file->d_name);
-			img = gfx_image_init(renderer, file->d_name, img_path);
+			img = gfx_image_init(file->d_name);
 			if (img == NULL) {
-				LOG("ERR: Could not init image image %s", img_path);
+				LOG("ERR: Could not init image %s", file->d_name);
+				gfx_image_destroy_mult(imgl);
+				return 1;
+			}
+			if (gfx_image_load(renderer, img, img_path) != GRAPHICS_OK) {
+				LOG("ERR: Could not load image %s", img_path);
 				gfx_image_destroy_mult(imgl);
 				return 1;
 			}
@@ -191,20 +228,7 @@ void gfx_image_destroy_mult(gfx_image_list *imgl) {
 }
 
 
-gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
-
-	gfx_image *img;
-
-	DL_FOREACH(imgl->head,img) {
-		if (strcmp(img->name, image) == 0) {
-			return img;
-		}
-	}
-	return NULL;
-}
-
-
-void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
+enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
 	SDL_Surface *surf;
 
@@ -214,17 +238,16 @@ void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 
 	surf = TTF_RenderText_Blended(text->font, new_txt, text->fontcolor);
 	if(surf == NULL) {
-		LOG("ERR: Unable to render text to %s, %s", new_txt, TTF_GetError());
-		exit(1);
+		return GRAPHICS_TTF;
 	}
 
 	text->text = SDL_CreateTextureFromSurface(renderer, surf);
+	SDL_FreeSurface(surf);
 	if(text->text == NULL) {
-		LOG("ERR: Unable to create texture from text, %s, %s", new_txt, TTF_GetError());
-		exit(1);
+		return GRAPHICS_SDL;
 	}
 
-	SDL_FreeSurface(surf);
+	return GRAPHICS_OK;
 
 }
 
@@ -249,16 +272,16 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, 
 	SDL_RenderCopyEx(renderer, image, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
 }
 
-void gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {
+enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {
 
 	if(SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE) != 0) {
-		LOG("ERR: Unable to set renderer color for line, %s", SDL_GetError());
-		exit(1);
+		return GRAPHICS_SDL;
 	}
 
 	if(SDL_RenderDrawLine(renderer, s_x, s_y, e_x, e_y) != 0) {
-		LOG("ERR: Unable to draw line %s", SDL_GetError());
-		exit(1);
+		return GRAPHICS_SDL;
 	}
+	
+	return GRAPHICS_OK;
 
 }

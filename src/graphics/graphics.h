@@ -9,6 +9,16 @@
 #include "common.h"
 
 /**
+ * @brief Return codes for the object API.
+ */
+enum graphicsReturnCode {
+	GRAPHICS_OK = 0,	/**< Graphics call OK. */
+	GRAPHICS_ARG,		/**< Argument error */
+	GRAPHICS_SDL,		/**< SDL error, use SDL_GetError() */
+	GRAPHICS_TTF,		/**< TTF error, use TTF_GetError() */
+};
+
+/**
  * @brief Structure for an image.
  * @see gfx_image_list
  */
@@ -46,9 +56,9 @@ typedef struct gfx_image_list {
  * @param height Height of screen.
  * @param window Pointer to window pointer to set
  * @param renderer Pointer to renderer pointer to set
- * @return 0 if passed, 1 if failed
+ * @return GRAPHICS_OK if passed, GRAPHICS_SDL/GRAPHICS_TTF if failed
  */
-int gfx_screen_init(char *title, int width, int height,
+enum graphicsReturnCode gfx_screen_init(char *title, int width, int height,
 	SDL_Window **window, SDL_Renderer **renderer);
 
 /**
@@ -75,6 +85,7 @@ void gfx_image_list_destroy(gfx_image_list *imgl);
 
 /**
  * @brief Initialize all texts as an image list.
+ * If failed use TTF_GetError() to show error.
  * @param font_path Full path to font to be used.
  * @param font_size Size of font.
  * @return Pointer text object if passed, NULL if failed.
@@ -83,7 +94,7 @@ void gfx_image_list_destroy(gfx_image_list *imgl);
 gfx_text *gfx_text_init(char *font_path, int font_size);
 
 /**
- * @brief Initialize all texts as an image list.
+ * @brief Destroy a text object.
  * @param text Pointer to text to be destroyed
  *
  */
@@ -91,22 +102,33 @@ void gfx_text_destroy(gfx_text *text);
 
 /**
  * @brief Initialize an image.
- * @param renderer Pointer to active renderer.
  * @param name ID to use for image.
- * @param path Full file path of image.
  * @return Pointer to created image object, NULL if failed.
  * @see gfx_image_destroy
  *
  */
-gfx_image *gfx_image_init(SDL_Renderer *renderer, char *name, char* path);
+gfx_image *gfx_image_init(char *name);
 
 /**
  * @brief Destroy an image.
  * @param img Pointer to image to destroy.
+ * @return GRAPHICS_OK if passed, something else if failed :-).
  * @see gfx_image_init
  *
  */
-void gfx_image_destroy(gfx_image *img);
+enum graphicsReturnCode gfx_image_destroy(gfx_image *img);
+
+/**
+ * @brief Load image into an gfx_image.
+ * @param renderer Pointer to renderer.
+ * @param img Pointer to image struct to load image onto.
+ * @param path Path to image file to be loaded.
+ * @return GRAPHICS_OK if passed, GRAPHICS_ARG/GRAPHICS_TTF if failed
+ * @see gfx_image_init
+ * @see gfx_image_destroy
+ *
+ */
+enum graphicsReturnCode gfx_image_load(SDL_Renderer *renderer, gfx_image *img, char* path);
 
 /**
  * @brief Initialize a folder of images and add to image list.
@@ -142,9 +164,10 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *id);
  * @param renderer Pointer to active renderer.
  * @param text Pointer to text object.
  * @param new_txt New text to be used in text object.
+ * @return GRAPHICS_OK if passed, GRAPHICS_ARG/GRAPHICS_TTF if failed
  *
  */
-void gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
+enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
 
 /**
  * @brief Draw image to screen according to coordinates.
@@ -164,8 +187,9 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, 
  * @param s_y Start y coordinate of line.
  * @param e_x End x coordinate of line.
  * @param e_y End y coordinate of line.
+ * @return GRAPHICS_OK if passed, other enum graphicsReturnCode if failed
  *
  */
-void gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y);
+enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y);
 
 #endif
