@@ -1,5 +1,6 @@
 #include "position.h"
 #include "object.h"
+#include "graphics.h"
 #include "CUnit/Basic.h"
 
 /*****************
@@ -136,6 +137,43 @@ void test_object_list_cleanup(void) {
 	obj3 = object_init(3, NULL, SPACE_W_MAX, SPACE_H_MIN, 30, 31, 32);
 	obj4 = object_init(4, NULL, SPACE_W_MAX, SPACE_H_MAX, 40, 41, 42);
 }
+
+/*****************
+ * Graphics tests
+ ******************/
+
+SDL_Window *window = NULL;
+SDL_Renderer *renderer = NULL;
+gfx_image_list *gfxl = NULL;
+gfx_image *image = NULL;
+gfx_text *text = NULL;
+
+int init_graphics_suite(void) {
+
+	if (gfx_screen_init("test_screen", 1920, 1080, &window, &renderer) != 0) {
+		return 1;
+	}
+	gfxl = gfx_image_list_init();
+	if (gfxl == NULL) {
+		return 1;
+	}
+	image = gfx_image_init("test");
+	if (image == NULL) {
+		return 1;
+	}
+
+	return 0;
+
+}
+
+int destroy_graphics_suite(void) {
+
+	gfx_screen_destroy(window, renderer);
+	gfx_image_list_destroy(gfxl);
+	gfx_image_destroy(image);
+	return 0;
+}
+
 /*****************
  * Utility tests
  ******************/
@@ -208,6 +246,20 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
+
+	/* Add suite graphics and test cases */
+	pSuite = NULL;
+	pSuite = CU_add_suite("suite_graphics", init_graphics_suite, destroy_graphics_suite);
+	if (NULL == pSuite) {
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+//	if ((NULL == CU_add_test(pSuite, "Adding object", test_object_list_add)) ||
+//		(NULL == CU_add_test(pSuite, "Removing objects", test_object_list_remove)) ||
+//		(NULL == CU_add_test(pSuite, "Cleanup object list", test_object_list_cleanup))) {
+//		CU_cleanup_registry();
+//		return CU_get_error();
+//	}
 
 	/* Add suite log and test cases */
 	pSuite = NULL;

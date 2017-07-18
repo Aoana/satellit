@@ -1,7 +1,13 @@
 = Unit tests =
 
- - Jenkins job
  - graphics api
+	> Add return codes
+
+= CI run blocking jobs =
+
+= Stable rotation for moon =
+
+= Code coverage calculation =
 
 = Add sound =
 
@@ -14,6 +20,4 @@
 = Introduce wormhole =
 
 	- Jump from one place to the other
-
-= Stable rotation for moon =
 
