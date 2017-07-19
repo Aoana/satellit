@@ -171,8 +171,7 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *image) {
 	return NULL;
 }
 
-
-int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder) {
+enum graphicsReturnCode gfx_populate_list_folder(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder) {
 
 	gfx_image *img;
 	DIR *dir;
@@ -180,7 +179,6 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 	char img_path[128];
 
 	strcpy(img_path, folder);
-	LOG ("INFO: Loading images in dir %s",img_path);
 	if ((dir = opendir(img_path)) != NULL) {
 		while ((file = readdir(dir)) != NULL) {
 			if (strcmp(file->d_name,".") == 0 || strcmp(file->d_name,"..") == 0) {
@@ -189,14 +187,12 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 			strcat(img_path, file->d_name);
 			img = gfx_image_init(file->d_name);
 			if (img == NULL) {
-				LOG("ERR: Could not init image %s", file->d_name);
-				gfx_image_destroy_mult(imgl);
-				return 1;
+				gfx_destroy_list(imgl);
+				return GRAPHICS_NOK;
 			}
 			if (gfx_image_load(renderer, img, img_path) != GRAPHICS_OK) {
-				LOG("ERR: Could not load image %s", img_path);
-				gfx_image_destroy_mult(imgl);
-				return 1;
+				gfx_destroy_list(imgl);
+				return GRAPHICS_NOK;
 			}
 			DL_APPEND(imgl->head,img);
 			imgl->n_images++;
@@ -206,15 +202,14 @@ int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *fold
 		}
 		closedir (dir);
 	} else {
-		LOG("ERR: Could not read images");
-		gfx_image_destroy_mult(imgl);
-		return 1;
+		gfx_destroy_list(imgl);
+		return GRAPHICS_NOK;
 	}
 
-	return 0;
+	return GRAPHICS_OK;
 }
 
-void gfx_image_destroy_mult(gfx_image_list *imgl) {
+void gfx_destroy_list(gfx_image_list *imgl) {
 
 	gfx_image *img,*tmp;
 
@@ -224,7 +219,6 @@ void gfx_image_destroy_mult(gfx_image_list *imgl) {
 		imgl->n_images--;
 	}
 }
-
 
 enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt) {
 

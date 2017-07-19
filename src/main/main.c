@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 		LOG("ERR: Could not init image list");
 		exit(1);
 	}
-	if (gfx_image_init_mult(gh->renderer, gh->imgl, "src/graphics/images/") != 0) {
+	if (gfx_populate_list_folder(gh->renderer, gh->imgl, "src/graphics/images/") != 0) {
 		LOG("ERR: Could not load one or more images");
 		exit(1);
 	}

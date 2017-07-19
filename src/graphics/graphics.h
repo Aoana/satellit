@@ -13,6 +13,7 @@
  */
 enum graphicsReturnCode {
 	GRAPHICS_OK = 0,	/**< Graphics call OK. */
+	GRAPHICS_NOK,		/**< Generic error */
 	GRAPHICS_ARG,		/**< Argument error */
 	GRAPHICS_SDL,		/**< SDL error, use SDL_GetError() */
 	GRAPHICS_TTF,		/**< TTF error, use TTF_GetError() */
@@ -56,7 +57,9 @@ typedef struct gfx_image_list {
  * @param height Height of screen.
  * @param window Pointer to window pointer to set
  * @param renderer Pointer to renderer pointer to set
- * @return GRAPHICS_OK if passed, GRAPHICS_SDL/GRAPHICS_TTF if failed
+ * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
+ * @see graphicsReturnCode
+ *
  */
 enum graphicsReturnCode gfx_screen_init(char *title, int width, int height,
 	SDL_Window **window, SDL_Renderer **renderer);
@@ -123,9 +126,10 @@ enum graphicsReturnCode gfx_image_destroy(gfx_image *img);
  * @param renderer Pointer to renderer.
  * @param img Pointer to image struct to load image onto.
  * @param path Path to image file to be loaded.
- * @return GRAPHICS_OK if passed, GRAPHICS_ARG/GRAPHICS_TTF if failed
+ * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
  * @see gfx_image_init
  * @see gfx_image_destroy
+ * @see graphicsReturnCode
  *
  */
 enum graphicsReturnCode gfx_image_load(SDL_Renderer *renderer, gfx_image *img, char* path);
@@ -135,20 +139,21 @@ enum graphicsReturnCode gfx_image_load(SDL_Renderer *renderer, gfx_image *img, c
  * @param renderer Pointer to active renderer.
  * @param imgl Pointer to image list to add images to.
  * @param folder Full path to folder.
- * @return 0 if passed, 1 if failed.
+ * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed.
  * @see gfx_image_destroy
+ * @see graphicsReturnCode
  *
  * ID for images will be file name.
  */
-int gfx_image_init_mult(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder);
+enum graphicsReturnCode gfx_populate_list_folder(SDL_Renderer *renderer, gfx_image_list *imgl, char *folder);
 
 /**
  * @brief Destroy a list of images.
  * @param imgl Pointer to image list to destroy.
- * @see gfx_image_init_mult
+ * @see gfx_populate_list_folder
  *
  */
-void gfx_image_destroy_mult(gfx_image_list *imgl);
+void gfx_destroy_list(gfx_image_list *imgl);
 
 /**
  * @brief Get image from image list.
@@ -164,7 +169,8 @@ gfx_image * gfx_image_get(gfx_image_list *imgl, char *id);
  * @param renderer Pointer to active renderer.
  * @param text Pointer to text object.
  * @param new_txt New text to be used in text object.
- * @return GRAPHICS_OK if passed, GRAPHICS_ARG/GRAPHICS_TTF if failed
+ * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
+ * @see graphicsReturnCode
  *
  */
 enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, char *new_txt);
@@ -187,7 +193,8 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, 
  * @param s_y Start y coordinate of line.
  * @param e_x End x coordinate of line.
  * @param e_y End y coordinate of line.
- * @return GRAPHICS_OK if passed, other enum graphicsReturnCode if failed
+ * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
+ * @see graphicsReturnCode
  *
  */
 enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y);
