@@ -187,6 +187,18 @@ void test_gfx_image_load(void) {
 	CU_ASSERT(GRAPHICS_OK == gfx_image_load(renderer, image, "test/unittest/images/passing.jpg"));
 }
 
+void test_gfx_populate_list_folder(void) {
+
+	CU_ASSERT(GRAPHICS_NOK == gfx_populate_list_folder(renderer, gfxl, "DOES/NOT/EXIST"));
+	CU_ASSERT(GRAPHICS_OK == gfx_populate_list_folder(renderer, gfxl, "test/unittest/images/"));
+
+	CU_ASSERT(NULL != gfx_image_get(gfxl, "passing.png"));
+	CU_ASSERT(NULL != gfx_image_get(gfxl, "passing.jpg"));
+	CU_ASSERT(NULL == gfx_image_get(gfxl, "faulty.png"));
+	CU_ASSERT(NULL == gfx_image_get(gfxl, "DOESNOTEXIST.png"));
+
+}
+
 /*****************
  * Utility tests
  ******************/
@@ -267,9 +279,8 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	if ((NULL == CU_add_test(pSuite, "Loading images", test_gfx_image_load))) {
-//		(NULL == CU_add_test(pSuite, "Removing objects", test_object_list_remove)) ||
-//		(NULL == CU_add_test(pSuite, "Cleanup object list", test_object_list_cleanup))) {
+	if ((NULL == CU_add_test(pSuite, "Loading images", test_gfx_image_load)) ||
+		(NULL == CU_add_test(pSuite, "Populating image list", test_gfx_populate_list_folder))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}

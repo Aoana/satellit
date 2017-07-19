@@ -193,6 +193,8 @@ enum graphicsReturnCode gfx_populate_list_folder(SDL_Renderer *renderer, gfx_ima
 			if (gfx_image_load(renderer, img, img_path) != GRAPHICS_OK) {
 				/* Skipping images that could not be loaded */
 				gfx_image_destroy(img);
+				/* Reset img_dir to top */
+				strcpy(img_path, folder);
 				continue;
 			}
 			DL_APPEND(imgl->head,img);
