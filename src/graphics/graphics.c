@@ -153,8 +153,6 @@ enum graphicsReturnCode gfx_image_load(SDL_Renderer *renderer, gfx_image *img, c
 
 	img->image = sdl_image_load(renderer, path);
 	if (img->image == NULL) {
-		free(img->name);
-		free(img);
 		return GRAPHICS_SDL;
 	}
 

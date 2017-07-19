@@ -179,16 +179,11 @@ void test_gfx_image_load(void) {
 	CU_ASSERT(GRAPHICS_ARG == gfx_image_load(NULL, image, "test/unittest/images/passing.png"));
 	CU_ASSERT(GRAPHICS_ARG == gfx_image_load(renderer, NULL, "test/unittest/images/passing.png"));
 
-//	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/faulty.png"));
-//	printf("Unittest: SDL_ERROR: %s\n", SDL_GetError());
-//	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST.png"));
-//	printf("Unittest: SDL_ERROR: %s\n", SDL_GetError());
-//	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST"));
-//	printf("Unittest: SDL_ERROR: %s\n", SDL_GetError());
-//
-//	printf("Unittest: check0");
-//	CU_ASSERT(GRAPHICS_OK == gfx_image_load(renderer, image, "test/unittest/images/passing.png"));
-//	printf("Unittest: check1");
+	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/faulty.png"));
+	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST.png"));
+	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST"));
+
+	CU_ASSERT(GRAPHICS_OK == gfx_image_load(renderer, image, "test/unittest/images/passing.png"));
 }
 
 /*****************
