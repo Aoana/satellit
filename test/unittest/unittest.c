@@ -184,6 +184,7 @@ void test_gfx_image_load(void) {
 	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST"));
 
 	CU_ASSERT(GRAPHICS_OK == gfx_image_load(renderer, image, "test/unittest/images/passing.png"));
+	CU_ASSERT(GRAPHICS_OK == gfx_image_load(renderer, image, "test/unittest/images/passing.jpg"));
 }
 
 /*****************
