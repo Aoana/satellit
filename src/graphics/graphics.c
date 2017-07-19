@@ -191,8 +191,9 @@ enum graphicsReturnCode gfx_populate_list_folder(SDL_Renderer *renderer, gfx_ima
 				return GRAPHICS_NOK;
 			}
 			if (gfx_image_load(renderer, img, img_path) != GRAPHICS_OK) {
-				gfx_destroy_list(imgl);
-				return GRAPHICS_NOK;
+				/* Skipping images that could not be loaded */
+				gfx_image_destroy(img);
+				continue;
 			}
 			DL_APPEND(imgl->head,img);
 			imgl->n_images++;
@@ -202,7 +203,6 @@ enum graphicsReturnCode gfx_populate_list_folder(SDL_Renderer *renderer, gfx_ima
 		}
 		closedir (dir);
 	} else {
-		gfx_destroy_list(imgl);
 		return GRAPHICS_NOK;
 	}
 
