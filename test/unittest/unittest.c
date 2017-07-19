@@ -168,10 +168,27 @@ int init_graphics_suite(void) {
 
 int destroy_graphics_suite(void) {
 
-	gfx_screen_destroy(window, renderer);
-	gfx_image_list_destroy(gfxl);
 	gfx_image_destroy(image);
+	gfx_image_list_destroy(gfxl);
+	gfx_screen_destroy(window, renderer);
 	return 0;
+}
+
+void test_gfx_image_load(void) {
+
+	CU_ASSERT(GRAPHICS_ARG == gfx_image_load(NULL, image, "test/unittest/images/passing.png"));
+	CU_ASSERT(GRAPHICS_ARG == gfx_image_load(renderer, NULL, "test/unittest/images/passing.png"));
+
+//	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/faulty.png"));
+//	printf("Unittest: SDL_ERROR: %s\n", SDL_GetError());
+//	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST.png"));
+//	printf("Unittest: SDL_ERROR: %s\n", SDL_GetError());
+//	CU_ASSERT(GRAPHICS_SDL == gfx_image_load(renderer, image, "test/unittest/images/DOESNOTEXIST"));
+//	printf("Unittest: SDL_ERROR: %s\n", SDL_GetError());
+//
+//	printf("Unittest: check0");
+//	CU_ASSERT(GRAPHICS_OK == gfx_image_load(renderer, image, "test/unittest/images/passing.png"));
+//	printf("Unittest: check1");
 }
 
 /*****************
@@ -254,12 +271,12 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-//	if ((NULL == CU_add_test(pSuite, "Adding object", test_object_list_add)) ||
+	if ((NULL == CU_add_test(pSuite, "Loading images", test_gfx_image_load))) {
 //		(NULL == CU_add_test(pSuite, "Removing objects", test_object_list_remove)) ||
 //		(NULL == CU_add_test(pSuite, "Cleanup object list", test_object_list_cleanup))) {
-//		CU_cleanup_registry();
-//		return CU_get_error();
-//	}
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
 
 	/* Add suite log and test cases */
 	pSuite = NULL;
