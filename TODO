@@ -1,7 +1,9 @@
 = Unit tests =
 
  - graphics api
-	> Add return codes
+ 	> text set
+	> line draw / surface draw?
+	> fix jenkins bug
 
 = CI run blocking jobs =
 
