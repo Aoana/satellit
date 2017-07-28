@@ -8,7 +8,7 @@
 ##
 ##	# Install the following packages
 ##		sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev \
-##		doxygen libconfig-dev libsdl2-mixer-dev
+##		doxygen libconfig-dev libsdl2-mixer-dev libcunit1-dev
 ##
 ##
 ##	Build Gravbounce;
