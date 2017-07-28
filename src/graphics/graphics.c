@@ -5,7 +5,7 @@ SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 	/* Load the image using SDL Image */
 	SDL_Surface *temp = IMG_Load(name);
 	SDL_Texture *image;
-	
+
 	if (temp == NULL) 	{
 		return NULL;
 	}
@@ -14,7 +14,7 @@ SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 	if (image == NULL) 	{
 		return NULL;
 	}
-	
+
 	SDL_FreeSurface(temp);
 
 	/* Return the processed image */
@@ -226,6 +226,10 @@ enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, cha
 
 	SDL_Surface *surf;
 
+	if(strcmp(new_txt, "") == 0 || text == NULL) {
+		return GRAPHICS_ARG;
+	}
+
 	if(text->text != NULL) {
 		SDL_DestroyTexture(text->text);
 	}
@@ -275,7 +279,7 @@ enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, 
 	if(SDL_RenderDrawLine(renderer, s_x, s_y, e_x, e_y) != 0) {
 		return GRAPHICS_SDL;
 	}
-	
+
 	return GRAPHICS_OK;
 
 }

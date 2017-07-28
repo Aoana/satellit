@@ -161,6 +161,10 @@ int init_graphics_suite(void) {
 	if (image == NULL) {
 		return 1;
 	}
+	text = gfx_text_init("test/unittest/fonts/passing.ttf", 10);
+	if (text == NULL) {
+		return 1;
+	}
 
 	return 0;
 
@@ -171,6 +175,7 @@ int destroy_graphics_suite(void) {
 	gfx_image_destroy(image);
 	gfx_image_list_destroy(gfxl);
 	gfx_screen_destroy(window, renderer);
+	gfx_text_destroy(text);
 	return 0;
 }
 
@@ -196,6 +201,15 @@ void test_gfx_populate_list_folder(void) {
 	CU_ASSERT(NULL != gfx_image_get(gfxl, "passing.jpg"));
 	CU_ASSERT(NULL == gfx_image_get(gfxl, "faulty.png"));
 	CU_ASSERT(NULL == gfx_image_get(gfxl, "DOESNOTEXIST.png"));
+
+}
+
+void test_gfx_text_set(void) {
+
+	CU_ASSERT(GRAPHICS_OK == gfx_text_set(renderer, text, "abcdefghijklmnopqrstuvxyzåäö123456789"));
+	CU_ASSERT(GRAPHICS_OK == gfx_text_set(renderer, text, "ABCDEFGHIJKLMNOPQRSTUVXYXÅÄÖ<>-_.:,;!#¤%&/()=?"));
+	CU_ASSERT(GRAPHICS_ARG == gfx_text_set(renderer, text, ""));
+	CU_ASSERT(GRAPHICS_ARG == gfx_text_set(renderer, NULL, "test"));
 
 }
 
@@ -280,7 +294,8 @@ int main()
 		return CU_get_error();
 	}
 	if ((NULL == CU_add_test(pSuite, "Loading images", test_gfx_image_load)) ||
-		(NULL == CU_add_test(pSuite, "Populating image list", test_gfx_populate_list_folder))) {
+		(NULL == CU_add_test(pSuite, "Populating image list", test_gfx_populate_list_folder)) ||
+		(NULL == CU_add_test(pSuite, "Setting text", test_gfx_text_set))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}

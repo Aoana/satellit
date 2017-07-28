@@ -47,7 +47,7 @@ typedef struct gfx_text {
  */
 typedef struct gfx_image_list {
 	int n_images;			/**< Number of images in list */
-	struct gfx_image *head;	/**< Pointer to head of list */	
+	struct gfx_image *head;	/**< Pointer to head of list */
 } gfx_image_list;
 
 /**
