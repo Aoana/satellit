@@ -1,7 +1,6 @@
 = Unit tests =
 
  - graphics api
-	> line draw / surface draw?
 	> fix jenkins bug
 
 = CI run blocking jobs =
