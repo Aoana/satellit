@@ -213,6 +213,53 @@ void test_gfx_text_set(void) {
 
 }
 
+void test_gfx_line_draw(void) {
+
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, 0, 0, RES_WIDTH, RES_HEIGHT));
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, RES_WIDTH, RES_HEIGHT, 0, 0));
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, 0, RES_HEIGHT, RES_WIDTH, 0));
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, RES_WIDTH, 0, 0, RES_HEIGHT));
+
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, 0, 0, 0, RES_HEIGHT));
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, 0, 0, RES_WIDTH, 0));
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, RES_WIDTH, 0, RES_WIDTH, RES_HEIGHT));
+	CU_ASSERT(GRAPHICS_OK == gfx_line_draw(renderer, 0, RES_HEIGHT, RES_WIDTH, RES_HEIGHT));
+
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, RES_WIDTH+1, RES_HEIGHT, RES_WIDTH, RES_HEIGHT));
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, RES_WIDTH, RES_HEIGHT+1, RES_WIDTH, RES_HEIGHT));
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, RES_WIDTH, RES_HEIGHT, RES_WIDTH+1, RES_HEIGHT));
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, RES_WIDTH, RES_HEIGHT, RES_WIDTH, RES_HEIGHT+1));
+
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, -1, 0, 0, 0));
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, 0, -1, 0, 0));
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, 0, 0, -1, 0));
+	CU_ASSERT(GRAPHICS_ARG == gfx_line_draw(renderer, 0, 0, 0, -1));
+}
+
+void test_gfx_surface_draw(void) {
+
+	CU_ASSERT(GRAPHICS_ARG == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT+1, 0));
+	CU_ASSERT(GRAPHICS_ARG == gfx_surface_draw(renderer, image->image, RES_WIDTH+1, RES_HEIGHT, 0));
+	CU_ASSERT(GRAPHICS_ARG == gfx_surface_draw(renderer, image->image, -1, 0, 0));
+	CU_ASSERT(GRAPHICS_ARG == gfx_surface_draw(renderer, image->image, 0, -1, 0));
+
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, NULL, RES_WIDTH, RES_HEIGHT, 0));
+
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, 0, 0, 0));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, 0, 0));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, 0, RES_HEIGHT, 0));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 0));
+
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 45));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 90));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 135));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 180));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 225));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 270));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 315));
+	CU_ASSERT(GRAPHICS_OK == gfx_surface_draw(renderer, image->image, RES_WIDTH, RES_HEIGHT, 360));
+}
+
 /*****************
  * Utility tests
  ******************/
@@ -295,7 +342,9 @@ int main()
 	}
 	if ((NULL == CU_add_test(pSuite, "Loading images", test_gfx_image_load)) ||
 		(NULL == CU_add_test(pSuite, "Populating image list", test_gfx_populate_list_folder)) ||
-		(NULL == CU_add_test(pSuite, "Setting text", test_gfx_text_set))) {
+		(NULL == CU_add_test(pSuite, "Setting text", test_gfx_text_set)) ||
+		(NULL == CU_add_test(pSuite, "Drawing line", test_gfx_line_draw)) ||
+		(NULL == CU_add_test(pSuite, "Drawing surface", test_gfx_surface_draw))) {
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
