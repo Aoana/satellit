@@ -178,17 +178,6 @@ enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, cha
 /**
  * @brief Draw image to screen according to coordinates.
  * @param renderer Pointer to active renderer.
- * @param image Pointer to image.
- * @param x Coordinate X.
- * @param y Coordinate Y.
- * @param angle Rotation angle, 0 to disable.
- *
- */
-void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle);
-
-/**
- * @brief Draw image to screen according to coordinates.
- * @param renderer Pointer to active renderer.
  * @param s_x Start x coordinate of line.
  * @param s_y Start y coordinate of line.
  * @param e_x End x coordinate of line.
@@ -198,5 +187,17 @@ void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, 
  *
  */
 enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y);
+
+/**
+ * @brief Draw image to screen according to coordinates.
+ * @param renderer Pointer to active renderer.
+ * @param image Pointer to image.
+ * @param x Coordinate X.
+ * @param y Coordinate Y.
+ * @param angle Rotation angle, 0 to disable.
+ * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
+ *
+ */
+enum graphicsReturnCode gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle);
 
 #endif

@@ -10,7 +10,7 @@ enum positionReturnCode position_validate(double x, double y) {
 position * position_init(double x, double y, double vx, double vy) {
 	position *p;
 	if (position_validate(x, y) != 0) {
-		return NULL;	
+		return NULL;
 	}
 	p = calloc(1, sizeof(position));
 	p->x = x;
@@ -18,13 +18,13 @@ position * position_init(double x, double y, double vx, double vy) {
 	p->vx = vx;
 	p->vy = vy;
 	return p;
-} 
+}
 
 int position_destroy(position *p) {
 	free(p);
 	return 0;
 }
- 
+
 enum positionReturnCode position_update(position *p) {
 
 	p->x = p->x + p->vx/UPDATE_FREQ;

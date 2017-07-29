@@ -1,7 +1,6 @@
 = Unit tests =
 
  - graphics api
- 	> text set
 	> line draw / surface draw?
 	> fix jenkins bug
 

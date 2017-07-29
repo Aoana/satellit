@@ -249,28 +249,14 @@ enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, cha
 
 }
 
-void gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle) {
-
-	SDL_Rect dest;
-	int w, h;
-
-	if(image == NULL) {
-		return;
-	}
-
-	SDL_QueryTexture(image, NULL, NULL, &w, &h);
-
-	/* Set the blitting rectangle to the size of the src image */
-	dest.x = x-(w/2);
-	dest.y = y-(h/2);
-	dest.w = w;
-	dest.h = h;
-
-	/* Blit the entire image onto the screen at coordinates x and y */
-	SDL_RenderCopyEx(renderer, image, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
-}
-
 enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {
+
+	if ((s_x >= RES_WIDTH || s_x < 0) ||
+		(e_x >= RES_WIDTH || e_x < 0) ||
+		(s_y >= RES_HEIGHT || s_y < 0) ||
+		(e_y >= RES_HEIGHT || e_y < 0)) {
+		return GRAPHICS_ARG;
+	}
 
 	if(SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE) != 0) {
 		return GRAPHICS_SDL;
@@ -282,4 +268,35 @@ enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, 
 
 	return GRAPHICS_OK;
 
+}
+
+enum graphicsReturnCode gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle) {
+
+	SDL_Rect dest;
+	int w, h;
+
+	if ((x >= RES_WIDTH || x < 0) || (y >= RES_HEIGHT || y < 0)) {
+		return GRAPHICS_ARG;
+	}
+
+	if(image == NULL) {
+		return GRAPHICS_OK;
+	}
+
+	if(SDL_QueryTexture(image, NULL, NULL, &w, &h) != 0) {
+		return GRAPHICS_SDL;
+	}
+
+	/* Set the blitting rectangle to the size of the src image */
+	dest.x = x-(w/2);
+	dest.y = y-(h/2);
+	dest.w = w;
+	dest.h = h;
+
+	/* Blit the entire image onto the screen at coordinates x and y */
+	if(SDL_RenderCopyEx(renderer, image, NULL, &dest, angle, NULL, SDL_FLIP_NONE) != 0) {
+		return GRAPHICS_SDL;
+	}
+
+	return GRAPHICS_OK;
 }
