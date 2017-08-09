@@ -4,7 +4,7 @@ FILE *logfile;
 
 int log_init(char *log) {
 
-	logfile = fopen(log, "a+"); 
+	logfile = fopen(log, "a+");
 
 	if(logfile == NULL) {
 		return 1;
