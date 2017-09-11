@@ -1,4 +1,7 @@
-= Stable rotation for moon =
+= Cleanup Moon code =
+
+- take away vx/vy
+- MOON_R as config option
 
 = Code coverage calculation =
 
@@ -8,14 +11,15 @@
 
 = Introduce booster =
 
-= Add timestamped meteor =
-
 = Introduce wormhole =
 
 	- Jump from one place to the other
+
+= Add timestamped meteor =
 
 = Unit tests =
 
  - graphics api
 	> fix jenkins bug, wait for updates to plugin/jenkins
+
 

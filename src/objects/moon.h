@@ -11,6 +11,8 @@
 struct gholder;
 struct object;
 
+#define MOON_R 200
+
 /**
  * @brief Add a moon object.
  * @param gh Pointer to the global game holder.

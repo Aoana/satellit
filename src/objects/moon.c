@@ -1,5 +1,17 @@
 #include "moon.h"
 
+unsigned int moon_velocity_update(object *mn) {
+
+	static double angle = 0;
+	angle += 0.05;
+
+	mn->pos->vx = sin(angle)*MOON_R;
+	mn->pos->vy = cos(angle)*MOON_R;
+
+	return OBJECT_OK;
+
+}
+
 unsigned int moon_add(gholder *gh,
 	double x, double y, double m, double vx, double vy) {
 
@@ -45,6 +57,11 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 		return OBJECT_OOB;
 	}
 
+	/* Update velocity based on circular movement */
+	if (moon_velocity_update(mn) != OBJECT_OK) {
+		LOG("ERR: Failed to apply velocity update for moon, id=%d", mn->id);
+	}
+
 	if (collision_object_mult(gh->ptl, mn) != COLLISION_OK) {
 		mn->dead = 1;
 		mn->image = (gfx_image_get(gh->imgl, "gfx_moon_crash.png"))->image;
@@ -60,7 +77,7 @@ unsigned int moon_update_mult(gholder *gh) {
 	DL_FOREACH_SAFE(gh->mnl->head, obj, tmp) {
 		if (obj->dead != 0) {
 			continue;
-		} 
+		}
 		if ((ret = moon_update(gh, obj)) != OBJECT_OK) {
 			LOG("WARN: Moon update failed %s, id=%d", object_enum2str(ret), obj->id);
 		}

@@ -109,7 +109,7 @@ unsigned int rocket_update_mult(gholder *gh) {
 	DL_FOREACH_SAFE(gh->rtl->head, obj, tmp) {
 		if (obj->dead != 0) {
 			continue;
-		} 
+		}
 		if ((ret = rocket_update(gh, obj)) != OBJECT_OK) {
 			LOG("WARN: Rocket update failed %s, id=%d", object_enum2str(ret), obj->id);
 		}
