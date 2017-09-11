@@ -11,7 +11,8 @@
 struct gholder;
 struct object;
 
-#define MOON_R 200
+#define MOON_R 200 /**< Radius of moon rotation. */
+
 
 /**
  * @brief Add a moon object.
