@@ -20,15 +20,13 @@ struct object;
  * @param x Position X
  * @param y Position Y
  * @param m Mass of moon
- * @param vx Start X velocity
- * @param vy Start Y velocity
  * @return OBJECT_OK if passed, OBJECT_ADD if failed.
  * @see objectReturnCode.
  * @see object_add.
  *
  */
 unsigned int moon_add(struct gholder *gh,
-	double x, double y, double m, double vx, double vy);
+	double x, double y, double m);
 
 /**
  * @brief Update function for moon object.

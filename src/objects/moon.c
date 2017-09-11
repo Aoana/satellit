@@ -13,7 +13,7 @@ unsigned int moon_velocity_update(object *mn) {
 }
 
 unsigned int moon_add(gholder *gh,
-	double x, double y, double m, double vx, double vy) {
+	double x, double y, double m) {
 
 	struct SDL_Texture *image;
 	gfx_image *gfx_img;
@@ -26,9 +26,9 @@ unsigned int moon_add(gholder *gh,
 	}
 	image = gfx_img->image;
 
-	LOG("INFO: Adding moon, id=%d %f %f %f %f %f", gh->mnl->n_objs, x, y, m, vx, vy);
+	LOG("INFO: Adding moon, id=%d %f %f %f", gh->mnl->n_objs, x, y, m);
 
-	moon = object_init(gh->mnl->n_objs, image, x, y, m, vx, vy);
+	moon = object_init(gh->mnl->n_objs, image, x, y, m, 0, 0);
 	if (moon == NULL ) {
 		LOG("ERR: Unable to init moon");
 		return OBJECT_ADD;

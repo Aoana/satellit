@@ -62,7 +62,7 @@ int map_load(struct gholder *gh, char *map) {
 	setting = config_lookup(&cfg, "moons");
 	if(setting != NULL) {
 
-		double x, y, m, vx, vy;
+		double x, y, m;
 		int i;
 		config_setting_t *moon;
 
@@ -72,11 +72,9 @@ int map_load(struct gholder *gh, char *map) {
 
 			if(config_setting_lookup_float(moon, "x", &x)
 				&& config_setting_lookup_float(moon, "y", &y)
-				&& config_setting_lookup_float(moon, "m", &m)
-				&& config_setting_lookup_float(moon, "vx", &vx)
-				&& config_setting_lookup_float(moon, "vy", &vy)) {
+				&& config_setting_lookup_float(moon, "m", &m)) {
 
-				if (moon_add(gh, x, y, m, vx, vy) != OBJECT_OK) {
+				if (moon_add(gh, x, y, m) != OBJECT_OK) {
 					LOG("ERR: Init moon failed");
 					goto error;
 				}
