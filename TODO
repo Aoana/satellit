@@ -1,9 +1,6 @@
-= Cleanup Moon code =
-
-- take away vx/vy
-- MOON_R as config option
-
 = Code coverage calculation =
+
+= Collision with moon =
 
 = Add sound =
 
@@ -11,15 +8,25 @@
 
 = Introduce booster =
 
+= Animated objects
+
+- wormhole
+- ship
+
 = Introduce wormhole =
 
 	- Jump from one place to the other
 
 = Add timestamped meteor =
 
+= Maps =
+
+- add map3
+- tweak existing maps
+- add victory "map"
+
 = Unit tests =
 
  - graphics api
 	> fix jenkins bug, wait for updates to plugin/jenkins
-
 
