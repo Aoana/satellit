@@ -1,4 +1,9 @@
-= Code coverage calculation =
+= Memory leak checks =
+
+ - Check utest for memory leaks
+ - Introduce memcheck for utest in jenkins
+ - Check gravbounce for memory leaks
+ - Introdce memcheck for utest in jenkis
 
 = Collision with moon =
 
@@ -24,6 +29,8 @@
 - add map3
 - tweak existing maps
 - add victory "map"
+
+= Code coverage calculation =
 
 = Unit tests =
 
