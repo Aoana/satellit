@@ -202,6 +202,7 @@ void test_gfx_populate_list_folder(void) {
 	CU_ASSERT(NULL == gfx_image_get(gfxl, "faulty.png"));
 	CU_ASSERT(NULL == gfx_image_get(gfxl, "DOESNOTEXIST.png"));
 
+	gfx_destroy_list(gfxl);
 }
 
 void test_gfx_text_set(void) {
