@@ -108,6 +108,7 @@ void gfx_text_destroy(gfx_text *text) {
 	if(text->text != NULL) {
 		SDL_DestroyTexture(text->text);
 	}
+	TTF_CloseFont(text->font);
 	free(text);
 }
 
