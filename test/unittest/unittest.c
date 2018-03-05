@@ -174,8 +174,8 @@ int destroy_graphics_suite(void) {
 
 	gfx_image_destroy(image);
 	gfx_image_list_destroy(gfxl);
-	gfx_screen_destroy(window, renderer);
 	gfx_text_destroy(text);
+	gfx_screen_destroy(window, renderer);
 	return 0;
 }
 
@@ -349,6 +349,8 @@ int main()
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
+
+	printf("test1");
 
 	/* Add suite log and test cases */
 	pSuite = NULL;
