@@ -3,7 +3,6 @@
  - Check utest for memory leaks
  - Introduce memcheck for utest in jenkins
  - Check gravbounce for memory leaks
- - Introdce memcheck for utest in jenkis
 
 = Collision with moon =
 

@@ -350,8 +350,6 @@ int main()
 		return CU_get_error();
 	}
 
-	printf("test1");
-
 	/* Add suite log and test cases */
 	pSuite = NULL;
 	pSuite = CU_add_suite("suite_util", init_util_suite, destroy_util_suite);
