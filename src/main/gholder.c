@@ -46,7 +46,6 @@ int gholder_destroy(gholder *gh) {
 	object_list_destroy(gh->mnl);
 
 	gfx_destroy_list(gh->imgl);
-	gfx_text_destroy(gh->header);
 	audio_destroy(gh);
 
 	return 0;

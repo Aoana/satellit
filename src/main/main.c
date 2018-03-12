@@ -82,6 +82,8 @@ intro:
 	}
 
 	/* Exit the program and cleanup */
+	gfx_text_destroy(gh->header);
+	gfx_screen_destroy(gh->window, gh->renderer);
 	gholder_destroy(gh);
 
 #ifdef DEBUG
