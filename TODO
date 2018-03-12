@@ -1,7 +1,7 @@
 = Maps =
 	- add map3
-	- tweak existing maps
 	- add victory "map"
+= Make audio init/destroy separate =
 = Introduce wormhole =
 	- Jump from one place to the other
 = Animated objects
