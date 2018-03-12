@@ -44,7 +44,7 @@ typedef struct gholder {
 	double vy_0;				/**< Initial Y velocity for rocket. */
 	int map_number;				/**< Current map number */
 	SDL_AudioDeviceID audiodev;	/**< Audio device. */
-} gholder; 
+} gholder;
 
 /**
  * @brief Allocate and initialize the global holder.
