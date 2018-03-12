@@ -176,7 +176,7 @@ void gholder_state_finish(gholder *gh) {
 		gfx_text_set(gh->renderer, gh->header, "YOU WON! PRESS ENTER TO RUN NEXT MAP");
 
 		/* Loading next map */
-		if(map_load_next(gh) != 0) {
+		if(map_load_next(gh, 0) != 0) {
 			LOG("ERR: Loading next map failed");
 			exit(1);
 		}

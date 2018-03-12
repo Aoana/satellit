@@ -35,9 +35,10 @@ int map_unload(struct gholder *gh);
 /**
  * @brief Unload current map and load next map, also set state to intro.
  * @param gh Pointer to global holder.
+ * @param map_num set specific map number, if 0 take next map.
  * @return 0 if passed, 1 if failed.
  *
  */
-int map_load_next(struct gholder *gh);
+int map_load_next(struct gholder *gh, int map_num);
 #endif
 

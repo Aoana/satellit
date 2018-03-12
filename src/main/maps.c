@@ -153,12 +153,16 @@ int map_unload(struct gholder *gh) {
 
 }
 
-int map_load_next(struct gholder *gh) {
+int map_load_next(struct gholder *gh, int map_num) {
 
 	char map_str[64];
 
-	gh->map_number++;
-	sprintf(map_str, "src/main/maps/map%d", gh->map_number);
+	if (map_num != 0) {
+		sprintf(map_str, "src/main/maps/map%d", map_num);
+	} else {
+		gh->map_number++;
+		sprintf(map_str, "src/main/maps/map%d", gh->map_number);
+	}
 
 	LOG("INFO: Loading map %s", map_str);
 	if(map_unload(gh) != 0) {

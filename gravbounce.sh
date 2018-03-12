@@ -77,7 +77,7 @@ cmd_start() {
 	path=`pwd`
 	cd $GB_GIT
 	test -x "gravbounce" || die 'No executable gravbounce'
-	./gravbounce
+	./gravbounce $1
 	ret=$?
 	cd $path
 	return $ret

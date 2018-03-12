@@ -10,6 +10,7 @@ void set_log_path(char *buf) {
 int main(int argc, char *argv[])
 {
 	gholder *gh;
+	int start_map = 1;
 
 #ifdef DEBUG
 	char log_path[128];
@@ -22,14 +23,13 @@ int main(int argc, char *argv[])
 		printf("ERR: Initialization of logging failed, quitting, err = %s\n", strerror(errno));
 		exit(1);
 	}
+	if (argc == 2) {
+		start_map = atoi(argv[1]);
+		LOG("DEBUG: start map set to %s", argv[1]);
+	}
 #endif
 
 	LOG("####### Starting a new game of %s", argv[0]);
-
-	if (argc != 1) {
-		LOG("ERR: %s (no arguments)", argv[0]);
-		exit(1);
-	}
 
 	/* Initialize the global holder */
 	gh = gholder_init();
@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	/* Loading Map 1*/
-	if(map_load_next(gh) != 0) {
+	/* Loading Map 1 (unless debug overwrite) */
+	if(map_load_next(gh, start_map) != 0) {
 		LOG("ERR: Loading map failed");
 		exit(1);
 	}
