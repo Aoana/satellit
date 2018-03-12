@@ -1,38 +1,22 @@
-= Memory leak checks =
-
- - Check gravbounce for memory leaks
- - Jenkins: Memcheck for utest in jenkins
-	> Unable to get correct return values for valgrind
-
-= Collision with moon =
-
-= Add sound =
-
-- Allow parallell sounds, switch to SDL mixer
-
-= Introduce booster =
-
-= Animated objects
-
-- wormhole
-- ship
-
-= Introduce wormhole =
-
-- Jump from one place to the other
-
-= Add timestamped meteor =
-
 = Maps =
-
-- add map3
-- tweak existing maps
-- add victory "map"
-
+	- add map3
+	- tweak existing maps
+	- add victory "map"
+= Introduce wormhole =
+	- Jump from one place to the other
+= Animated objects
+	- wormhole
+= Collision with moon =
+= Add sound =
+	- Allow parallell sounds, switch to SDL mixer
+= Introduce booster =
+= Add timestamped meteor =
 = Code coverage calculation =
 
 = Unit tests =
-
  - graphics api
 	> fix jenkins bug, wait for updates to plugin/jenkins
+= Memory leak checks =
+ - Jenkins: Memcheck for utest in jenkins
+	> Unable to get correct return values for valgrind
 
