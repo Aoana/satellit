@@ -1,8 +1,8 @@
 = Memory leak checks =
 
- - Check utest for memory leaks
- - Introduce memcheck for utest in jenkins
  - Check gravbounce for memory leaks
+ - Jenkins: Memcheck for utest in jenkins
+	> Unable to get correct return values for valgrind
 
 = Collision with moon =
 
@@ -19,7 +19,7 @@
 
 = Introduce wormhole =
 
-	- Jump from one place to the other
+- Jump from one place to the other
 
 = Add timestamped meteor =
 

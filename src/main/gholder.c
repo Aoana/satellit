@@ -44,6 +44,7 @@ int gholder_destroy(gholder *gh) {
 	object_list_destroy(gh->ptl);
 	object_list_clean_all(gh->mnl);
 	object_list_destroy(gh->mnl);
+
 	gfx_destroy_list(gh->imgl);
 	gfx_text_destroy(gh->header);
 	audio_destroy(gh);
@@ -78,7 +79,7 @@ void gholder_update_screen(gholder * gh) {
 	gfx_surface_draw(gh->renderer, gh->background, (double)RES_WIDTH/2, (double)RES_HEIGHT/2, 0);
 
 	/* Draw the Line describing init velocity*/
-	gfx_line_draw(gh->renderer, 
+	gfx_line_draw(gh->renderer,
 		gh->hbase->pos->x, gh->hbase->pos->y,
 		gh->hbase->pos->x+gh->vx_0*2, gh->hbase->pos->y+gh->vy_0*2);
 
