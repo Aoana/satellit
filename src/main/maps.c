@@ -5,6 +5,7 @@ int map_load(struct gholder *gh, char *map) {
 	config_t cfg;
 	config_setting_t *setting;
 	const char *bgd;
+	const char *txt;
 
 	config_init(&cfg);
 
@@ -25,6 +26,19 @@ int map_load(struct gholder *gh, char *map) {
 		LOG("ERR: Unable to find background in config");
 		goto error;
 	}
+
+	/* Load header text */
+	if(config_lookup_string(&cfg, "text", &txt)) {
+		if(gfx_text_set(gh->renderer, gh->header, (char *)txt) != GRAPHICS_OK) {
+			LOG("ERR: Set header text %s failed", txt);
+			goto error;
+		}
+		LOG("INFO: Header text %s set", txt);
+	} else {
+		LOG("ERR: Unable to find text in config");
+		goto error;
+	}
+	setting = config_lookup(&cfg, "text");
 
 	/* Load all planets in map. */
 	setting = config_lookup(&cfg, "planets");

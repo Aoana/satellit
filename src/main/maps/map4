@@ -1,4 +1,5 @@
 background = "gfx_victory.png";
+text = "Well done...";
 planets = ();
 bases = (	{ 	type = 0;
 				x = 100.0;
