@@ -1,4 +1,9 @@
-background = "gfx_background1.png";
+background = "gfx_victory.png";
 planets = ();
-bases = ();
+bases = (	{ 	type = 0;
+				x = 100.0;
+				y = 540.0;},
+			{ 	type = 1;
+				x = 1820.0;
+				y = 540.0;});
 moons = ();

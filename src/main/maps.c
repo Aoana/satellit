@@ -133,7 +133,6 @@ error:
 
 int map_unload(struct gholder *gh) {
 
-	LOG("INFO: Unloading map %d", gh->map_number);
 	if (object_list_clean_all(gh->ptl) != OBJECT_OK) {
 		LOG("ERR: Unable remove planets from old map");
 		return 1;
@@ -157,6 +156,12 @@ int map_load_next(struct gholder *gh, int map_num) {
 
 	char map_str[64];
 
+	LOG("INFO: Unloading old map, number %d", gh->map_number);
+	if(map_unload(gh) != 0) {
+		LOG("ERR: Unloading map failed");
+		return 1;
+	}
+
 	if (map_num != 0) {
 		gh->map_number = map_num;
 	} else {
@@ -164,11 +169,7 @@ int map_load_next(struct gholder *gh, int map_num) {
 	}
 	sprintf(map_str, "src/main/maps/map%d", gh->map_number);
 
-	LOG("INFO: Loading map %s", map_str);
-	if(map_unload(gh) != 0) {
-		LOG("ERR: Unloading map failed");
-		return 1;
-	}
+	LOG("INFO: Loading new map %s, number %d", map_str, gh->map_number);
 	if(map_load(gh, map_str) != 0) {
 		LOG("ERR: Loading map %s failed", map_str);
 		return 1;
