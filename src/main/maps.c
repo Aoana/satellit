@@ -176,6 +176,10 @@ int map_load_next(struct gholder *gh, int map_num) {
 		return 1;
 	}
 
+	LOG("INFO: Resetting initial velocity");
+	gh->vx_0 = 0;
+	gh->vy_0 = 0;
+
 	if (map_num != 0) {
 		gh->map_number = map_num;
 	} else {
