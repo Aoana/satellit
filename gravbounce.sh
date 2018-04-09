@@ -69,9 +69,9 @@ cmd_build() {
 	return $ret
 }
 
-##	start
+##	start [map-number]
 ##		Starts gravbounce
-##
+##		Setting map number only if debug compiled
 cmd_start() {
 
 	path=`pwd`
