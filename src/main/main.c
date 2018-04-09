@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	}
 
 	/* Initialize Texts */
-	gh->header = gfx_text_init("src/graphics/fonts/FreeMono.ttf", 30);
+	gh->header = gfx_text_init("src/graphics/fonts/Amatic-Bold.ttf", 50);
 	if (gh->header == NULL) {
 		LOG("ERR: Could not init texts");
 		exit(1);
