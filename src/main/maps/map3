@@ -1,0 +1,14 @@
+background = "gfx_background1.png";
+planets = ( { 	x = 576.0;
+				y = 648.0;
+				m = 1000.0;},
+			{	x = 1000.0;
+				y = 348.0;
+				m = 1000.0;});
+bases = (	{ 	type = 0;
+				x = 100.0;
+				y = 540.0;},
+			{ 	type = 1;
+				x = 1820.0;
+				y = 920.0;});
+moons = ();

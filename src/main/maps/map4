@@ -1,0 +1,4 @@
+background = "gfx_background1.png";
+planets = ();
+bases = ();
+moons = ();
