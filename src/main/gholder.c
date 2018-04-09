@@ -44,9 +44,7 @@ int gholder_destroy(gholder *gh) {
 	object_list_destroy(gh->ptl);
 	object_list_clean_all(gh->mnl);
 	object_list_destroy(gh->mnl);
-
 	gfx_destroy_list(gh->imgl);
-	audio_destroy(gh);
 
 	return 0;
 }
@@ -116,7 +114,7 @@ void gholder_state_intro(gholder *gh) {
 	gfx_text_set(gh->renderer, gh->header, "Welcome to GravBounce! Please set start velocity using arrow keys");
 
 	/* Start background sound */
-	if(audio_play_sound(gh,"src/audio/sounds/371516__mrthenoronha__space-game-theme-loop.wav") != 0) {
+	if(audio_play_sound(gh->audiodev, "src/audio/sounds/371516__mrthenoronha__space-game-theme-loop.wav") != 0) {
 		LOG("ERR: Could not queue audio for background music");
 	}
 

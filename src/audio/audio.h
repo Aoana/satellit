@@ -16,27 +16,26 @@
 
 /**
  * @brief Init audio device and load sounds.
- * @param gh Pointer to global holder.
- * @return 0 if passed, 1 if failed.
+ * @return Pointer to audiodevice if passed, NULL if failed.
  *
  */
-int audio_init(struct gholder *gh);
+SDL_AudioDeviceID * audio_init();
 
 /**
  * @brief Destroy audio device and structures.
- * @param gh Pointer to global holder.
+ * @param audiodev SDL audio device.
  * @return 0 if passed, 1 if failed.
  *
  */
-int audio_destroy(struct gholder *gh);
+int audio_destroy(SDL_AudioDeviceID *audiodev);
 
 /**
  * @brief Play a sound.
- * @param gh Pointer to global holder.
+ * @param audiodev SDL audio device.
  * @param sound path to sound to be played.
  * @return 0 if passed, 1 if failed.
  *
  */
-int audio_play_sound(struct gholder *gh, char *sound);
+int audio_play_sound(SDL_AudioDeviceID *audiodev, char *sound);
 #endif
 

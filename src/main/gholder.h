@@ -43,7 +43,7 @@ typedef struct gholder {
 	double vx_0;				/**< Initial X velocity for rocket. */
 	double vy_0;				/**< Initial Y velocity for rocket. */
 	int map_number;				/**< Current map number */
-	SDL_AudioDeviceID audiodev;	/**< Audio device. */
+	SDL_AudioDeviceID *audiodev;/**< Audio device. */
 } gholder;
 
 /**

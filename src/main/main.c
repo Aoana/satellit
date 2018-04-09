@@ -59,7 +59,8 @@ int main(int argc, char *argv[])
 	}
 
 	/* Initialize Audio */
-	if (audio_init(gh) != 0) {
+	gh->audiodev = audio_init();
+	if (gh->audiodev == NULL) {
 		LOG("ERR: Could not init audio");
 		exit(1);
 	}
@@ -82,6 +83,7 @@ intro:
 	}
 
 	/* Exit the program and cleanup */
+	audio_destroy(gh->audiodev);
 	gfx_text_destroy(gh->header);
 	gfx_screen_destroy(gh->window, gh->renderer);
 	gholder_destroy(gh);
