@@ -1,6 +1,6 @@
 pwd=`pwd`
 export GB_GIT=$pwd
-export GB_WS=$pwd/../gravbounce-workspace
+export GB_WS=$pwd/../satellit-workspace
 mkdir -p $GB_WS
 mkdir -p $GB_WS/doc
-alias gravbounce='$GB_GIT/gravbounce.sh'
+alias satellit='$GB_GIT/satellit.sh'

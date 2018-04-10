@@ -1,8 +1,8 @@
 #! /bin/sh
 ##
-## gravbounce.sh --
+## satellit.sh --
 ##
-##	Script for the gravbounce game.
+##	Script for the satellit game.
 ##
 ##	Preparation;
 ##
@@ -13,12 +13,12 @@
 ##
 ##	Build Gravbounce;
 ##
-##		gravbounce build
+##		satellit build
 ##
 ##	Start and stop Gravbounce;
 ##
-##		gravbounce start
-##		gravbounce stop
+##		satellit start
+##		satellit stop
 ##
 ## Commands;
 ##
@@ -46,7 +46,7 @@ test -n "$GB_WS" || die 'Not set [$GB_WS]'
 test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 
 ##	build [--clean] [--debug]
-##		Compiles gravbounce
+##		Compiles satellit
 ##		debug adds logging
 ##
 cmd_build() {
@@ -70,14 +70,14 @@ cmd_build() {
 }
 
 ##	start [map-number]
-##		Starts gravbounce
+##		Starts satellit
 ##		Setting map number only if debug compiled
 cmd_start() {
 
 	path=`pwd`
 	cd $GB_GIT
-	test -x "gravbounce" || die 'No executable gravbounce'
-	./gravbounce $1
+	test -x "satellit" || die 'No executable satellit'
+	./satellit $1
 	ret=$?
 	cd $path
 	return $ret

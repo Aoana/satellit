@@ -1,12 +1,10 @@
-= Introduce wormhole =
+ Introduce wormhole =
 	- Jump from one place to the other
 = Animated objects
 	- wormhole
 = Collision with moon =
 = Add sound =
 	- Allow parallell sounds, switch to SDL mixer
-= Introduce booster =
-= Add timestamped meteor =
 = Code coverage calculation =
 
 = Unit tests =

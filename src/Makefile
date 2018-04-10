@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic -Werror -g
 LFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lm -lconfig
-PROG = gravbounce
+PROG = satellit
 PROG_TARGET = $(addprefix $(GB_GIT)/, $(PROG))
 CXX = gcc
 MD := mkdir

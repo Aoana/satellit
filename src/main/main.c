@@ -2,7 +2,7 @@
 
 void set_log_path(char *buf) {
 
-	char log_name[64] = "/gravbounce.log";
+	char log_name[64] = "/satellit.log";
     strcpy(buf, getenv("GB_WS"));
 	strcat(buf, log_name);
 }
