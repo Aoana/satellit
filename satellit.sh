@@ -72,6 +72,7 @@ cmd_build() {
 ##	start [map-number]
 ##		Starts satellit
 ##		Setting map number only if debug compiled
+##
 cmd_start() {
 
 	path=`pwd`
