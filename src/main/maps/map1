@@ -1,5 +1,5 @@
 background = "gfx_background1.png";
-text = "Welcome to GravBounce! Please set start velocity using arrow keys";
+text = "Welcome to Satellit! Please set start velocity using arrow keys";
 planets = ( { 	x = 576.0;
 				y = 648.0;
 				m = 1000.0;});

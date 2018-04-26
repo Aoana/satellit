@@ -11,11 +11,11 @@
 ##		doxygen libconfig-dev libsdl2-mixer-dev libcunit1-dev
 ##
 ##
-##	Build Gravbounce;
+##	Build Satellit;
 ##
 ##		satellit build
 ##
-##	Start and stop Gravbounce;
+##	Start and stop Satellit;
 ##
 ##		satellit start
 ##		satellit stop
