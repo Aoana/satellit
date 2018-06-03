@@ -6,10 +6,13 @@
 ##
 ##	Preparation;
 ##
-##	# Install the following packages
+##	Install the following packages:
+##	Ubuntu
 ##		sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev \
 ##		doxygen libconfig-dev libsdl2-mixer-dev libcunit1-dev
-##
+##	Fedora (only development tested)
+##		sudo yum install SDL2-devel SDL2_image-devel SDL2_ttf-devel \
+##		doxygen libconfig-devel SDL2_mixer-devel CUnit-devel
 ##
 ##	Build Satellit;
 ##
