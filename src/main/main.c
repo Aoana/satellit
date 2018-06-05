@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	gh = gholder_init();
 
 	/* Start up SDL */
-	if(gfx_screen_init("Satellit", RES_WIDTH, RES_HEIGHT, &gh->window, &gh->renderer) != 0) {
+	if(gfx_screen_init("Satellit", &gh->res_w, &gh->res_h, &gh->window, &gh->renderer) != 0) {
 		LOG("ERR: Could not init screen");
 		exit(1);
 	}

@@ -49,6 +49,8 @@ typedef struct gholder {
 	SDL_Window *window;			/**< Window of game. */
 	SDL_Renderer *renderer;		/**< Renderer for game. */
 	SDL_Texture *background;	/**< Current Background in game. */
+	int res_w;					/**< Resolution Width in game. */
+	int res_h;					/**< Resolution Height in game. */
 	struct object_list *rtl;	/**< Pointer to object list for all rockets. */
 	struct object_list *ptl;	/**< Pointer to object list or all planets. */
 	struct object_list *mnl;	/**< Pointer to object list for all moons. */

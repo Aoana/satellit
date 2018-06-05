@@ -69,15 +69,15 @@ typedef struct gfx_image_list {
 /**
  * @brief Initalize video and set screen, also init ttf.
  * @param title Title of the video screen.
- * @param width Width of screen.
- * @param height Height of screen.
+ * @param width Pointer to int, writes resolution width
+ * @param height Pointer to int, writes resolution height
  * @param window Pointer to window pointer to set
  * @param renderer Pointer to renderer pointer to set
  * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
  * @see graphicsReturnCode
  *
  */
-enum graphicsReturnCode gfx_screen_init(char *title, int width, int height,
+enum graphicsReturnCode gfx_screen_init(char *title, int *width, int *height,
 	SDL_Window **window, SDL_Renderer **renderer);
 
 /**

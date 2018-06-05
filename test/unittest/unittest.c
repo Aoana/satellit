@@ -147,10 +147,11 @@ SDL_Renderer *renderer = NULL;
 gfx_image_list *gfxl = NULL;
 gfx_image *image = NULL;
 gfx_text *text = NULL;
+int w,h;
 
 int init_graphics_suite(void) {
 
-	if (gfx_screen_init("test_screen", 1920, 1080, &window, &renderer) != 0) {
+	if (gfx_screen_init("test_screen", &w, &h, &window, &renderer) != 0) {
 		return 1;
 	}
 	gfxl = gfx_image_list_init();

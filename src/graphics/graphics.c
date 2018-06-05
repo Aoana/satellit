@@ -38,16 +38,27 @@ SDL_Texture *sdl_image_load(SDL_Renderer *renderer, char *name) {
 }
 
 
-enum graphicsReturnCode gfx_screen_init(char *title, int width, int height,
+enum graphicsReturnCode gfx_screen_init(char *title, int *width, int *height,
 	SDL_Window **window, SDL_Renderer **renderer) {
+
+	SDL_DisplayMode current;
 
 	/* Initialise SDL Video */
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
 		return GRAPHICS_SDL;
 	}
 
+	if (SDL_GetCurrentDisplayMode(0, &current) != 0) {
+		/* Unable to get native resolution, using default*/
+		*width = RES_WIDTH;
+		*height = RES_HEIGHT;
+	} else {
+		*width = current.w;
+		*height = current.h;
+	}
+
 	*window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		width, height, SDL_WINDOW_FULLSCREEN);
+		*width, *height, SDL_WINDOW_FULLSCREEN);
 	if (*window == NULL) {
 		return GRAPHICS_SDL;
 	}
