@@ -49,9 +49,8 @@ enum graphicsReturnCode gfx_screen_init(char *title, int *width, int *height,
 	}
 
 	if (SDL_GetCurrentDisplayMode(0, &current) != 0) {
-		/* Unable to get native resolution, using default*/
-		*width = RES_WIDTH;
-		*height = RES_HEIGHT;
+		/* Unable to get native resolution*/
+		return GRAPHICS_SDL;
 	} else {
 		*width = current.w;
 		*height = current.h;
