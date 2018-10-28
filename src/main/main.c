@@ -56,6 +56,14 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	/* Define allowed space as a percentage of screen */
+	gh->sp = position_space_init(gh->res_w*0.05, gh->res_w*0.95, gh->res_h*0.05, gh->res_h*0.95);
+	if (gh->sp == NULL) {
+		LOG("ERR: Could not init space");
+		exit(1);
+	}
+	LOG("INFO: Allowed space x=%f-%f y=%f-%f", gh->sp->min_x, gh->sp->max_x, gh->sp->min_y, gh->sp->max_y);
+
 	/* Initialize images */
 	gh->imgl = gfx_image_list_init();
 	if (gh->imgl == NULL) {

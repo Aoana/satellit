@@ -91,12 +91,13 @@ int object_list_destroy(object_list *objl);
  * @param m Mass
  * @param vx X start velocity
  * @param vy Y start velocity
+ * @param sp Pointer to allowed space
  * @return pointer to object if passed, NULL if failed
  * @see object_destroy
  *
  */
 object * object_init(int id, SDL_Texture *image,
-	double x, double y, double m, double vx, double vy);
+	double x, double y, double m, double vx, double vy, space *sp);
 
 /**
  * @brief Object destruction

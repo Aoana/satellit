@@ -56,9 +56,9 @@ unsigned int rocket_add(gholder *gh,
 	image = gfx_img->image;
 
 	LOG("INFO: Adding rocket id=%d", gh->rtl->n_objs);
-	rocket = object_init(gh->rtl->n_objs, image, x, y, m, vx, vy);
+	rocket = object_init(gh->rtl->n_objs, image, x, y, m, vx, vy, gh->sp);
 	if (rocket == NULL ) {
-		LOG("ERR: Unable to init rocket");
+		LOG("ERR: Unable to init rocket: x=%f,y=%f", x, y);
 		return OBJECT_ADD;
 	}
 	if (object_list_add(gh->rtl, rocket) != OBJECT_OK) {
@@ -75,7 +75,7 @@ unsigned int rocket_update(gholder *gh, struct object *rt) {
 	}
 
 	/* Update position for rocket */
-	if (position_update(rt->pos) != POSITION_OK) {
+	if (position_update(rt->pos, gh->sp) != POSITION_OK) {
 		if (object_list_remove(gh->rtl, rt) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", rt->id);
 		}

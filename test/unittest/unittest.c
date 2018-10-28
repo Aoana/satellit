@@ -3,14 +3,29 @@
 #include "graphics.h"
 #include "CUnit/Basic.h"
 
+
+/*****************
+ * Generic info
+ ******************/
+
+double space_w_min=100;
+double space_w_max=RES_WIDTH-100;
+double space_h_min=100;
+double space_h_max=RES_HEIGHT-100;
+space *sp;
+
 /*****************
  * Position tests
  ******************/
-
 position *pos = NULL;
 
 int init_position_suite(void) {
-	pos = position_init(SPACE_H_MAX-1, SPACE_H_MAX-1, 0, 0);
+	sp = position_space_init((double)space_w_min, (double)space_w_max, (double)space_h_min, (double)space_h_max);
+	if(sp == NULL) {
+		return 1;
+	}
+
+	pos = position_init(space_h_max-1, space_h_max-1, 0, 0, sp);
 	if(pos == NULL) {
 		return 1;
 	}
@@ -21,46 +36,49 @@ int destroy_position_suite(void) {
 	if(position_destroy(pos) != 0) {
 		return 1;
 	}
+	if(position_space_destroy(sp) != 0) {
+		return 1;
+	}
 	return 0;
 }
 
 void test_position_validate(void) {
 
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MIN, SPACE_H_MIN));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MIN, SPACE_H_MAX));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MAX, SPACE_H_MIN));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MAX, SPACE_H_MAX));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MIN+1, SPACE_H_MIN+1));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MIN+1, SPACE_H_MAX-1));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MAX-1, SPACE_H_MIN+1));
-	CU_ASSERT(POSITION_OK == position_validate(SPACE_W_MAX-1, SPACE_H_MAX-1));
-	CU_ASSERT(POSITION_ERR_OOB == position_validate(SPACE_W_MIN-1, SPACE_H_MIN));
-	CU_ASSERT(POSITION_ERR_OOB == position_validate(SPACE_W_MIN, SPACE_H_MIN-1));
-	CU_ASSERT(POSITION_ERR_OOB == position_validate(SPACE_W_MAX+1, SPACE_H_MAX));
-	CU_ASSERT(POSITION_ERR_OOB == position_validate(SPACE_W_MAX, SPACE_H_MAX+1));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_min, space_h_min, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_min, space_h_max, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_max, space_h_min, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_max, space_h_max, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_min+1, space_h_min+1, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_min+1, space_h_max-1, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_max-1, space_h_min+1, sp));
+	CU_ASSERT(POSITION_OK == position_validate(space_w_max-1, space_h_max-1, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_validate(space_w_min-1, space_h_min, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_validate(space_w_min, space_h_min-1, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_validate(space_w_max+1, space_h_max, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_validate(space_w_max, space_h_max+1, sp));
 }
 
 void test_position_update(void) {
 
-	position p1 = {SPACE_W_MIN, SPACE_H_MIN, 1, 1};
-	position p2 = {SPACE_W_MIN, SPACE_H_MAX, 1, -1};
-	position p3 = {SPACE_W_MAX, SPACE_H_MIN, -1, 1};
-	position p4 = {SPACE_W_MAX, SPACE_H_MAX, -1, -1};
+	position p1 = {space_w_min, space_h_min, 1, 1};
+	position p2 = {space_w_min, space_h_max, 1, -1};
+	position p3 = {space_w_max, space_h_min, -1, 1};
+	position p4 = {space_w_max, space_h_max, -1, -1};
 
-	position p5 = {SPACE_W_MIN, SPACE_H_MIN, -1, 0};
-	position p6 = {SPACE_W_MIN, SPACE_H_MIN, 0, -1};
-	position p7 = {SPACE_W_MAX, SPACE_H_MAX, 1, 0};
-	position p8 = {SPACE_W_MAX, SPACE_H_MAX, 0, 1};
+	position p5 = {space_w_min, space_h_min, -1, 0};
+	position p6 = {space_w_min, space_h_min, 0, -1};
+	position p7 = {space_w_max, space_h_max, 1, 0};
+	position p8 = {space_w_max, space_h_max, 0, 1};
 
-	CU_ASSERT(POSITION_OK == position_update(&p1));
-	CU_ASSERT(POSITION_OK == position_update(&p2));
-	CU_ASSERT(POSITION_OK == position_update(&p3));
-	CU_ASSERT(POSITION_OK == position_update(&p4));
+	CU_ASSERT(POSITION_OK == position_update(&p1, sp));
+	CU_ASSERT(POSITION_OK == position_update(&p2, sp));
+	CU_ASSERT(POSITION_OK == position_update(&p3, sp));
+	CU_ASSERT(POSITION_OK == position_update(&p4, sp));
 
-	CU_ASSERT(POSITION_ERR_OOB == position_update(&p5));
-	CU_ASSERT(POSITION_ERR_OOB == position_update(&p6));
-	CU_ASSERT(POSITION_ERR_OOB == position_update(&p7));
-	CU_ASSERT(POSITION_ERR_OOB == position_update(&p8));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p5, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p6, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p7, sp));
+	CU_ASSERT(POSITION_ERR_OOB == position_update(&p8, sp));
 }
 
 /*****************
@@ -77,11 +95,15 @@ object *objN = NULL;
 
 int init_object_suite(void) {
 
+	sp = position_space_init((double)space_w_min, (double)space_w_max, (double)space_h_min, (double)space_h_max);
+	if(sp == NULL) {
+		return 1;
+	}
 	objl = object_list_init();
-	obj1 = object_init(1, NULL, SPACE_W_MIN, SPACE_H_MIN, 10, 11, 12);
-	obj2 = object_init(2, NULL, SPACE_W_MIN, SPACE_H_MAX, 20, 21, 22);
-	obj3 = object_init(3, NULL, SPACE_W_MAX, SPACE_H_MIN, 30, 31, 32);
-	obj4 = object_init(4, NULL, SPACE_W_MAX, SPACE_H_MAX, 40, 41, 42);
+	obj1 = object_init(1, NULL, space_w_min, space_h_min, 10, 11, 12, sp);
+	obj2 = object_init(2, NULL, space_w_min, space_h_max, 20, 21, 22, sp);
+	obj3 = object_init(3, NULL, space_w_max, space_h_min, 30, 31, 32, sp);
+	obj4 = object_init(4, NULL, space_w_max, space_h_max, 40, 41, 42, sp);
 	if (objl == NULL || obj1 == NULL || obj2 == NULL ||
 		obj3 == NULL || obj4 == NULL) {
 		return 1;
@@ -96,6 +118,11 @@ int destroy_object_suite(void) {
 	object_destroy(obj3);
 	object_destroy(obj4);
 	object_list_destroy(objl);
+
+	if(position_space_destroy(sp) != 0) {
+		return 1;
+	}
+
 	return 0;
 }
 
@@ -132,10 +159,10 @@ void test_object_list_cleanup(void) {
 
 	CU_ASSERT(OBJECT_OK == object_list_clean_all(objl));
 
-	obj1 = object_init(1, NULL, SPACE_W_MIN, SPACE_H_MIN, 10, 11, 12);
-	obj2 = object_init(2, NULL, SPACE_W_MIN, SPACE_H_MAX, 20, 21, 22);
-	obj3 = object_init(3, NULL, SPACE_W_MAX, SPACE_H_MIN, 30, 31, 32);
-	obj4 = object_init(4, NULL, SPACE_W_MAX, SPACE_H_MAX, 40, 41, 42);
+	obj1 = object_init(1, NULL, space_w_min, space_h_min, 10, 11, 12, sp);
+	obj2 = object_init(2, NULL, space_w_min, space_h_max, 20, 21, 22, sp);
+	obj3 = object_init(3, NULL, space_w_max, space_h_min, 30, 31, 32, sp);
+	obj4 = object_init(4, NULL, space_w_max, space_h_max, 40, 41, 42, sp);
 }
 
 /*****************

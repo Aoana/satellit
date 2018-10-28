@@ -61,6 +61,7 @@ int gholder_destroy(gholder *gh) {
 	object_list_clean_all(gh->mnl);
 	object_list_destroy(gh->mnl);
 	gfx_destroy_list(gh->imgl);
+	free(gh->sp);
 
 	return 0;
 }
@@ -116,7 +117,7 @@ void gholder_update_screen(gholder * gh) {
 	}
 
 	/* Draw the header, hardcoded position. */
-	gfx_surface_draw(gh->renderer, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN, 0);
+	gfx_surface_draw(gh->renderer, gh->header->text, (double)RES_WIDTH/2, (double)gh->sp->min_y, 0);
 
 	/* Swap the image buffers */
 	SDL_RenderPresent(gh->renderer);

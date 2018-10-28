@@ -37,9 +37,9 @@ unsigned int base_add(struct gholder *gh, int type, double x, double y) {
 		return OBJECT_ADD;
 	}
 
-	base = object_init(type, gfx_img->image, x, y, 0, 0, 0);
+	base = object_init(type, gfx_img->image, x, y, 0, 0, 0, gh->sp);
 	if (base == NULL) {
-		LOG("ERR: Unable to initialize base");
+		LOG("ERR: Unable to init base: x=%f,y=%f", x, y);
 		return OBJECT_ADD;
 	}
 

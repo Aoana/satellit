@@ -38,10 +38,6 @@
 
 #define RES_WIDTH 1920 				/**< Resolution width of screen. */
 #define RES_HEIGHT 1080				/**< Resolution height of screen. */
-#define SPACE_W_MAX RES_WIDTH-100	/**< Playable area, max width. */
-#define SPACE_W_MIN 100				/**< Playable area, min width. */
-#define SPACE_H_MAX RES_HEIGHT-100	/**< Playable area, max height. */
-#define SPACE_H_MIN 100				/**< Playable area, min height. */
 
 #define UPDATE_FREQ 25 /**< Update frequency for the game. */
 

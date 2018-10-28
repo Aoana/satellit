@@ -22,7 +22,6 @@
 #ifndef POSITION_H
 #define POSITION_H
 #include "common.h"
-#include "object.h"
 
 /**
  * @brief Structure for position and velocity.
@@ -33,6 +32,16 @@ typedef struct position {
 	double vx;	/**< Velocity in X. */
 	double vy;	/**< Velocity in Y. */
 } position;
+
+/**
+ * @brief Structure for allowed space.
+ */
+typedef struct space {
+	double max_x;	/**< Position pixel max X. */
+	double min_x;	/**< Position pixel min X. */
+	double max_y;	/**< Position pixel max Y. */
+	double min_y;	/**< Position pixel min Y. */
+} space;
 
 /**
  * @brief Return codes for position handling.
@@ -49,10 +58,11 @@ enum positionReturnCode {
  * @param y Initial position in Y.
  * @param vx Initial velocity in X.
  * @param vy Initial velocity in Y.
+ * @param sp Pointer to allowed space.
  * @return Pointer to created position, NULL if failed.
  *
  */
-position * position_init(double x, double y, double vx, double vy);
+position * position_init(double x, double y, double vx, double vy, space *sp);
 
 /**
  * @brief Destroy and free position.
@@ -63,22 +73,44 @@ position * position_init(double x, double y, double vx, double vy);
 int position_destroy(position *p);
 
 /**
+ * @brief Initalize and allocate space
+ * @param min_x Min space X-axis.
+ * @param max_x Max space X-axis.
+ * @param min_y Min space Y-axis.
+ * @param max_y Max space Y-axis.
+ * @return Pointer to created space, NULL if failed.
+ *
+ */
+space * position_space_init(double min_x, double max_x, double min_y, double max_y);
+
+
+/**
+ * @brief Destroy and free space.
+ * @param p Pointer to space to destroy.
+ * @return 0 if passed, non-zero if failed.
+ *
+ */
+int position_space_destroy(space *sp);
+
+/**
  * @brief Validate position towards boundaries of game.
  * @param x Position in X.
  * @param y Position in Y.
+ * @param y Pointer to allowed space.
  * @return POSITION_OK if pass, POSITION_ERR_OOB if out if bounds.
  *
  */
-enum positionReturnCode position_validate(double x, double y);
+enum positionReturnCode position_validate(double x, double y, space *sp);
 
 /**
  * @brief Update position of obj based on gravity from objl.
  * @param p Pointer to position to be updated.
+ * @param sp Pointer to allowed space.
  * @return return POSITION_OK if passed, POSITION_ERR_OOB if failed
  * @see positionReturnCode
  *
  */
-enum positionReturnCode position_update(position *p);
+enum positionReturnCode position_update(position *p, space *sp);
 
 /**
  * @brief Return the velocity angle of object.
