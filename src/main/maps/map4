@@ -2,9 +2,9 @@ background = "gfx_victory.png";
 text = "Well done...";
 planets = ();
 bases = (	{ 	type = 0;
-				x = 100.0;
-				y = 540.0;},
+				x = 0.06;
+				y = 0.5;},
 			{ 	type = 1;
-				x = 1820.0;
-				y = 540.0;});
+				x = 0.94;
+				y = 0.5;});
 moons = ();

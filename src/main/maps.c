@@ -72,7 +72,7 @@ int map_load(struct gholder *gh, char *map) {
 				&& config_setting_lookup_float(planet, "y", &y)
 				&& config_setting_lookup_float(planet, "m", &m)) {
 
-				if (planet_add(gh, x, y, m) != OBJECT_OK) {
+				if (planet_add(gh, gh->res_w*x, gh->res_h*y, m) != OBJECT_OK) {
 					LOG("ERR: Init planet failed");
 					goto error;
 				}
@@ -104,7 +104,7 @@ int map_load(struct gholder *gh, char *map) {
 				&& config_setting_lookup_float(moon, "y", &y)
 				&& config_setting_lookup_float(moon, "m", &m)) {
 
-				if (moon_add(gh, x, y, m) != OBJECT_OK) {
+				if (moon_add(gh, gh->res_w*x, gh->res_h*y, m) != OBJECT_OK) {
 					LOG("ERR: Init moon failed");
 					goto error;
 				}
@@ -136,7 +136,7 @@ int map_load(struct gholder *gh, char *map) {
 				&& config_setting_lookup_float(base, "x", &x)
 				&& config_setting_lookup_float(base, "y", &y)) {
 
-				if (base_add(gh, type, x, y) != OBJECT_OK) {
+				if (base_add(gh, type, gh->res_w*x, gh->res_h*y) != OBJECT_OK) {
 					LOG("ERR: Init base failed %d %f %f", type, x, y);
 					goto error;
 				}
