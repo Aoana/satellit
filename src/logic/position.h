@@ -86,7 +86,7 @@ space * position_space_init(double min_x, double max_x, double min_y, double max
 
 /**
  * @brief Destroy and free space.
- * @param p Pointer to space to destroy.
+ * @param sp Pointer to space to destroy.
  * @return 0 if passed, non-zero if failed.
  *
  */
@@ -96,7 +96,7 @@ int position_space_destroy(space *sp);
  * @brief Validate position towards boundaries of game.
  * @param x Position in X.
  * @param y Position in Y.
- * @param y Pointer to allowed space.
+ * @param sp Pointer to allowed space.
  * @return POSITION_OK if pass, POSITION_ERR_OOB if out if bounds.
  *
  */
