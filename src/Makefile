@@ -1,15 +1,15 @@
 CFLAGS = -Wall -pedantic -Werror -g
 LFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lm -lconfig
 PROG = satellit
-PROG_TARGET = $(addprefix $(GB_GIT)/, $(PROG))
+PROG_TARGET = $(addprefix $(SAT_GIT)/, $(PROG))
 CXX = gcc
 MD := mkdir
 
 DIRS = generic graphics logic objects controls audio main
-TDIRS = $(foreach dir, $(DIRS), $(addprefix $(GB_WS)/, $(dir)))
+TDIRS = $(foreach dir, $(DIRS), $(addprefix $(SAT_WS)/, $(dir)))
 INCLUDES = $(foreach dir, $(DIRS), $(addprefix -I, $(dir)))
 SOURCES = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.c))
-OBJS = $(addprefix $(GB_WS)/, $(SOURCES:.c=.o))
+OBJS = $(addprefix $(SAT_WS)/, $(SOURCES:.c=.o))
 
 ifdef DEBUG
 CFLAGS  += -DDEBUG
@@ -22,7 +22,7 @@ $(TDIRS):
 	$(MD) -p $(TDIRS)
 
 # Compiling
-$(OBJS): $(GB_WS)/%.o: ./%.c
+$(OBJS): $(SAT_WS)/%.o: ./%.c
 	$(CXX) -c $(INCLUDES) $(CFLAGS) $< -o $@
 
 # Linking the program.
