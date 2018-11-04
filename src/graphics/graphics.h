@@ -198,11 +198,14 @@ enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, cha
  * @param s_y Start y coordinate of line.
  * @param e_x End x coordinate of line.
  * @param e_y End y coordinate of line.
+ * @param res_x Width resolution.
+ * @param res_y Height resolution.
  * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
  * @see graphicsReturnCode
  *
  */
-enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y);
+enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y,
+	int e_x, int e_y, int res_x, int res_y);
 
 /**
  * @brief Draw image to screen according to coordinates.
@@ -211,9 +214,13 @@ enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, 
  * @param x Coordinate X.
  * @param y Coordinate Y.
  * @param angle Rotation angle, 0 to disable.
+ * @param res_x Width resolution.
+ * @param res_y Height resolution.
  * @return GRAPHICS_OK if passed, other graphicsReturnCode if failed
  *
  */
-enum graphicsReturnCode gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle);
+enum graphicsReturnCode gfx_surface_draw(SDL_Renderer *renderer,
+	SDL_Texture *image, int x, int y,
+	double angle, int res_x, int res_y);
 
 #endif

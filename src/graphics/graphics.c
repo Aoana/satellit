@@ -276,12 +276,13 @@ enum graphicsReturnCode gfx_text_set(SDL_Renderer *renderer, gfx_text *text, cha
 
 }
 
-enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, int e_x, int e_y) {
+enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y,
+	int e_x, int e_y, int res_x, int res_y) {
 
-	if ((s_x > RES_WIDTH || s_x < 0) ||
-		(e_x > RES_WIDTH || e_x < 0) ||
-		(s_y > RES_HEIGHT || s_y < 0) ||
-		(e_y > RES_HEIGHT || e_y < 0)) {
+	if ((s_x > res_x || s_x < 0) ||
+		(e_x > res_x || e_x < 0) ||
+		(s_y > res_y || s_y < 0) ||
+		(e_y > res_y || e_y < 0)) {
 		return GRAPHICS_ARG;
 	}
 	if(SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE) != 0) {
@@ -296,12 +297,14 @@ enum graphicsReturnCode gfx_line_draw(SDL_Renderer *renderer, int s_x, int s_y, 
 
 }
 
-enum graphicsReturnCode gfx_surface_draw(SDL_Renderer *renderer, SDL_Texture *image, int x, int y, double angle) {
+enum graphicsReturnCode gfx_surface_draw(SDL_Renderer *renderer,
+	SDL_Texture *image, int x, int y,
+	double angle, int res_x, int res_y) {
 
 	SDL_Rect dest;
 	int w, h;
 
-	if ((x > RES_WIDTH || x < 0) || (y > RES_HEIGHT || y < 0)) {
+	if ((x > res_x || x < 0) || (y > res_y || y < 0)) {
 		return GRAPHICS_ARG;
 	}
 

@@ -90,34 +90,34 @@ void gholder_update_screen(gholder * gh) {
 	SDL_RenderClear(gh->renderer);
 
 	/* Draw the background. */
-	gfx_surface_draw(gh->renderer, gh->background, (double)gh->res_w/2, (double)gh->res_h/2, 0);
+	gfx_surface_draw(gh->renderer, gh->background, (double)gh->res_w/2, (double)gh->res_h/2, 0, gh->res_w, gh->res_h);
 
 	/* Draw the Line describing init velocity*/
 	gfx_line_draw(gh->renderer,
 		gh->hbase->pos->x, gh->hbase->pos->y,
-		gh->hbase->pos->x+gh->vx_0*2, gh->hbase->pos->y+gh->vy_0*2);
+		gh->hbase->pos->x+gh->vx_0*2, gh->hbase->pos->y+gh->vy_0*2, gh->res_w, gh->res_h);
 
 	/* Draw the planets to x and y */
 	DL_FOREACH(gh->ptl->head, pt) {
-		gfx_surface_draw(gh->renderer, pt->image, pt->pos->x, pt->pos->y, 0);
+		gfx_surface_draw(gh->renderer, pt->image, pt->pos->x, pt->pos->y, 0, gh->res_w, gh->res_h);
 	}
 
 	/* Draw the moons to x and y */
 	DL_FOREACH(gh->mnl->head, mn) {
-		gfx_surface_draw(gh->renderer, mn->image, mn->pos->x, mn->pos->y, 0);
+		gfx_surface_draw(gh->renderer, mn->image, mn->pos->x, mn->pos->y, 0, gh->res_w, gh->res_h);
 	}
 
 	/* Draw the Home and Goal base */
-	gfx_surface_draw(gh->renderer, gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y, 0);
-	gfx_surface_draw(gh->renderer, gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y, 0);
+	gfx_surface_draw(gh->renderer, gh->hbase->image, gh->hbase->pos->x, gh->hbase->pos->y, 0, gh->res_w, gh->res_h);
+	gfx_surface_draw(gh->renderer, gh->gbase->image, gh->gbase->pos->x, gh->gbase->pos->y, 0, gh->res_w, gh->res_h);
 
 	/* Draw the rockets to x and y */
 	DL_FOREACH(gh->rtl->head, rt) {
-		gfx_surface_draw(gh->renderer, rt->image, rt->pos->x, rt->pos->y, position_get_angle(rt->pos));
+		gfx_surface_draw(gh->renderer, rt->image, rt->pos->x, rt->pos->y, position_get_angle(rt->pos), gh->res_w, gh->res_h);
 	}
 
 	/* Draw the header, hardcoded position. */
-	gfx_surface_draw(gh->renderer, gh->header->text, (double)gh->res_w/2, (double)gh->sp->min_y, 0);
+	gfx_surface_draw(gh->renderer, gh->header->text, (double)gh->res_w/2, (double)gh->sp->min_y, 0, gh->res_w, gh->res_h);
 
 	/* Swap the image buffers */
 	SDL_RenderPresent(gh->renderer);
