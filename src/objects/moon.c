@@ -44,9 +44,9 @@ unsigned int moon_add(gholder *gh,
 
 	LOG("INFO: Adding moon, id=%d %f %f %f", gh->mnl->n_objs, x, y, m);
 
-	moon = object_init(gh->mnl->n_objs, image, x, y, m, 0, 0, gh->sp);
+	moon = object_init(gh->mnl->n_objs, image, x, y, m, 0, 0);
 	if (moon == NULL ) {
-		LOG("ERR: Unable to init moon: x=%f,y=%f", x, y);
+		LOG("ERR: Unable to init moon");
 		return OBJECT_ADD;
 	}
 
@@ -63,7 +63,7 @@ unsigned int moon_update(gholder *gh, struct object *mn) {
 		return OBJECT_OK;
 	}
 
-	if (position_update(mn->pos, gh->sp) != POSITION_OK) {
+	if (position_update(mn->pos) != POSITION_OK) {
 		if (object_list_remove(gh->mnl, mn) != OBJECT_OK) {
 			LOG("ERR: Failed to remove object, id=%d", mn->id);
 		}

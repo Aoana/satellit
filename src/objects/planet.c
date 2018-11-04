@@ -29,9 +29,9 @@ unsigned int planet_add(gholder *gh, double x, double y, double m) {
 	}
 	image = gfx_img->image;
 
-	planet = object_init(gh->ptl->n_objs, image, x, y, m, 0, 0, gh->sp);
+	planet = object_init(gh->ptl->n_objs, image, x, y, m, 0, 0);
 	if (planet == NULL ) {
-		LOG("ERR: Unable to init planet: x=%f,y=%f", x, y);
+		LOG("ERR: Unable to init planet");
 		return OBJECT_ADD;
 	}
 

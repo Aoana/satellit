@@ -1,12 +1,12 @@
 CFLAGS = -Wall -pedantic -Werror -g
 LFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lm -lconfig -lcunit
 PROG = utest
-PROG_TARGET = $(addprefix $(SAT_GIT)/, $(PROG))
+PROG_TARGET = $(addprefix $(GB_GIT)/, $(PROG))
 CXX = gcc
 MD := mkdir
 
-TDIR = $(SAT_WS)/unittest
-INCLUDES = -I$(SAT_GIT)/src/generic -I. 
+TDIR = $(GB_WS)/unittest
+INCLUDES = -I$(GB_GIT)/src/generic -I. 
 SOURCES = $(wildcard *.c)
 OBJS = $(addprefix $(TDIR)/, $(SOURCES:.c=.o))
 

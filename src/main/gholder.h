@@ -61,7 +61,6 @@ typedef struct gholder {
 	double vx_0;				/**< Initial X velocity for rocket. */
 	double vy_0;				/**< Initial Y velocity for rocket. */
 	int map_number;				/**< Current map number */
-	struct space *sp;				/**< Allowed space in game */
 	SDL_AudioDeviceID *audiodev;/**< Audio device. */
 } gholder;
 

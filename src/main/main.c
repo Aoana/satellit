@@ -19,7 +19,7 @@
 void set_log_path(char *buf) {
 
 	char log_name[64] = "/satellit.log";
-    strcpy(buf, getenv("SAT_WS"));
+    strcpy(buf, getenv("GB_WS"));
 	strcat(buf, log_name);
 }
 
@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 
 #ifdef DEBUG
 	char log_path[128];
-	if (getenv("SAT_WS") == NULL) {
-		printf( "SAT_WS not set, source envsetting\n");
+	if (getenv("GB_WS") == NULL) {
+		printf( "GB_WS not set, source envsetting\n");
 		exit(1);
 	}
 	set_log_path(log_path);
@@ -55,14 +55,6 @@ int main(int argc, char *argv[])
 		LOG("ERR: Could not init screen");
 		exit(1);
 	}
-
-	/* Define allowed space as a percentage of screen */
-	gh->sp = position_space_init(gh->res_w*0.05, gh->res_w*0.95, gh->res_h*0.05, gh->res_h*0.95);
-	if (gh->sp == NULL) {
-		LOG("ERR: Could not init space");
-		exit(1);
-	}
-	LOG("INFO: Allowed space x=%f-%f y=%f-%f", gh->sp->min_x, gh->sp->max_x, gh->sp->min_y, gh->sp->max_y);
 
 	/* Initialize images */
 	gh->imgl = gfx_image_list_init();

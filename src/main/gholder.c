@@ -61,7 +61,6 @@ int gholder_destroy(gholder *gh) {
 	object_list_clean_all(gh->mnl);
 	object_list_destroy(gh->mnl);
 	gfx_destroy_list(gh->imgl);
-	free(gh->sp);
 
 	return 0;
 }
@@ -90,7 +89,7 @@ void gholder_update_screen(gholder * gh) {
 	SDL_RenderClear(gh->renderer);
 
 	/* Draw the background. */
-	gfx_surface_draw(gh->renderer, gh->background, (double)gh->res_w/2, (double)gh->res_h/2, 0);
+	gfx_surface_draw(gh->renderer, gh->background, (double)RES_WIDTH/2, (double)RES_HEIGHT/2, 0);
 
 	/* Draw the Line describing init velocity*/
 	gfx_line_draw(gh->renderer,
@@ -117,7 +116,7 @@ void gholder_update_screen(gholder * gh) {
 	}
 
 	/* Draw the header, hardcoded position. */
-	gfx_surface_draw(gh->renderer, gh->header->text, (double)gh->res_w/2, (double)gh->sp->min_y, 0);
+	gfx_surface_draw(gh->renderer, gh->header->text, (double)RES_WIDTH/2, (double)SPACE_H_MIN, 0);
 
 	/* Swap the image buffers */
 	SDL_RenderPresent(gh->renderer);

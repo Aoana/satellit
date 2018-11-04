@@ -42,7 +42,7 @@ int object_list_destroy(object_list *objl) {
 }
 
 object * object_init(int id, SDL_Texture *image,
-	double x, double y, double m, double vx, double vy, struct space *sp) {
+	double x, double y, double m, double vx, double vy) {
 	object *obj;
 	obj = calloc(1, sizeof(object));
 	obj->id = id;
@@ -51,7 +51,7 @@ object * object_init(int id, SDL_Texture *image,
 	obj->next = NULL;
 	obj->prev = NULL;
 
-	obj->pos = position_init(x, y, vx, vy, sp);
+	obj->pos = position_init(x, y, vx, vy);
 	if (obj->pos == NULL) {
 		free(obj);
 		return NULL;
