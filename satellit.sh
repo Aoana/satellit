@@ -45,8 +45,8 @@ help() {
 test -n "$1" || help
 echo "$1" | grep -qi "^help\|-h" && help
 
-test -n "$GB_WS" || die 'Not set [$GB_WS]'
-test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
+test -n "$SAT_WS" || die 'Not set [$SAT_WS]'
+test -n "$SAT_GIT" || die 'Not set [$SAT_GIT]'
 
 ##	build [--clean] [--debug]
 ##		Compiles satellit
@@ -55,7 +55,7 @@ test -n "$GB_GIT" || die 'Not set [$GB_GIT]'
 cmd_build() {
 
 	path=`pwd`
-	cd $GB_GIT/src
+	cd $SAT_GIT/src
 	if test "$__clean" = "yes"; then
 		make clean
 	fi
@@ -79,7 +79,7 @@ cmd_build() {
 cmd_start() {
 
 	path=`pwd`
-	cd $GB_GIT
+	cd $SAT_GIT
 	test -x "satellit" || die 'No executable satellit'
 	./satellit $1
 	ret=$?
@@ -95,7 +95,7 @@ cmd_start() {
 cmd_utest_build() {
 
 	path=`pwd`
-	cd $GB_GIT/test/unittest
+	cd $SAT_GIT/test/unittest
 	if test "$__clean" = "yes"; then
 		make clean
 	fi
@@ -112,7 +112,7 @@ cmd_utest_build() {
 cmd_utest_start() {
 
 	path=`pwd`
-	cd $GB_GIT
+	cd $SAT_GIT
 	test -x "utest" || die 'No executable utest'
 	./utest
 	ret=$?
@@ -126,7 +126,7 @@ cmd_utest_start() {
 ##
 cmd_generate_doc() {
 
-	doxygen $GB_GIT/doc/doc.conf
+	doxygen $SAT_GIT/doc/doc.conf
 
 }
 

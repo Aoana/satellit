@@ -19,7 +19,7 @@
 void set_log_path(char *buf) {
 
 	char log_name[64] = "/satellit.log";
-    strcpy(buf, getenv("GB_WS"));
+    strcpy(buf, getenv("SAT_WS"));
 	strcat(buf, log_name);
 }
 
@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 
 #ifdef DEBUG
 	char log_path[128];
-	if (getenv("GB_WS") == NULL) {
-		printf( "GB_WS not set, source envsetting\n");
+	if (getenv("SAT_WS") == NULL) {
+		printf( "SAT_WS not set, source envsetting\n");
 		exit(1);
 	}
 	set_log_path(log_path);

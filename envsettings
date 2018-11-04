@@ -1,6 +1,6 @@
 pwd=`pwd`
-export GB_GIT=$pwd
-export GB_WS=$pwd/../satellit-workspace
-mkdir -p $GB_WS
-mkdir -p $GB_WS/doc
-alias satellit='$GB_GIT/satellit.sh'
+export SAT_GIT=$pwd
+export SAT_WS=$pwd/../satellit-workspace
+mkdir -p $SAT_WS
+mkdir -p $SAT_WS/doc
+alias satellit='$SAT_GIT/satellit.sh'
