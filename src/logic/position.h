@@ -22,7 +22,6 @@
 #ifndef POSITION_H
 #define POSITION_H
 #include "common.h"
-#include "object.h"
 
 /**
  * @brief Structure for position and velocity.
