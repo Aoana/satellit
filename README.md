@@ -5,10 +5,17 @@ Space arcade game written in C
 ## Getting Started
 
 ### Setup
+```
+cd satellit
 source envsettings
+satellit build
+satellit start
+```
 
-### Shows full help text
+To show full helptext:
+```
 satellit
+```
 
 ### Prerequisites
 
@@ -29,7 +36,7 @@ See also the list of [contributors](https://github.com/Aoana/satellit/contributo
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
