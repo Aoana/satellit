@@ -22,13 +22,6 @@
 #ifndef SOUND_H
 #define SOUND_H
 #include "common.h"
-#include "gholder.h"
-#include "object.h"
-#include "planet.h"
-#include "moon.h"
-#include "rocket.h"
-#include "gholder.h"
-#include "base.h"
 
 /**
  * @brief Init audio device and load sounds.
