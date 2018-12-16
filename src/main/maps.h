@@ -28,7 +28,6 @@
 #include "planet.h"
 #include "moon.h"
 #include "rocket.h"
-#include "gholder.h"
 #include "base.h"
 
 /**
