@@ -19,10 +19,10 @@ satellit
 
 ### Prerequisites
 
-Continously tested on Ubuntu 16.04 LTS
-Partially tested on Ubuntu 18.04 LTS
-Partially tested on Fedora 28
-Resolution 1920x1080
+- Ubuntu 16.04 LTS
+- Resolution 1920x1080
+- Partially tested on Ubuntu 18.04 LTS
+- Partially tested on Fedora 28
 
 ## Versioning
 
