@@ -2,6 +2,8 @@
 
 Space arcade game written in C
 
+<img src="screenshot.png" alt="Satellit Screenshot" width="80%" />
+
 ## Getting Started
 
 ### Setup
