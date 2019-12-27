@@ -11,7 +11,7 @@ test -n "$SAT_GIT" || die 'Not set [$SAT_GIT]'
 base=`cat $SAT_GIT/VERSION_PREFIX`
 git tag | grep $base
 if test $?;then
-	oldbuild=`git tag | grep $base | head -n 1 | cut -d '-' -f2`
+	oldbuild=`git tag | grep $base | tail -n 1 | cut -d '-' -f2`
 	build=$((oldbuild+1))
 else
 	build=0
