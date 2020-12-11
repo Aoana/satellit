@@ -5,13 +5,21 @@ die() {
 	echo "ERROR: $*" >&2
 	exit 1
 }
+ok() {
+	echo "INFO: $*" >&2
+	exit 0
+}
 
 test -n "$SAT_GIT" || die 'Not set [$SAT_GIT]'
 
 base=$(cat $SAT_GIT/VERSION_PREFIX) || die "Unable to get base version"
-git tag | grep $base
-if test $?;then
-	oldbuild=$(git tag | grep $base | tail -n 1 | cut -d '-' -f2)
+ltag=$(git tag | grep $base | tail -n 1)
+ctag=$(git describe --tags)
+
+test "$ltag" = "$ctag" && ok "Commit already tagged $ltag"
+
+if test -n "$ltag";then
+	oldbuild=$(echo $ltag | cut -d '-' -f2)
 	build=$((oldbuild+1))
 else
 	build=0
