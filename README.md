@@ -21,7 +21,7 @@ satellit
 
 ### Prerequisites
 
-- Ubuntu 20.04,18.04 or 16.04 LTS
+- Ubuntu 20.04 or 18.04 or 16.04 LTS
 - Resolution 1920x1080
 - Partially tested on Fedora 28
 
